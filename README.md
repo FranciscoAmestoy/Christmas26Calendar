@@ -1,3 +1,3 @@
-# 🎃 La Krypta del Cementerio Maldito (Halloween 31-Day Advent Calendar)
+# 🎄 31 Deseos de Navidad (Calendario de Adviento 2026)
 
-Hub principal del **Calendario de Adviento de Halloween de 31 Días**, inspirado en la estética de la **Krypt de Mortal Kombat (PlayStation 2)**.
+Hub principal del **Calendario de Adviento Navideño de 31 Días (Diciembre 2026)**, con 31 minijuegos arcade y de ingenio desbloqueables día a día.

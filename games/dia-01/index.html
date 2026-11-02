@@ -3,29 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Día 01: El Ojo del Nigromante - La Krypta</title>
+  <title>Día 01: ¡Adiós Halloween, Hola Navidad! - 31 Deseos de Navidad</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel:wght@600;800;900&family=MedievalSharp&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Lora:ital,wght@0,500;0,600;1,400&family=Montserrat:wght@400;600;700;800&family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #050806;
-      --altar-base: #111a14;
-      --altar-border: #2e4235;
-      --parchment: #ece2ce;
-      --text-muted: #85998d;
-
-      /* 4 Rune Colors */
-      --rune-red: #ff2a4b;
-      --rune-red-glow: rgba(255, 42, 75, 0.6);
-      --rune-green: #39ff14;
-      --rune-green-glow: rgba(57, 255, 20, 0.6);
-      --rune-purple: #b537f2;
-      --rune-purple-glow: rgba(181, 55, 242, 0.6);
-      --rune-orange: #ff8800;
-      --rune-orange-glow: rgba(255, 136, 0, 0.6);
-
-      --gold: #ffaa00;
+      --bg-night: #050e18;
+      --panel-bg: #0b202d;
+      --panel-border: #254f63;
+      --snow-ivory: #fdf8f0;
+      --text-muted: #93b7c4;
+      --wish-gold: #ffd166;
+      --gold-glow: rgba(255, 209, 102, 0.55);
+      --christmas-red: #e63946;
+      --red-glow: rgba(230, 57, 70, 0.6);
+      --holly-green: #2ecc71;
+      --green-glow: rgba(46, 204, 113, 0.55);
+      --spooky-purple: #a855f7;
+      --spooky-orange: #ff7518;
+      --frost-blue: #7dd3fc;
     }
 
     * {
@@ -38,33 +35,20 @@
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--parchment);
+      background-color: var(--bg-night);
+      color: var(--snow-ivory);
       font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
       overflow-x: hidden;
       position: relative;
-      background-image: 
-        radial-gradient(circle at 50% 20%, rgba(35, 60, 45, 0.45) 0%, transparent 65%),
-        radial-gradient(circle at 50% 80%, rgba(15, 28, 20, 0.6) 0%, transparent 70%);
-      padding: 12px 16px 20px 16px;
-    }
-
-    /* Ambient fog and subtle scanline overlay */
-    .mist-ambient {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.35;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.25) 4px);
+      background-image:
+        radial-gradient(circle at 50% 10%, rgba(28, 78, 102, 0.45) 0%, transparent 65%),
+        radial-gradient(circle at 85% 80%, rgba(230, 57, 70, 0.14) 0%, transparent 55%),
+        linear-gradient(180deg, #040b14 0%, #071923 60%, #040c12 100%);
+      padding: 10px 14px 20px 14px;
     }
 
     .vignette-overlay {
@@ -75,57 +59,37 @@
       height: 100%;
       pointer-events: none;
       z-index: 2;
-      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.82);
       transition: box-shadow 0.3s ease;
     }
 
     .vignette-overlay.danger {
-      box-shadow: inset 0 0 120px rgba(255, 42, 75, 0.7);
+      box-shadow: inset 0 0 130px rgba(230, 57, 70, 0.8);
     }
 
-    /* Main Container */
+    .vignette-overlay.ambush {
+      box-shadow: inset 0 0 130px rgba(168, 85, 247, 0.72);
+    }
+
+    /* Main Shell */
     .game-shell {
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 640px;
+      max-width: 820px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    @media (min-width: 900px) and (min-height: 900px) {
-      body {
-        justify-content: center;
-        padding: 16px;
-      }
-      .game-shell {
-        gap: 14px;
-        transform: scale(1.14);
-        transform-origin: center center;
-      }
-    }
-
-    @media (min-width: 1100px) and (min-height: 1120px) {
-      body {
-        justify-content: center;
-        padding: 24px;
-      }
-      .game-shell {
-        gap: 16px;
-        transform: scale(1.34);
-        transform-origin: center center;
-      }
-    }
-
-    /* Header Nav */
+    /* Header */
     header {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .nav-bar {
@@ -133,15 +97,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
     }
 
     .btn-nav {
-      background: rgba(17, 26, 20, 0.85);
-      border: 1px solid var(--altar-border);
-      color: var(--parchment);
-      padding: 6px 14px;
+      background: rgba(11, 32, 45, 0.9);
+      border: 1px solid var(--panel-border);
+      color: var(--snow-ivory);
+      padding: 6px 13px;
       border-radius: 8px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -152,41 +117,47 @@
     }
 
     .btn-nav:hover {
-      border-color: var(--rune-green);
-      color: var(--rune-green);
-      box-shadow: 0 0 10px var(--rune-green-glow);
-    }
-
-    .title-banner {
-      font-family: 'Creepster', cursive;
-      font-size: clamp(2.1rem, 6vw, 3rem);
-      letter-spacing: 3px;
-      color: var(--rune-orange);
-      text-shadow: 0 0 16px var(--rune-orange-glow), 2px 2px 0px #000;
-      text-align: center;
-      line-height: 1;
+      border-color: var(--wish-gold);
+      color: var(--wish-gold);
+      box-shadow: 0 0 10px var(--gold-glow);
     }
 
     .day-subtitle {
       font-family: 'Cinzel', serif;
-      font-size: 0.82rem;
+      font-size: 0.76rem;
       letter-spacing: 3px;
-      color: var(--text-muted);
+      color: var(--frost-blue);
       text-transform: uppercase;
       font-weight: 700;
     }
 
-    /* HUD Bar: Round & Souls/Lives */
+    .title-banner {
+      font-family: 'Mountains of Christmas', cursive;
+      font-size: clamp(1.9rem, 5.2vw, 2.7rem);
+      letter-spacing: 2px;
+      color: var(--wish-gold);
+      text-shadow: 0 0 16px var(--gold-glow), 2px 2px 0px #000;
+      text-align: center;
+      line-height: 1.05;
+    }
+
+    /* HUD Bar */
     .hud-bar {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      background: rgba(17, 26, 20, 0.88);
-      border: 1px solid var(--altar-border);
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: rgba(11, 32, 45, 0.9);
+      border: 1px solid var(--panel-border);
       border-radius: 12px;
-      padding: 10px 16px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      padding: 8px 14px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+    }
+
+    @media (max-width: 600px) {
+      .hud-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     .hud-stat {
@@ -196,7 +167,7 @@
     }
 
     .hud-label {
-      font-size: 0.72rem;
+      font-size: 0.66rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-muted);
@@ -205,337 +176,563 @@
 
     .hud-val {
       font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       font-weight: 900;
-      color: var(--parchment);
+      color: var(--snow-ivory);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
-    .souls-container {
+    .lives-container {
       display: flex;
-      gap: 6px;
+      gap: 5px;
     }
 
-    .soul-icon {
+    .life-icon {
       font-size: 1.1rem;
-      color: var(--rune-red);
-      filter: drop-shadow(0 0 6px var(--rune-red-glow));
+      filter: drop-shadow(0 0 6px var(--red-glow));
       transition: all 0.3s;
     }
 
-    .soul-icon.lost {
-      filter: grayscale(1) opacity(0.3);
+    .life-icon.lost {
+      filter: grayscale(1) opacity(0.25);
+      transform: scale(0.8);
     }
 
-    /* Status Instruction Banner */
+    /* Status / Narrative Banner */
     .status-banner {
       width: 100%;
       text-align: center;
-      background: rgba(8, 14, 10, 0.6);
-      border: 1px dashed var(--altar-border);
+      background: rgba(8, 22, 32, 0.78);
+      border: 1px dashed var(--panel-border);
       border-radius: 8px;
-      padding: 8px 12px;
-      font-family: 'MedievalSharp', cursive;
-      font-size: 1rem;
-      color: #b7cbbf;
-      min-height: 42px;
+      padding: 7px 12px;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #cde4ee;
+      min-height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: color 0.3s;
+      gap: 8px;
+      transition: all 0.25s;
     }
 
-    .status-banner.watch {
-      color: var(--gold);
-      border-color: var(--gold);
-      text-shadow: 0 0 8px rgba(255, 170, 0, 0.5);
+    .status-banner.alert {
+      border-color: var(--spooky-orange);
+      color: #ffb782;
+      background: rgba(45, 18, 10, 0.8);
     }
 
-    .status-banner.play {
-      color: var(--rune-green);
-      border-color: var(--rune-green);
-      text-shadow: 0 0 8px var(--rune-green-glow);
+    .status-banner.festive {
+      border-color: var(--holly-green);
+      color: #a3f7c5;
+      background: rgba(12, 40, 26, 0.8);
     }
 
     /* ==========================================================================
-       THE NECROMANCER'S ALTAR & RUNIC CIRCLE
+       POINT & CLICK STAGE (5 INTERACTIVE ROOMS)
        ========================================================================== */
-    .altar-circle {
+    .stage-container {
       position: relative;
-      width: min(340px, 86vw);
-      height: min(340px, 86vw);
-      margin: 8px auto;
-      border-radius: 50%;
-      background: radial-gradient(circle, #101c14 0%, #070d09 70%, #030504 100%);
-      border: 4px solid var(--altar-border);
-      box-shadow: 
-        0 0 35px rgba(0, 0, 0, 0.9), 
-        inset 0 0 30px rgba(0, 0, 0, 0.8),
-        0 0 15px rgba(46, 66, 53, 0.4);
+      width: 100%;
+      height: clamp(350px, 54vh, 450px);
+      border-radius: 16px;
+      border: 3px solid var(--panel-border);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85), inset 0 0 40px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+      background: #121c26;
+      cursor: crosshair;
+      transition: border-color 0.4s ease, filter 0.4s ease;
+    }
+
+    .stage-container.room-cleaned {
+      border-color: var(--wish-gold);
+      box-shadow: 0 0 30px var(--gold-glow), inset 0 0 30px rgba(255, 209, 102, 0.2);
+    }
+
+    /* Room Title Pill Inside Stage */
+    .room-badge {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      z-index: 15;
+      background: rgba(7, 19, 28, 0.86);
+      border: 1px solid var(--wish-gold);
+      color: var(--wish-gold);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      pointer-events: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    }
+
+    /* Roll Probability Pill */
+    .roll-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      z-index: 15;
+      background: rgba(18, 12, 28, 0.86);
+      border: 1px solid rgba(168, 85, 247, 0.6);
+      color: #e9d5ff;
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      pointer-events: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      transition: transform 0.2s;
+    }
+
+    /* Scenic Background Layer */
+    .room-scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Furniture & Architectural Props (Some overlap decorations slightly!) */
+    .prop-layer {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    /* Clickable Halloween Decorations */
+    .halloween-deco {
+      position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.18s ease, filter 0.2s ease;
+      user-select: none;
+      z-index: 10;
     }
 
-    /* Engraved Pentagram watermark in background */
-    .pentagram-svg {
-      position: absolute;
-      width: 80%;
-      height: 80%;
-      opacity: 0.12;
+    .halloween-deco:hover {
+      transform: scale(1.14) rotate(-4deg);
+      filter: drop-shadow(0 0 10px rgba(255, 117, 24, 0.9)) brightness(1.2);
+    }
+
+    .halloween-deco:active {
+      transform: scale(0.92);
+    }
+
+    /* Subtle sneaky hiding styles (partially tucked or shadowy) */
+    .halloween-deco.sneaky {
+      opacity: 0.78;
+      filter: brightness(0.78) contrast(1.05) drop-shadow(0 2px 4px rgba(0,0,0,0.9));
+    }
+
+    .halloween-deco.sneaky:hover {
+      opacity: 1;
+      filter: brightness(1.15) drop-shadow(0 0 12px var(--spooky-orange));
+    }
+
+    .halloween-deco.very-sneaky {
+      opacity: 0.62;
+      filter: brightness(0.65) sepia(0.25) drop-shadow(0 2px 5px #000);
+    }
+
+    .halloween-deco.very-sneaky:hover {
+      opacity: 1;
+      filter: brightness(1.15) drop-shadow(0 0 12px var(--spooky-orange));
+    }
+
+    /* Flying Clone Animation into the Storage Box */
+    .flying-deco {
+      position: fixed;
+      z-index: 95;
       pointer-events: none;
-      animation: slowSpin 60s infinite linear;
+      font-size: 2.2rem;
+      transition: transform 0.62s cubic-bezier(0.32, -0.25, 0.68, 1.15),
+                  top 0.62s cubic-bezier(0.45, 0, 0.85, 0.6),
+                  left 0.62s ease-in-out,
+                  opacity 0.62s ease-in;
+      filter: drop-shadow(0 0 14px var(--wish-gold));
     }
 
-    @keyframes slowSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* 4 Runes positioned as 4 quadrants / stone buttons */
-    .rune-btn {
+    /* Miss Click Ripple */
+    .miss-ripple {
       position: absolute;
-      width: 44%;
-      height: 44%;
-      background: #142119;
-      border: 3px solid #283a2d;
-      border-radius: 16px;
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(255, 255, 255, 0.45);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0.3);
+      pointer-events: none;
+      z-index: 30;
+      animation: rippleOut 0.45s ease-out forwards;
+    }
+
+    @keyframes rippleOut {
+      to {
+        transform: translate(-50%, -50%) scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    /* ==========================================================================
+       STORAGE CARDBOARD BOX AT BOTTOM OF STAGE
+       ========================================================================== */
+    .storage-dock {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(11, 30, 42, 0.9);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 8px 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    }
+
+    .cardboard-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(180deg, #b57c43 0%, #8a5a2b 100%);
+      border: 2px solid #deb078;
+      border-radius: 10px;
+      padding: 8px 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,255,0.25);
+      transition: transform 0.2s;
+    }
+
+    .cardboard-box::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 8px;
+      right: 8px;
+      height: 6px;
+      background: #cfa068;
+      border: 1px solid #8a5a2b;
+      border-radius: 4px 4px 0 0;
+      transform-origin: bottom center;
+      transition: transform 0.2s;
+    }
+
+    .cardboard-box.bounce {
+      animation: boxBounce 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+    }
+
+    @keyframes boxBounce {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.16, 0.88); box-shadow: 0 0 24px var(--wish-gold); }
+      75% { transform: scale(0.95, 1.06); }
+      100% { transform: scale(1); }
+    }
+
+    .box-icon {
+      font-size: 1.9rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    }
+
+    .box-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .box-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      font-weight: 900;
+      color: #fff6e5;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 2px #000;
+    }
+
+    .box-sub {
+      font-size: 0.68rem;
+      color: #fce2b6;
+      font-weight: 600;
+    }
+
+    .hint-btn {
+      background: linear-gradient(180deg, #1b4354 0%, #102a36 100%);
+      border: 1px solid var(--frost-blue);
+      color: var(--frost-blue);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .hint-btn:hover:not(:disabled) {
+      background: var(--frost-blue);
+      color: #041019;
+      box-shadow: 0 0 12px rgba(125, 211, 252, 0.6);
+    }
+
+    .hint-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .halloween-deco.hint-glow {
+      animation: hintPulse 0.6s infinite alternate ease-in-out;
+      z-index: 25 !important;
+      opacity: 1 !important;
+    }
+
+    @keyframes hintPulse {
+      from { filter: drop-shadow(0 0 6px var(--wish-gold)) brightness(1.1); transform: scale(1); }
+      to { filter: drop-shadow(0 0 20px #fff) drop-shadow(0 0 30px var(--wish-gold)) brightness(1.4); transform: scale(1.22); }
+    }
+
+    /* ==========================================================================
+       MONSTER AMBUSH OVERLAY (10 SECONDS RAPID CLICK BATTLE)
+       ========================================================================== */
+    .monster-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      background: radial-gradient(circle at 50% 50%, rgba(42, 12, 68, 0.82) 0%, rgba(8, 5, 15, 0.94) 100%);
+      backdrop-filter: blur(3px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+
+    .monster-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .monster-top-bar {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .monster-alert-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 10px;
+    }
+
+    .monster-name-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--wish-gold);
+      text-shadow: 0 0 10px var(--spooky-orange);
+      letter-spacing: 1px;
+    }
+
+    .monster-timer-pill {
+      background: rgba(230, 57, 70, 0.25);
+      border: 2px solid var(--christmas-red);
+      color: #fff;
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      font-weight: 900;
+      padding: 3px 12px;
+      border-radius: 20px;
+      box-shadow: 0 0 14px var(--red-glow);
+    }
+
+    .monster-timer-pill.urgent {
+      animation: urgentPulse 0.25s infinite alternate;
+      background: var(--christmas-red);
+    }
+
+    @keyframes urgentPulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+
+    /* Timer Bar & Health Bar */
+    .bar-track {
+      width: 100%;
+      height: 12px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hp-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #ff2a4b 0%, #ff7518 50%, #ffd166 100%);
+      transition: width 0.08s ease-out;
+    }
+
+    .time-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #38bdf8 0%, #a855f7 100%);
+      transition: width 0.08s linear;
+    }
+
+    /* Clickable Monster Target Button */
+    .monster-arena {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .monster-target {
+      position: relative;
+      width: 155px;
+      height: 155px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(255, 117, 24, 0.15) 65%, transparent 100%);
+      border: 3px dashed rgba(255, 209, 102, 0.75);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.15s ease-out;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
-      z-index: 5;
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.6);
+      transition: transform 0.06s ease-out;
+      animation: monsterFloat 1.4s infinite alternate ease-in-out;
+      user-select: none;
+      touch-action: manipulation;
     }
 
-    .rune-btn:active {
-      transform: scale(0.96);
+    @keyframes monsterFloat {
+      0% { transform: translateY(-6px) rotate(-3deg); }
+      100% { transform: translateY(6px) rotate(3deg); }
     }
 
-    .rune-btn.disabled {
-      cursor: not-allowed;
-      pointer-events: none;
+    .monster-target.hit {
+      animation: none;
+      transform: scale(0.86) rotate(8deg) !important;
+      background: radial-gradient(circle, rgba(255, 209, 102, 0.7) 0%, rgba(230, 57, 70, 0.4) 70%, transparent 100%);
+      border-color: #fff;
     }
 
-    /* Quadrant positions */
-    .rune-top {
-      top: 10px;
-      left: 28%;
-      border-top-left-radius: 50px;
-      border-top-right-radius: 50px;
-      border-color: #551d26;
-    }
-
-    .rune-bottom {
-      bottom: 10px;
-      left: 28%;
-      border-bottom-left-radius: 50px;
-      border-bottom-right-radius: 50px;
-      border-color: #1a4220;
-    }
-
-    .rune-left {
-      left: 10px;
-      top: 28%;
-      border-top-left-radius: 50px;
-      border-bottom-left-radius: 50px;
-      border-color: #3b1b4f;
-    }
-
-    .rune-right {
-      right: 10px;
-      top: 28%;
-      border-top-right-radius: 50px;
-      border-bottom-right-radius: 50px;
-      border-color: #4d2d0b;
-    }
-
-    /* Rune Glyphs & Keylabels */
-    .rune-symbol {
-      font-size: 2.1rem;
+    .monster-emoji {
+      font-size: 5rem;
       line-height: 1;
-      filter: drop-shadow(0 2px 4px #000);
-      transition: all 0.15s;
-    }
-
-    .rune-name {
-      font-family: 'Cinzel', serif;
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-top: 3px;
-      color: var(--text-muted);
-    }
-
-    .rune-key {
-      font-size: 0.62rem;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 4px;
-      padding: 1px 5px;
-      margin-top: 2px;
-      color: var(--text-muted);
-    }
-
-    /* ACTIVE / LIT STATES (WHEN ACTIVATED OR CLICKED) */
-    .rune-top.active {
-      background: var(--rune-red);
-      border-color: #fff;
-      box-shadow: 0 0 35px var(--rune-red-glow), inset 0 0 15px #fff;
-      transform: scale(1.05);
-    }
-
-    .rune-bottom.active {
-      background: var(--rune-green);
-      border-color: #fff;
-      box-shadow: 0 0 35px var(--rune-green-glow), inset 0 0 15px #fff;
-      transform: scale(1.05);
-    }
-
-    .rune-left.active {
-      background: var(--rune-purple);
-      border-color: #fff;
-      box-shadow: 0 0 35px var(--rune-purple-glow), inset 0 0 15px #fff;
-      transform: scale(1.05);
-    }
-
-    .rune-right.active {
-      background: var(--rune-orange);
-      border-color: #fff;
-      box-shadow: 0 0 35px var(--rune-orange-glow), inset 0 0 15px #fff;
-      transform: scale(1.05);
-    }
-
-    .rune-top.active .rune-name,
-    .rune-bottom.active .rune-name,
-    .rune-left.active .rune-name,
-    .rune-right.active .rune-name {
-      color: #000;
-      font-weight: 900;
-    }
-
-    /* Central Eye of the Necromancer */
-    .central-eye-orb {
-      position: absolute;
-      width: 78px;
-      height: 78px;
-      background: #080f0a;
-      border: 3px solid #3c5443;
-      border-radius: 50%;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.95);
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.9));
       pointer-events: none;
-      transition: all 0.3s;
     }
 
-    .eye-graphic {
-      width: 54px;
-      height: 34px;
-      background: #fff8e8;
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset 0 0 6px #7a2000;
-      transition: transform 0.2s, background 0.3s;
+    .monster-mash-prompt {
+      margin-top: 4px;
+      background: var(--christmas-red);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      pointer-events: none;
     }
 
-    .eye-iris {
+    .monster-instruction-foot {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--wish-gold);
+      text-align: center;
+      text-shadow: 0 2px 4px #000;
+    }
+
+    /* Floating Hit Spark / Text */
+    .hit-pop {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ff2a4b 0%, #a8001e 70%, #000 100%);
-      box-shadow: 0 0 8px #ff2a4b;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--wish-gold);
+      text-shadow: 0 2px 4px #000;
+      pointer-events: none;
+      z-index: 60;
+      animation: popUpFade 0.55s ease-out forwards;
+    }
+
+    @keyframes popUpFade {
+      0% { transform: translate(-50%, -50%) scale(0.7); opacity: 1; }
+      100% { transform: translate(-50%, -140%) scale(1.25); opacity: 0; }
+    }
+
+    /* Start Overlay inside Stage */
+    .stage-start-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 45;
+      background: rgba(5, 14, 24, 0.88);
+      backdrop-filter: blur(6px);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s ease-out;
+      padding: 20px;
+      text-align: center;
+      gap: 14px;
     }
 
-    .eye-pupil {
-      width: 6px;
-      height: 16px;
-      border-radius: 50%;
-      background: #000;
+    .stage-start-overlay.hidden {
+      display: none;
     }
 
-    /* Eye reactions */
-    .central-eye-orb.casting {
-      border-color: var(--rune-green);
-      box-shadow: 0 0 25px var(--rune-green-glow);
-    }
-
-    .central-eye-orb.casting .eye-iris {
-      background: radial-gradient(circle, #39ff14 0%, #166e06 70%, #000 100%);
-      box-shadow: 0 0 12px var(--rune-green-glow);
-    }
-
-    .central-eye-orb.angered {
-      border-color: var(--rune-red);
-      box-shadow: 0 0 30px var(--rune-red-glow);
-      animation: shakeEye 0.4s ease;
-    }
-
-    @keyframes shakeEye {
-      0%, 100% { transform: translate(0, 0); }
-      20%, 60% { transform: translate(-4px, 2px); }
-      40%, 80% { transform: translate(4px, -2px); }
-    }
-
-    /* Start Button */
-    .start-btn-box {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-top: 6px;
-    }
-
-    .btn-spooky-action {
-      background: linear-gradient(180deg, var(--rune-orange) 0%, #b84d07 100%);
-      border: none;
-      color: #000;
+    .btn-festive-action {
+      background: linear-gradient(180deg, var(--christmas-red) 0%, #a61b26 100%);
+      border: 2px solid var(--wish-gold);
+      color: var(--snow-ivory);
       font-family: 'Cinzel', serif;
       font-size: 1.05rem;
       font-weight: 900;
-      padding: 12px 28px;
-      border-radius: 10px;
+      padding: 12px 26px;
+      border-radius: 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 4px 18px var(--rune-orange-glow);
+      box-shadow: 0 6px 20px var(--red-glow);
       transition: all 0.2s;
     }
 
-    .btn-spooky-action:hover {
-      filter: brightness(1.15);
-      transform: translateY(-2px);
+    .btn-festive-action:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 24px var(--gold-glow);
     }
 
     /* ==========================================================================
-       MODALS: VICTORY & GAME OVER
+       MODALS: VICTORY & DEFEAT
        ========================================================================== */
     .modal-backdrop {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(4, 8, 6, 0.88);
+      inset: 0;
+      background: rgba(3, 10, 18, 0.88);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       z-index: 100;
       display: flex;
       align-items: center;
@@ -552,16 +749,16 @@
     }
 
     .modal-box {
-      background: linear-gradient(180deg, #15241b 0%, #0a130e 100%);
-      border: 2px solid var(--altar-border);
-      border-radius: 16px;
+      background: linear-gradient(180deg, #123140 0%, #081820 100%);
+      border: 2px solid var(--wish-gold);
+      border-radius: 18px;
       width: 100%;
       max-width: 500px;
       padding: 26px 20px;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95), 0 0 25px var(--gold-glow);
       transform: scale(0.92);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-align: center;
@@ -572,31 +769,30 @@
     }
 
     .modal-title {
-      font-family: 'Creepster', cursive;
-      font-size: clamp(2.2rem, 6vw, 2.8rem);
-      letter-spacing: 2px;
+      font-family: 'Mountains of Christmas', cursive;
+      font-size: clamp(2.2rem, 6vw, 2.9rem);
+      letter-spacing: 1.5px;
       line-height: 1.1;
     }
 
     .modal-title.victory {
-      color: var(--rune-green);
-      text-shadow: 0 0 16px var(--rune-green-glow);
+      color: var(--wish-gold);
+      text-shadow: 0 0 16px var(--gold-glow);
     }
 
     .modal-title.defeat {
-      color: var(--rune-red);
-      text-shadow: 0 0 16px var(--rune-red-glow);
+      color: var(--christmas-red);
+      text-shadow: 0 0 16px var(--red-glow);
     }
 
-    /* Word Box */
     .word-box-outer {
-      background: rgba(8, 14, 10, 0.75);
-      border: 2px dashed var(--rune-green);
+      background: rgba(6, 18, 25, 0.8);
+      border: 2px dashed var(--holly-green);
       border-radius: 12px;
       padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
     }
 
@@ -610,11 +806,11 @@
 
     .secret-word-display {
       font-family: 'Cinzel', serif;
-      font-size: 1.8rem;
+      font-size: 1.75rem;
       font-weight: 900;
       letter-spacing: 4px;
-      color: var(--rune-green);
-      text-shadow: 0 0 12px var(--rune-green-glow);
+      color: var(--wish-gold);
+      text-shadow: 0 0 12px var(--gold-glow);
     }
 
     .discord-btn-box {
@@ -653,9 +849,9 @@
     }
 
     .btn-krypt-return {
-      background: rgba(20, 32, 24, 0.8);
-      border: 1px solid var(--altar-border);
-      color: var(--parchment);
+      background: rgba(12, 32, 44, 0.85);
+      border: 1px solid var(--panel-border);
+      color: var(--snow-ivory);
       font-family: 'Cinzel', serif;
       font-size: 0.9rem;
       font-weight: 800;
@@ -670,20 +866,19 @@
     }
 
     .btn-krypt-return:hover {
-      border-color: var(--rune-orange);
-      color: var(--rune-orange);
+      border-color: var(--wish-gold);
+      color: var(--wish-gold);
     }
 
-    /* Toast */
     .spooky-toast {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(80px);
-      background: rgba(14, 26, 18, 0.95);
-      border: 1px solid var(--rune-green);
-      box-shadow: 0 4px 20px var(--rune-green-glow);
-      color: var(--parchment);
+      background: rgba(9, 28, 38, 0.96);
+      border: 1px solid var(--wish-gold);
+      box-shadow: 0 4px 20px var(--gold-glow);
+      color: var(--snow-ivory);
       padding: 10px 22px;
       border-radius: 30px;
       font-size: 0.85rem;
@@ -702,98 +897,128 @@
 </head>
 <body>
 
-  <div class="mist-ambient"></div>
   <div class="vignette-overlay" id="vignette"></div>
 
   <div class="game-shell">
     <!-- Header -->
     <header>
       <div class="nav-bar">
-        <a href="../../index.html" class="btn-nav" title="Regresar al cementerio">
-          🏛️ Volver a la Krypta
+        <a href="../../index.html" class="btn-nav" title="Volver al Calendario de Adviento">
+          🎄 Volver a los Deseos
         </a>
-        <button class="btn-nav" id="soundToggleBtn">
-          🔊 Audio
-        </button>
+        <div style="display:flex; gap:6px;">
+          <button class="btn-nav" id="bgmToggleBtn" title="Música de fondo (audio/bgm_day01.mp3)">
+            🎵 Música OFF
+          </button>
+          <button class="btn-nav" id="soundToggleBtn" title="Efectos de sonido">
+            🔊 SFX ON
+          </button>
+        </div>
       </div>
-      <span class="day-subtitle">DÍA 01 • LA KRYPTA</span>
-      <h1 class="title-banner">EL OJO DEL NIGROMANTE</h1>
+      <span class="day-subtitle">DESEO 01 • 1 DE DICIEMBRE</span>
+      <h1 class="title-banner">¡ADIÓS HALLOWEEN, HOLA NAVIDAD!</h1>
     </header>
 
     <!-- HUD Bar -->
     <div class="hud-bar">
-      <!-- Round Progress -->
       <div class="hud-stat">
-        <span class="hud-label">Ronda Arcana</span>
-        <span class="hud-val" id="roundDisplay">0 / 5</span>
+        <span class="hud-label">Habitación</span>
+        <span class="hud-val" id="roomDisplay">1 / 5</span>
       </div>
-      <!-- Lives / Souls -->
+      <div class="hud-stat">
+        <span class="hud-label">Adornos en Sala</span>
+        <span class="hud-val" id="decoDisplay">0 / 6</span>
+      </div>
+      <div class="hud-stat">
+        <span class="hud-label">Total Guardados</span>
+        <span class="hud-val" id="totalPackedDisplay">0 / 36</span>
+      </div>
       <div class="hud-stat" style="align-items: flex-end;">
-        <span class="hud-label">Vidas del Alma</span>
-        <div class="souls-container" id="soulsContainer">
-          <span class="soul-icon" id="soul-1">☠</span>
-          <span class="soul-icon" id="soul-2">☠</span>
-          <span class="soul-icon" id="soul-3">☠</span>
+        <span class="hud-label">Espíritu Navideño</span>
+        <div class="lives-container" id="livesContainer">
+          <span class="life-icon" id="life-1">❤️</span>
+          <span class="life-icon" id="life-2">❤️</span>
+          <span class="life-icon" id="life-3">❤️</span>
         </div>
       </div>
     </div>
 
-    <!-- Instructions / Status -->
+    <!-- Status Banner -->
     <div class="status-banner" id="statusBanner">
-      Presiona "Despertar al Nigromante" para iniciar el ritual.
+      📦 Encuentra y pulsa las decoraciones de Halloween ocultas en las 5 habitaciones para guardarlas en la caja.
     </div>
 
-    <!-- Altar / Simon Circle -->
-    <div class="altar-circle">
-      <!-- Rotating Pentagram SVG -->
-      <svg class="pentagram-svg" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="46" fill="none" stroke="#39ff14" stroke-width="1.5"/>
-        <circle cx="50" cy="50" r="42" fill="none" stroke="#39ff14" stroke-width="0.8" stroke-dasharray="2,2"/>
-        <polygon points="50,6 63,40 98,40 70,62 81,95 50,73 19,95 30,62 2,40 37,40" fill="none" stroke="#39ff14" stroke-width="1.2"/>
-      </svg>
+    <!-- Interactive Point & Click Room Stage -->
+    <div class="stage-container" id="stageContainer">
+      <div class="room-badge" id="roomBadge">Habitación 1: El Recibidor</div>
+      <div class="roll-badge" id="rollBadge">🎲 Riesgo de Susto: 0%–100%</div>
 
-      <!-- Rune 1: SANGRE (Top - Red) -->
-      <div class="rune-btn rune-top disabled" id="rune-0" data-index="0">
-        <span class="rune-symbol">🩸</span>
-        <span class="rune-name">Sangre</span>
-        <span class="rune-key">[1 / Q]</span>
-      </div>
+      <!-- Scenic Room SVG / Architecture Container -->
+      <div class="room-scene" id="roomScene"></div>
 
-      <!-- Rune 2: AVERNO (Left - Purple) -->
-      <div class="rune-btn rune-left disabled" id="rune-1" data-index="1">
-        <span class="rune-symbol">🔮</span>
-        <span class="rune-name">Averno</span>
-        <span class="rune-key">[2 / W]</span>
-      </div>
+      <!-- Decorations Layer -->
+      <div id="decorationsLayer"></div>
 
-      <!-- Rune 3: AZUFRE (Right - Orange) -->
-      <div class="rune-btn rune-right disabled" id="rune-2" data-index="2">
-        <span class="rune-symbol">🔥</span>
-        <span class="rune-name">Azufre</span>
-        <span class="rune-key">[3 / E]</span>
-      </div>
+      <!-- Foreground Props Layer (for semi-hidden items behind furniture edges) -->
+      <div id="foregroundPropsLayer"></div>
 
-      <!-- Rune 4: PANTANO (Bottom - Green) -->
-      <div class="rune-btn rune-bottom disabled" id="rune-3" data-index="3">
-        <span class="rune-symbol">🌿</span>
-        <span class="rune-name">Pantano</span>
-        <span class="rune-key">[4 / R]</span>
-      </div>
-
-      <!-- Central Animated Eye of the Necromancer -->
-      <div class="central-eye-orb" id="centralEye">
-        <div class="eye-graphic">
-          <div class="eye-iris" id="eyeIris">
-            <div class="eye-pupil"></div>
+      <!-- Monster Ambush Overlay (Triggered randomly 0%-100% on correct clicks) -->
+      <div class="monster-overlay" id="monsterOverlay">
+        <div class="monster-top-bar">
+          <div class="monster-alert-header">
+            <span class="monster-name-tag" id="monsterNameTag">👻 ¡FANTASMA REZONGÓN!</span>
+            <span class="monster-timer-pill" id="monsterTimerPill">⏱️ 10.0s</span>
+          </div>
+          <!-- Resistance Bar -->
+          <div class="bar-track" title="Resistencia del monstruo">
+            <div class="hp-fill" id="monsterHpFill"></div>
+          </div>
+          <!-- Time Bar -->
+          <div class="bar-track" style="height: 7px;" title="Tiempo restante">
+            <div class="time-fill" id="monsterTimeFill"></div>
           </div>
         </div>
+
+        <div class="monster-arena" id="monsterArena">
+          <div class="monster-target" id="monsterTargetBtn" role="button" tabindex="0">
+            <span class="monster-emoji" id="monsterEmoji">👻</span>
+            <span class="monster-mash-prompt" id="monsterClicksLeft">¡PULSA 14 VECES!</span>
+          </div>
+        </div>
+
+        <div class="monster-instruction-foot">
+          ⚡ ¡Pulsa o haz clic rápido sobre el intruso antes de 10 segundos para encerrarlo en la caja!
+        </div>
+      </div>
+
+      <!-- Start Game Overlay -->
+      <div class="stage-start-overlay" id="startOverlay">
+        <div style="font-size: 3.2rem;">🎃 ➡️ 📦 ➡️ 🎄</div>
+        <h2 style="font-family: 'Cinzel', serif; color: var(--wish-gold); font-size: 1.35rem;">
+          LIMPIEZA DE PRIMERO DE DICIEMBRE
+        </h2>
+        <p style="max-width: 540px; font-size: 0.88rem; color: #cde4ee; line-height: 1.5;">
+          ¡Llegó diciembre pero la casa sigue llena de adornos de Halloween! Recorre las <strong>5 habitaciones</strong> y haz clic en cada decoración escondida para guardarla en la caja.<br><br>
+          ⚠️ <strong>¡Atención!</strong> Cada objeto guardado tiene una probabilidad aleatoria (<strong>0% a 100%</strong>) de despertar un <strong>Fantasma, Vampiro, Esqueleto o Zombie</strong>. Si aparece, ¡púlsalo muchas veces en menos de <strong>10 segundos</strong> o perderás una vida!
+        </p>
+        <button class="btn-festive-action" id="startBtn">
+          🧹 Empezar a Guardar Halloween
+        </button>
       </div>
     </div>
 
-    <!-- Start / Action Button -->
-    <div class="start-btn-box">
-      <button class="btn-spooky-action" id="startBtn">
-        👁️ Despertar al Nigromante
+    <!-- Bottom Storage Box & Hint Button -->
+    <div class="storage-dock">
+      <div class="cardboard-box" id="storageBox">
+        <span class="box-icon" id="boxIcon">📦</span>
+        <div class="box-info">
+          <span class="box-title">CAJA DE HALLOWEEN</span>
+          <span class="box-sub" id="boxSubText">Esperando adornos de octubre...</span>
+        </div>
+      </div>
+
+      <button class="hint-btn" id="hintBtn" disabled title="Ilumina brevemente un adorno escondido">
+        🔍 Pista (<span id="hintsLeftSpan">3</span>)
       </button>
     </div>
   </div>
@@ -801,26 +1026,25 @@
   <!-- VICTORY MODAL -->
   <div class="modal-backdrop" id="victoryModal">
     <div class="modal-box">
-      <h2 class="modal-title victory">¡RITUAL COMPLETADO!</h2>
-      <p style="font-size:0.9rem; color:var(--parchment); line-height: 1.4;">
-        Has resistido las 5 visiones del Nigromante y dominado las runas del pentagrama.
+      <h2 class="modal-title victory">¡CASA LISTA PARA NAVIDAD!</h2>
+      <p style="font-size:0.9rem; color:var(--snow-ivory); line-height: 1.45;">
+        ¡Guardaste las 36 decoraciones de Halloween de las 5 habitaciones y encerraste a todos los monstruos rezagados! Ahora el hogar brilla para recibir diciembre.
       </p>
 
       <div class="word-box-outer">
-        <span class="word-box-label">Palabra Clave Secreta del Día 01:</span>
-        <div class="secret-word-display" id="secretWordDisplay">OJO-DE-OBSIDIANA</div>
+        <span class="word-box-label">Palabra Clave Secreta del Deseo 01:</span>
+        <div class="secret-word-display" id="secretWordDisplay">CAJA-DE-OCTUBRE</div>
         <p style="font-size:0.75rem; color:var(--text-muted);">
-          Envía este código en Discord para registrar tu victoria del día.
+          Envía este código en Discord para registrar tu deseo cumplido del Día 01.
         </p>
       </div>
 
       <div class="discord-btn-box">
-        <!-- COPIAR PARA DISCORD CON SPOILERS "||" -->
         <button class="btn-discord-copy" id="copyDiscordBtn" onclick="copyDiscordMessage()">
           📋 Copiar para Discord
         </button>
         <a href="../../index.html" class="btn-krypt-return">
-          🏛️ Volver a la Krypta
+          🎄 Volver al Calendario
         </a>
       </div>
     </div>
@@ -829,375 +1053,1057 @@
   <!-- DEFEAT MODAL -->
   <div class="modal-backdrop" id="defeatModal">
     <div class="modal-box">
-      <h2 class="modal-title defeat">EL OJO TE HA CONSUMIDO</h2>
-      <p style="font-size:0.9rem; color:var(--parchment); line-height: 1.4;">
-        Tus almas se han extinguido ante el poder de la nigromancia.
+      <h2 class="modal-title defeat">¡HALLOWEEN RECUPERÓ LA CASA!</h2>
+      <p style="font-size:0.9rem; color:var(--snow-ivory); line-height: 1.45;">
+        Los monstruos rezagados de octubre te asustaron antes de que pudieras guardarlos en el altillo.
       </p>
-      <div style="font-size: 2.2rem; margin: 6px 0;">💀</div>
-      <p style="font-size:0.8rem; color:var(--text-muted);">
-        Puedes purificar tu espíritu e intentarlo de nuevo todas las veces que desees.
-      </p>
-      <button class="btn-spooky-action" style="width:100%; justify-content:center;" onclick="restartGame()">
-        🔄 Intentar el Ritual de Nuevo
+      <div style="font-size: 2.5rem; margin: 4px 0;">👻🧛💀🧟</div>
+      <button class="btn-festive-action" style="width:100%; justify-content:center;" onclick="restartGame()">
+        🔄 Intentar la Limpieza de Nuevo
       </button>
       <a href="../../index.html" class="btn-krypt-return" style="margin-top:4px;">
-        🏛️ Volver a la Krypta
+        🎄 Volver al Calendario
       </a>
     </div>
   </div>
 
-  <!-- Toast Notification -->
-  <div class="spooky-toast" id="toast">Copiado al portapapeles</div>
+  <!-- Toast -->
+  <div class="spooky-toast" id="toast">Adorno guardado en la caja</div>
 
   <script>
     /* ==========================================================================
-       SYNTHESIZER SOUND ENGINE (WEB AUDIO API - ZERO LAG / ZERO DEPENDENCIES)
+       HYBRID AUDIO ENGINE: PLACEHOLDER MP3 FILES + WEB AUDIO API SYNTH FALLBACK
        ========================================================================== */
-    class ArcaneAudio {
+    class Day01AudioEngine {
       constructor() {
+        this.sfxEnabled = true;
+        this.bgmEnabled = false;
         this.ctx = null;
-        this.enabled = true;
-        // 4 Harmonic Frequencies for the 4 Runes (Minor Pentatonic Vibe)
-        this.runeFrequencies = [261.63, 311.13, 392.00, 466.16]; // C4, Eb4, G4, Bb4
+        this.bgmTimer = null;
+
+        // Pre-register all 16 placeholder MP3 paths in audio/
+        this.files = {
+          bgm: new Audio('audio/bgm_day01.mp3'),
+          start_game: new Audio('audio/start_game.mp3'),
+          click_deco: new Audio('audio/click_deco.mp3'),
+          pack_box: new Audio('audio/pack_box.mp3'),
+          miss_click: new Audio('audio/miss_click.mp3'),
+          spawn_ghost: new Audio('audio/spawn_ghost.mp3'),
+          spawn_vampire: new Audio('audio/spawn_vampire.mp3'),
+          spawn_skeleton: new Audio('audio/spawn_skeleton.mp3'),
+          spawn_zombie: new Audio('audio/spawn_zombie.mp3'),
+          monster_hit: new Audio('audio/monster_hit.mp3'),
+          timer_tick: new Audio('audio/timer_tick.mp3'),
+          monster_banish: new Audio('audio/monster_banish.mp3'),
+          lose_life: new Audio('audio/lose_life.mp3'),
+          room_clear: new Audio('audio/room_clear.mp3'),
+          victory: new Audio('audio/victory.mp3'),
+          game_over: new Audio('audio/game_over.mp3')
+        };
+        this.files.bgm.loop = true;
       }
 
       init() {
         if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) {
-            this.ctx = new AudioContext();
-          }
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
         }
         if (this.ctx && this.ctx.state === 'suspended') {
           this.ctx.resume();
         }
       }
 
-      playRuneTone(index) {
-        if (!this.enabled) return;
+      // Helper: tries playing the MP3 file first; if it's a text placeholder or fails, runs procedural synth immediately
+      playCue(name, synthFallbackFn) {
+        if (!this.sfxEnabled) return;
         this.init();
-        if (!this.ctx) return;
-
-        const freq = this.runeFrequencies[index] || 300;
-        const now = this.ctx.currentTime;
-
-        const osc = this.ctx.createOscillator();
-        const subOsc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-
-        // Organ/Bell tone: sine + triangle sub
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, now);
-
-        subOsc.type = 'triangle';
-        subOsc.frequency.setValueAtTime(freq * 2, now);
-
-        gain.gain.setValueAtTime(0.25, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-
-        osc.connect(gain);
-        subOsc.connect(gain);
-        gain.connect(this.ctx.destination);
-
-        osc.start(now);
-        subOsc.start(now);
-        osc.stop(now + 0.45);
-        subOsc.stop(now + 0.45);
+        const media = this.files[name];
+        if (!media) {
+          if (synthFallbackFn) synthFallbackFn();
+          return;
+        }
+        // If browser already flagged media decode error on placeholder txt-as-mp3, run fallback right away
+        if (media.error) {
+          if (synthFallbackFn) synthFallbackFn();
+          return;
+        }
+        try {
+          media.currentTime = 0;
+          const p = media.play();
+          if (p !== undefined) {
+            p.catch(() => {
+              if (synthFallbackFn) synthFallbackFn();
+            });
+          }
+        } catch (e) {
+          if (synthFallbackFn) synthFallbackFn();
+        }
       }
 
-      playError() {
-        if (!this.enabled) return;
+      toggleBgm() {
+        this.bgmEnabled = !this.bgmEnabled;
         this.init();
+        if (this.bgmEnabled) {
+          if (this.files.bgm.error) {
+            this.startSynthBgm();
+          } else {
+            const p = this.files.bgm.play();
+            if (p !== undefined) {
+              p.catch(() => this.startSynthBgm());
+            }
+          }
+        } else {
+          this.files.bgm.pause();
+          this.stopSynthBgm();
+        }
+        return this.bgmEnabled;
+      }
+
+      startSynthBgm() {
+        this.stopSynthBgm();
         if (!this.ctx) return;
+        // Playful pizzicato / celesta transition melody (Spooky-to-Festive)
+        const notes = [392.00, 440.00, 466.16, 523.25, 466.16, 440.00, 392.00, 329.63];
+        let idx = 0;
+        const step = () => {
+          if (!this.bgmEnabled || !this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(notes[idx % notes.length], now);
+          gain.gain.setValueAtTime(0.045, now);
+          gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.35);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.35);
+          idx++;
+        };
+        step();
+        this.bgmTimer = setInterval(step, 420);
+      }
 
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
+      stopSynthBgm() {
+        if (this.bgmTimer) {
+          clearInterval(this.bgmTimer);
+          this.bgmTimer = null;
+        }
+      }
 
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(140, now);
-        osc.frequency.exponentialRampToValueAtTime(45, now + 0.4);
+      playStartGame() {
+        this.playCue('start_game', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [330, 440, 554.37, 659.25].forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + i * 0.06);
+            g.gain.setValueAtTime(0.15, now + i * 0.06);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.06 + 0.25);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now + i * 0.06);
+            osc.stop(now + i * 0.06 + 0.25);
+          });
+        });
+      }
 
-        gain.gain.setValueAtTime(0.35, now);
-        gain.gain.linearRampToValueAtTime(0.001, now + 0.4);
+      playClickDeco() {
+        this.playCue('click_deco', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.12);
+          g.gain.setValueAtTime(0.2, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.13);
+        });
+      }
 
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
+      playPackBox() {
+        this.playCue('pack_box', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(190, now);
+          osc.frequency.exponentialRampToValueAtTime(75, now + 0.16);
+          g.gain.setValueAtTime(0.28, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.16);
+        });
+      }
 
-        osc.start(now);
-        osc.stop(now + 0.4);
+      playMissClick() {
+        this.playCue('miss_click', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(140, now);
+          osc.frequency.linearRampToValueAtTime(95, now + 0.08);
+          g.gain.setValueAtTime(0.08, now);
+          g.gain.linearRampToValueAtTime(0.001, now + 0.08);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        });
+      }
+
+      playMonsterSpawn(type) {
+        const cueMap = {
+          ghost: 'spawn_ghost',
+          vampire: 'spawn_vampire',
+          skeleton: 'spawn_skeleton',
+          zombie: 'spawn_zombie'
+        };
+        this.playCue(cueMap[type] || 'spawn_ghost', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+
+          if (type === 'ghost') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(620, now);
+            osc.frequency.exponentialRampToValueAtTime(280, now + 0.45);
+          } else if (type === 'vampire') {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(220, now);
+            osc.frequency.setValueAtTime(440, now + 0.12);
+            osc.frequency.setValueAtTime(330, now + 0.25);
+          } else if (type === 'skeleton') {
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(520, now);
+            osc.frequency.setValueAtTime(340, now + 0.08);
+            osc.frequency.setValueAtTime(640, now + 0.16);
+          } else {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(110, now);
+            osc.frequency.linearRampToValueAtTime(75, now + 0.4);
+          }
+
+          g.gain.setValueAtTime(0.24, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        });
+      }
+
+      playMonsterHit(progressRatio = 0.5) {
+        this.playCue('monster_hit', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'square';
+          const baseFreq = 260 + (1 - progressRatio) * 360;
+          osc.frequency.setValueAtTime(baseFreq, now);
+          osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.4, now + 0.07);
+          g.gain.setValueAtTime(0.18, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.075);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.075);
+        });
+      }
+
+      playTimerTick() {
+        this.playCue('timer_tick', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, now);
+          g.gain.setValueAtTime(0.1, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.045);
+        });
+      }
+
+      playMonsterBanish() {
+        this.playCue('monster_banish', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [392, 523.25, 659.25, 783.99].forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(f, now + i * 0.05);
+            g.gain.setValueAtTime(0.2, now + i * 0.05);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.05 + 0.22);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now + i * 0.05);
+            osc.stop(now + i * 0.05 + 0.22);
+          });
+        });
+      }
+
+      playLoseLife() {
+        this.playCue('lose_life', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(180, now);
+          osc.frequency.exponentialRampToValueAtTime(45, now + 0.45);
+          g.gain.setValueAtTime(0.32, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        });
+      }
+
+      playRoomClear() {
+        this.playCue('room_clear', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + i * 0.08);
+            g.gain.setValueAtTime(0.22, now + i * 0.08);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.35);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now + i * 0.08);
+            osc.stop(now + i * 0.08 + 0.35);
+          });
+        });
       }
 
       playVictory() {
-        if (!this.enabled) return;
-        this.init();
-        if (!this.ctx) return;
+        this.playCue('victory', () => {
+          if (!this.ctx) return;
+          const notes = [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5];
+          notes.forEach((f, i) => {
+            const now = this.ctx.currentTime + i * 0.11;
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now);
+            g.gain.setValueAtTime(0.22, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.45);
+          });
+        });
+      }
 
-        const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
-        notes.forEach((freq, i) => {
-          const now = this.ctx.currentTime + (i * 0.12);
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, now);
-
-          gain.gain.setValueAtTime(0.2, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-
-          osc.start(now);
-          osc.stop(now + 0.6);
+      playGameOver() {
+        this.playCue('game_over', () => {
+          if (!this.ctx) return;
+          const notes = [311.13, 293.66, 277.18, 261.63];
+          notes.forEach((f, i) => {
+            const now = this.ctx.currentTime + i * 0.18;
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(f, now);
+            g.gain.setValueAtTime(0.22, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.4);
+          });
         });
       }
     }
 
-    const sound = new ArcaneAudio();
+    const sound = new Day01AudioEngine();
 
     /* ==========================================================================
-       GAME STATE & SIMON SAYS ENGINE
+       5 ROOMS DEFINITIONS (SCENERY SVG + HIDDEN & VISIBLE HALLOWEEN DECORATIONS)
        ========================================================================== */
-    const TOTAL_ROUNDS = 5;       // 5 rounds to conquer the Necromancer
-    const MAX_LIVES = 3;          // 3 souls/lives allowed
-    const SECRET_WORD = "OJO-DE-OBSIDIANA"; // Day 01 Secret Keyword
+    const ROOMS_DATA = [
+      {
+        id: 1,
+        name: "Habitación 1: El Recibidor y la Escalera",
+        bgSvg: `
+          <svg viewBox="0 0 800 440" preserveAspectRatio="none" width="100%" height="100%">
+            <!-- Wall & Wainscoting -->
+            <rect width="800" height="330" fill="#172836"/>
+            <rect y="230" width="800" height="100" fill="#101e29" stroke="#264356" stroke-width="2"/>
+            <!-- Wallpaper stripes -->
+            <g stroke="rgba(255,255,255,0.03)" stroke-width="12">
+              <line x1="60" y1="0" x2="60" y2="230"/><line x1="140" y1="0" x2="140" y2="230"/>
+              <line x1="220" y1="0" x2="220" y2="230"/><line x1="300" y1="0" x2="300" y2="230"/>
+              <line x1="380" y1="0" x2="380" y2="230"/><line x1="460" y1="0" x2="460" y2="230"/>
+              <line x1="540" y1="0" x2="540" y2="230"/><line x1="620" y1="0" x2="620" y2="230"/>
+              <line x1="700" y1="0" x2="700" y2="230"/>
+            </g>
+            <!-- Wooden Floor -->
+            <rect y="330" width="800" height="110" fill="#3a2314"/>
+            <line x1="0" y1="330" x2="800" y2="330" stroke="#593822" stroke-width="4"/>
+            <!-- Welcome Rug -->
+            <ellipse cx="230" cy="385" rx="125" ry="26" fill="#6b1d28" stroke="#d4a338" stroke-width="3"/>
+            <!-- Front Door with Snowy Window -->
+            <rect x="160" y="65" width="135" height="265" rx="8" fill="#4a2c18" stroke="#2b180c" stroke-width="5"/>
+            <rect x="182" y="88" width="90" height="95" rx="45" fill="#0d2b45" stroke="#d4a338" stroke-width="3"/>
+            <circle cx="210" cy="120" r="3" fill="#fff" opacity="0.8"/>
+            <circle cx="245" cy="145" r="2.5" fill="#fff" opacity="0.8"/>
+            <circle cx="280" cy="205" r="6" fill="#ffd166"/>
+            <!-- Coat Rack (Left) -->
+            <line x1="75" y1="115" x2="75" y2="345" stroke="#52301c" stroke-width="10" stroke-linecap="round"/>
+            <path d="M45,345 L75,320 L105,345" fill="none" stroke="#52301c" stroke-width="8" stroke-linecap="round"/>
+            <path d="M52,135 Q75,115 98,135" fill="none" stroke="#52301c" stroke-width="6" stroke-linecap="round"/>
+            <!-- Mirror & Side Table (Center) -->
+            <ellipse cx="420" cy="145" rx="42" ry="58" fill="#29485c" stroke="#c89d54" stroke-width="6"/>
+            <rect x="365" y="245" width="110" height="18" rx="4" fill="#5e3a22"/>
+            <line x1="380" y1="263" x2="380" y2="345" stroke="#472b18" stroke-width="7"/>
+            <line x1="460" y1="263" x2="460" y2="345" stroke="#472b18" stroke-width="7"/>
+            <!-- Wooden Staircase (Right) -->
+            <polygon points="540,330 780,120 780,330" fill="#2c1b10" stroke="#4d311e" stroke-width="3"/>
+            <line x1="535" y1="265" x2="775" y2="55" stroke="#694329" stroke-width="9" stroke-linecap="round"/>
+            <line x1="570" y1="240" x2="570" y2="310" stroke="#4d311e" stroke-width="5"/>
+            <line x1="620" y1="195" x2="620" y2="275" stroke="#4d311e" stroke-width="5"/>
+            <line x1="670" y1="150" x2="670" y2="240" stroke="#4d311e" stroke-width="5"/>
+            <line x1="720" y1="105" x2="720" y2="205" stroke="#4d311e" stroke-width="5"/>
+          </svg>
+        `,
+        decorations: [
+          { id: "r1_d1", emoji: "🎃", name: "Calabaza de Entrada", x: 405, y: 205, size: "2.4rem", hideClass: "" },
+          { id: "r1_d2", emoji: "🧙‍♀️", name: "Sombrero de Bruja en Perchero", x: 56, y: 88, size: "2.3rem", hideClass: "sneaky" },
+          { id: "r1_d3", emoji: "🕸️", name: "Telaraña del Marco", x: 162, y: 62, size: "2.1rem", hideClass: "sneaky" },
+          { id: "r1_d4", emoji: "🦇", name: "Murciélago tras el Espejo", x: 446, y: 96, size: "1.95rem", hideClass: "very-sneaky" },
+          { id: "r1_d5", emoji: "💀", name: "Calavera bajo la Mesita", x: 410, y: 305, size: "1.9rem", hideClass: "very-sneaky" },
+          { id: "r1_d6", emoji: "🕯️", name: "Vela Negra en la Escalera", x: 645, y: 245, size: "2.1rem", hideClass: "" }
+        ]
+      },
+      {
+        id: 2,
+        name: "Habitación 2: La Sala de Estar y Chimenea",
+        bgSvg: `
+          <svg viewBox="0 0 800 440" preserveAspectRatio="none" width="100%" height="100%">
+            <!-- Warm Living Room Wall -->
+            <rect width="800" height="330" fill="#1e2436"/>
+            <rect y="330" width="800" height="110" fill="#362218"/>
+            <!-- Chandelier -->
+            <line x1="400" y1="0" x2="400" y2="55" stroke="#d4a338" stroke-width="4"/>
+            <path d="M340,55 Q400,85 460,55" fill="none" stroke="#d4a338" stroke-width="5"/>
+            <circle cx="340" cy="50" r="7" fill="#fff3b0"/><circle cx="400" cy="65" r="8" fill="#fff3b0"/><circle cx="460" cy="50" r="7" fill="#fff3b0"/>
+            <!-- Bookshelf (Left) -->
+            <rect x="35" y="75" width="135" height="255" fill="#3b2313" stroke="#5c3820" stroke-width="5"/>
+            <line x1="35" y1="135" x2="170" y2="135" stroke="#5c3820" stroke-width="5"/>
+            <line x1="35" y1="195" x2="170" y2="195" stroke="#5c3820" stroke-width="5"/>
+            <line x1="35" y1="255" x2="170" y2="255" stroke="#5c3820" stroke-width="5"/>
+            <rect x="48" y="95" width="14" height="38" fill="#9e2a2b"/><rect x="65" y="98" width="12" height="35" fill="#2a6f97"/>
+            <rect x="52" y="152" width="16" height="40" fill="#386641"/><rect x="72" y="156" width="14" height="36" fill="#bc6c25"/>
+            <!-- Cozy Sofa (Center) -->
+            <rect x="230" y="235" width="235" height="95" rx="18" fill="#781d27" stroke="#521118" stroke-width="4"/>
+            <rect x="215" y="260" width="35" height="75" rx="12" fill="#61151d"/>
+            <rect x="445" y="260" width="35" height="75" rx="12" fill="#61151d"/>
+            <!-- Brick Fireplace (Right) -->
+            <rect x="555" y="145" width="195" height="185" fill="#5e3023" stroke="#3d1e15" stroke-width="4"/>
+            <rect x="540" y="130" width="225" height="20" rx="4" fill="#4a2c18"/>
+            <path d="M595,330 L595,225 Q652,195 710,225 L710,330 Z" fill="#0d0f12"/>
+            <circle cx="652" cy="305" r="24" fill="#ff7518" opacity="0.65"/>
+            <circle cx="652" cy="310" r="14" fill="#ffd166" opacity="0.85"/>
+          </svg>
+        `,
+        decorations: [
+          { id: "r2_d1", emoji: "🎃", name: "Calabaza sobre la Chimenea", x: 642, y: 92, size: "2.35rem", hideClass: "" },
+          { id: "r2_d2", emoji: "🕷️", name: "Araña en la Araña de Techo", x: 392, y: 68, size: "1.95rem", hideClass: "sneaky" },
+          { id: "r2_d3", emoji: "🧪", name: "Poción en la Biblioteca", x: 118, y: 152, size: "1.9rem", hideClass: "very-sneaky" },
+          { id: "r2_d4", emoji: "🐈‍⬛", name: "Gato Negro tras el Sillón", x: 248, y: 202, size: "2.1rem", hideClass: "sneaky" },
+          { id: "r2_d5", emoji: "🖐️", name: "Mano de Goma bajo el Sofá", x: 345, y: 318, size: "1.85rem", hideClass: "very-sneaky" },
+          { id: "r2_d6", emoji: "👻", name: "Guirnalda Fantasma en Chimenea", x: 568, y: 162, size: "2.05rem", hideClass: "" },
+          { id: "r2_d7", emoji: "👹", name: "Máscara en el Estante Bajo", x: 88, y: 270, size: "1.95rem", hideClass: "sneaky" }
+        ]
+      },
+      {
+        id: 3,
+        name: "Habitación 3: La Cocina y el Comedor",
+        bgSvg: `
+          <svg viewBox="0 0 800 440" preserveAspectRatio="none" width="100%" height="100%">
+            <!-- Kitchen Tile Wall -->
+            <rect width="800" height="330" fill="#182f38"/>
+            <!-- Checkered Floor -->
+            <rect y="330" width="800" height="110" fill="#1b262c"/>
+            <!-- Upper Cabinets -->
+            <rect x="40" y="35" width="260" height="95" rx="4" fill="#3d5a6c" stroke="#223845" stroke-width="4"/>
+            <line x1="170" y1="35" x2="170" y2="130" stroke="#223845" stroke-width="4"/>
+            <!-- Stove & Hood -->
+            <polygon points="340,110 460,110 435,60 365,60" fill="#6c757d" stroke="#495057" stroke-width="3"/>
+            <rect x="40" y="215" width="430" height="115" fill="#2c4454" stroke="#1b2d38" stroke-width="4"/>
+            <rect x="335" y="215" width="130" height="115" fill="#adb5bd" stroke="#495057" stroke-width="4"/>
+            <rect x="355" y="245" width="90" height="65" fill="#212529"/>
+            <!-- Refrigerator (Right) -->
+            <rect x="505" y="80" width="120" height="250" rx="8" fill="#ced4da" stroke="#6c757d" stroke-width="4"/>
+            <line x1="505" y1="165" x2="625" y2="165" stroke="#6c757d" stroke-width="3"/>
+            <!-- Dining Table (Far Right) -->
+            <rect x="645" y="245" width="135" height="16" rx="4" fill="#6b3e26"/>
+            <line x1="665" y1="261" x2="665" y2="345" stroke="#4a2a18" stroke-width="7"/>
+            <line x1="755" y1="261" x2="755" y2="345" stroke="#4a2a18" stroke-width="7"/>
+          </svg>
+        `,
+        decorations: [
+          { id: "r3_d1", emoji: "🔮", name: "Esfera Bruja en la Mesada", x: 135, y: 175, size: "2.2rem", hideClass: "" },
+          { id: "r3_d2", emoji: "👁️", name: "Frasco de Ojos sobre Alacena", x: 85, y: 62, size: "1.9rem", hideClass: "sneaky" },
+          { id: "r3_d3", emoji: "🦇", name: "Murciélago en la Campana", x: 392, y: 72, size: "1.95rem", hideClass: "sneaky" },
+          { id: "r3_d4", emoji: "🧹", name: "Escoba detrás de la Heladera", x: 615, y: 118, size: "2.2rem", hideClass: "very-sneaky" },
+          { id: "r3_d5", emoji: "🕷️", name: "Araña dentro del Horno", x: 388, y: 262, size: "1.85rem", hideClass: "very-sneaky" },
+          { id: "r3_d6", emoji: "💀", name: "Calavera en la Mesa", x: 700, y: 205, size: "2.15rem", hideClass: "" },
+          { id: "r3_d7", emoji: "🎃", name: "Calabacita bajo la Mesa", x: 698, y: 312, size: "1.9rem", hideClass: "very-sneaky" }
+        ]
+      },
+      {
+        id: 4,
+        name: "Habitación 4: El Dormitorio Principal",
+        bgSvg: `
+          <svg viewBox="0 0 800 440" preserveAspectRatio="none" width="100%" height="100%">
+            <!-- Bedroom Wall -->
+            <rect width="800" height="330" fill="#1b1f38"/>
+            <rect y="330" width="800" height="110" fill="#2d1e2f"/>
+            <!-- Snowy Window (Left) -->
+            <rect x="55" y="60" width="130" height="170" rx="6" fill="#0b2239" stroke="#d4a338" stroke-width="5"/>
+            <line x1="120" y1="60" x2="120" y2="230" stroke="#d4a338" stroke-width="3"/>
+            <line x1="55" y1="145" x2="185" y2="145" stroke="#d4a338" stroke-width="3"/>
+            <!-- Curtains -->
+            <path d="M45,55 Q80,140 55,245" fill="none" stroke="#801b2a" stroke-width="18" stroke-linecap="round"/>
+            <path d="M195,55 Q160,140 185,245" fill="none" stroke="#801b2a" stroke-width="18" stroke-linecap="round"/>
+            <!-- Master Bed (Center) -->
+            <rect x="265" y="145" width="240" height="90" rx="12" fill="#4a2c18" stroke="#2b180c" stroke-width="4"/>
+            <rect x="255" y="215" width="260" height="115" rx="10" fill="#9e2a2b" stroke="#6b1819" stroke-width="4"/>
+            <rect x="285" y="185" width="85" height="32" rx="10" fill="#fdf8f0"/>
+            <rect x="395" y="185" width="85" height="32" rx="10" fill="#fdf8f0"/>
+            <!-- Wardrobe (Right, slightly ajar) -->
+            <rect x="580" y="65" width="165" height="265" rx="6" fill="#3d2314" stroke="#24140b" stroke-width="5"/>
+            <rect x="652" y="72" width="18" height="250" fill="#08070c"/>
+          </svg>
+        `,
+        decorations: [
+          { id: "r4_d1", emoji: "🎃", name: "Calabaza en la Ventana", x: 105, y: 190, size: "2.15rem", hideClass: "" },
+          { id: "r4_d2", emoji: "🦇", name: "Murciélago en el Cortinado", x: 175, y: 58, size: "1.95rem", hideClass: "sneaky" },
+          { id: "r4_d3", emoji: "🧸", name: "Muñeco Embrujado en la Cama", x: 365, y: 178, size: "2.15rem", hideClass: "" },
+          { id: "r4_d4", emoji: "👁️", name: "Ojo Brillante bajo la Cama", x: 375, y: 325, size: "1.8rem", hideClass: "very-sneaky" },
+          { id: "r4_d5", emoji: "👹", name: "Máscara en el Ropero Entreabierto", x: 642, y: 165, size: "1.9rem", hideClass: "very-sneaky" },
+          { id: "r4_d6", emoji: "🕷️", name: "Tarántula en el Respaldar", x: 275, y: 138, size: "1.9rem", hideClass: "sneaky" },
+          { id: "r4_d7", emoji: "📜", name: "Pergamino de Hechizos en la Alfombra", x: 215, y: 345, size: "2rem", hideClass: "sneaky" },
+          { id: "r4_d8", emoji: "💀", name: "Cráneo sobre el Ropero", x: 685, y: 32, size: "2rem", hideClass: "very-sneaky" }
+        ]
+      },
+      {
+        id: 5,
+        name: "Habitación 5: El Altillo Polvoriento (Final)",
+        bgSvg: `
+          <svg viewBox="0 0 800 440" preserveAspectRatio="none" width="100%" height="100%">
+            <!-- Attic Pitched Roof -->
+            <rect width="800" height="340" fill="#141824"/>
+            <polygon points="0,180 400,10 800,180 800,0 0,0" fill="#0d1018"/>
+            <line x1="0" y1="180" x2="400" y2="10" stroke="#3d2616" stroke-width="14"/>
+            <line x1="800" y1="180" x2="400" y2="10" stroke="#3d2616" stroke-width="14"/>
+            <!-- Wooden Attic Floor -->
+            <rect y="340" width="800" height="100" fill="#2b1a0e"/>
+            <!-- Round Attic Window -->
+            <circle cx="400" cy="125" r="52" fill="#091d34" stroke="#c89d54" stroke-width="6"/>
+            <line x1="348" y1="125" x2="452" y2="125" stroke="#c89d54" stroke-width="3"/>
+            <line x1="400" y1="73" x2="400" y2="177" stroke="#c89d54" stroke-width="3"/>
+            <!-- Old Trunks & Boxes -->
+            <rect x="85" y="245" width="145" height="95" rx="8" fill="#52321b" stroke="#d4a338" stroke-width="3"/>
+            <rect x="565" y="230" width="150" height="110" rx="6" fill="#472b18" stroke="#29170b" stroke-width="4"/>
+          </svg>
+        `,
+        decorations: [
+          { id: "r5_d1", emoji: "⚰️", name: "Ataúd de Utilería", x: 255, y: 235, size: "2.5rem", hideClass: "" },
+          { id: "r5_d2", emoji: "👻", name: "Fantasma de Sábana en la Viga", x: 235, y: 72, size: "2.25rem", hideClass: "sneaky" },
+          { id: "r5_d3", emoji: "🕸️", name: "Telaraña en el Tragaluz", x: 386, y: 98, size: "2.1rem", hideClass: "sneaky" },
+          { id: "r5_d4", emoji: "🎃", name: "Rey Calabaza sobre el Baúl", x: 135, y: 200, size: "2.35rem", hideClass: "" },
+          { id: "r5_d5", emoji: "⛓️", name: "Cadenas Plásticas en el Rincón", x: 52, y: 310, size: "2rem", hideClass: "very-sneaky" },
+          { id: "r5_d6", emoji: "🔮", name: "Orbe Oscuro tras las Cajas", x: 530, y: 285, size: "1.95rem", hideClass: "very-sneaky" },
+          { id: "r5_d7", emoji: "🦇", name: "Murciélago en el Techo Derecho", x: 575, y: 88, size: "1.95rem", hideClass: "very-sneaky" },
+          { id: "r5_d8", emoji: "🧙‍♀️", name: "Sombrero de Bruja Viejo", x: 635, y: 188, size: "2.2rem", hideClass: "sneaky" }
+        ]
+      }
+    ];
 
-    let currentRound = 0;         // 1 to 5
-    let livesRemaining = MAX_LIVES;
-    let sequence = [];
-    let playerStep = 0;
-    let isShowingSequence = false;
+    const MONSTER_TYPES = [
+      { type: "ghost",    emoji: "👻", name: "¡FANTASMA REZONGÓN!",   clicksNeeded: 13 },
+      { type: "vampire",  emoji: "🧛", name: "¡VAMPIRO TRASNOCHADO!", clicksNeeded: 14 },
+      { type: "skeleton", emoji: "💀", name: "¡ESQUELETO RUIDOSO!",   clicksNeeded: 14 },
+      { type: "zombie",   emoji: "🧟", name: "¡ZOMBIE SOMNOLIENTO!",  clicksNeeded: 15 }
+    ];
+
+    /* ==========================================================================
+       GAME STATE & CONTROLLERS
+       ========================================================================== */
+    const MAX_LIVES = 3;
+    const MONSTER_TIME_LIMIT = 10.0; // 10 seconds to mash-click the monster
+    const SECRET_WORD = "CAJA-DE-OCTUBRE";
+    const TOTAL_DECORATIONS = ROOMS_DATA.reduce((acc, r) => acc + r.decorations.length, 0);
+
+    let currentRoomIdx = 0;
+    let packedInCurrentRoom = 0;
+    let totalPacked = 0;
+    let lives = MAX_LIVES;
+    let hintsRemaining = 3;
     let isGameActive = false;
 
+    // Monster Ambush State
+    let isMonsterActive = false;
+    let activeMonster = null;
+    let monsterClicksRemaining = 0;
+    let monsterMaxClicks = 14;
+    let monsterTimeLeft = MONSTER_TIME_LIMIT;
+    let monsterInterval = null;
+    let lastTickSecond = 10;
+
     // DOM Elements
-    const roundDisplay = document.getElementById('roundDisplay');
+    const stageContainer = document.getElementById('stageContainer');
+    const roomScene = document.getElementById('roomScene');
+    const decorationsLayer = document.getElementById('decorationsLayer');
+    const roomBadge = document.getElementById('roomBadge');
+    const rollBadge = document.getElementById('rollBadge');
+    const roomDisplay = document.getElementById('roomDisplay');
+    const decoDisplay = document.getElementById('decoDisplay');
+    const totalPackedDisplay = document.getElementById('totalPackedDisplay');
     const statusBanner = document.getElementById('statusBanner');
+    const storageBox = document.getElementById('storageBox');
+    const boxSubText = document.getElementById('boxSubText');
+    const hintBtn = document.getElementById('hintBtn');
+    const hintsLeftSpan = document.getElementById('hintsLeftSpan');
+    const startOverlay = document.getElementById('startOverlay');
     const startBtn = document.getElementById('startBtn');
-    const centralEye = document.getElementById('centralEye');
-    const eyeIris = document.getElementById('eyeIris');
     const vignette = document.getElementById('vignette');
+
+    // Monster DOM
+    const monsterOverlay = document.getElementById('monsterOverlay');
+    const monsterNameTag = document.getElementById('monsterNameTag');
+    const monsterTimerPill = document.getElementById('monsterTimerPill');
+    const monsterHpFill = document.getElementById('monsterHpFill');
+    const monsterTimeFill = document.getElementById('monsterTimeFill');
+    const monsterTargetBtn = document.getElementById('monsterTargetBtn');
+    const monsterEmoji = document.getElementById('monsterEmoji');
+    const monsterClicksLeft = document.getElementById('monsterClicksLeft');
+    const monsterArena = document.getElementById('monsterArena');
+
+    // Modals & Audio Buttons
     const victoryModal = document.getElementById('victoryModal');
     const defeatModal = document.getElementById('defeatModal');
+    const bgmToggleBtn = document.getElementById('bgmToggleBtn');
     const soundToggleBtn = document.getElementById('soundToggleBtn');
     const copyDiscordBtn = document.getElementById('copyDiscordBtn');
 
-    const runeBtns = [
-      document.getElementById('rune-0'),
-      document.getElementById('rune-1'),
-      document.getElementById('rune-2'),
-      document.getElementById('rune-3')
-    ];
-
-    /* Start Ritual */
+    /* Start Game */
     startBtn.addEventListener('click', () => {
       sound.init();
+      sound.playStartGame();
       startGame();
     });
 
     function startGame() {
-      currentRound = 0;
-      livesRemaining = MAX_LIVES;
-      sequence = [];
+      currentRoomIdx = 0;
+      totalPacked = 0;
+      lives = MAX_LIVES;
+      hintsRemaining = 3;
       isGameActive = true;
-      startBtn.style.display = 'none';
+      isMonsterActive = false;
+      clearInterval(monsterInterval);
 
-      updateLivesUI();
+      startOverlay.classList.add('hidden');
       victoryModal.classList.remove('active');
       defeatModal.classList.remove('active');
-      vignette.classList.remove('danger');
+      monsterOverlay.classList.remove('active');
+      vignette.className = 'vignette-overlay';
 
-      nextRound();
+      hintBtn.disabled = false;
+      hintsLeftSpan.textContent = hintsRemaining;
+      updateLivesUI();
+      loadRoom(0);
     }
 
     function restartGame() {
-      victoryModal.classList.remove('active');
-      defeatModal.classList.remove('active');
+      sound.playStartGame();
       startGame();
     }
 
-    function nextRound() {
-      currentRound++;
-      roundDisplay.textContent = `${currentRound} / ${TOTAL_ROUNDS}`;
+    /* Load a Room (0 to 4) */
+    function loadRoom(idx) {
+      currentRoomIdx = idx;
+      packedInCurrentRoom = 0;
+      const room = ROOMS_DATA[idx];
 
-      // In Round 1: start with 3 runes, then add 1 rune each round
-      if (currentRound === 1) {
-        sequence = [
-          Math.floor(Math.random() * 4),
-          Math.floor(Math.random() * 4),
-          Math.floor(Math.random() * 4)
-        ];
-      } else {
-        sequence.push(Math.floor(Math.random() * 4));
-      }
+      stageContainer.classList.remove('room-cleaned');
+      roomBadge.textContent = room.name;
+      roomScene.innerHTML = room.bgSvg;
+      decorationsLayer.innerHTML = '';
 
-      playSequence();
-    }
+      room.decorations.forEach((deco) => {
+        const el = document.createElement('div');
+        el.className = `halloween-deco ${deco.hideClass || ''}`;
+        el.id = deco.id;
+        el.textContent = deco.emoji;
+        el.title = deco.name;
+        // Position in percentages relative to 800x440 virtual canvas
+        el.style.left = `${(deco.x / 800) * 100}%`;
+        el.style.top = `${(deco.y / 440) * 100}%`;
+        el.style.fontSize = deco.size || '2.1rem';
 
-    function playSequence() {
-      isShowingSequence = true;
-      disableRunes();
-      statusBanner.className = 'status-banner watch';
-      statusBanner.textContent = '👁️ Observa con atención las visiones del Nigromante...';
-      centralEye.classList.add('casting');
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          onDecorationClick(el, deco);
+        });
 
-      let delay = 600;
-      const stepDuration = 550;
-
-      sequence.forEach((runeIndex, idx) => {
-        setTimeout(() => {
-          activateRuneVisual(runeIndex, stepDuration - 100);
-          sound.playRuneTone(runeIndex);
-          moveEyeTowards(runeIndex);
-        }, delay);
-        delay += stepDuration;
+        decorationsLayer.appendChild(el);
       });
 
-      setTimeout(() => {
-        isShowingSequence = false;
-        enableRunes();
-        playerStep = 0;
-        centralEye.classList.remove('casting');
-        resetEyePosition();
-        statusBanner.className = 'status-banner play';
-        statusBanner.textContent = '🔮 ¡Tu turno! Repite la secuencia en el pentagrama.';
-      }, delay + 100);
+      updateHudCounters();
+      statusBanner.className = 'status-banner';
+      statusBanner.textContent = `🧹 ${room.name}: Encuentra y guarda los ${room.decorations.length} adornos de Halloween.`;
     }
 
-    function activateRuneVisual(index, duration = 350) {
-      const btn = runeBtns[index];
-      if (!btn) return;
-      btn.classList.add('active');
-      setTimeout(() => {
-        btn.classList.remove('active');
-      }, duration);
-    }
+    /* Click on empty room background (Miss click feedback) */
+    stageContainer.addEventListener('click', (e) => {
+      if (!isGameActive || isMonsterActive) return;
+      if (e.target.closest('#startOverlay') || e.target.closest('#monsterOverlay')) return;
 
-    function moveEyeTowards(index) {
-      // 0: top, 1: left, 2: right, 3: bottom
-      const offsets = [
-        { x: 0, y: -7 },
-        { x: -9, y: 0 },
-        { x: 9, y: 0 },
-        { x: 0, y: 7 }
-      ];
-      const pos = offsets[index] || { x: 0, y: 0 };
-      eyeIris.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`;
-    }
-
-    function resetEyePosition() {
-      eyeIris.style.transform = `translate(-50%, -50%)`;
-    }
-
-    /* Player Input Handling */
-    runeBtns.forEach((btn, index) => {
-      btn.addEventListener('click', () => {
-        if (isShowingSequence || !isGameActive) return;
-        handlePlayerInput(index);
-      });
+      sound.playMissClick();
+      const rect = stageContainer.getBoundingClientRect();
+      const ripple = document.createElement('div');
+      ripple.className = 'miss-ripple';
+      ripple.style.left = `${e.clientX - rect.left}px`;
+      ripple.style.top = `${e.clientY - rect.top}px`;
+      stageContainer.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 450);
     });
 
-    function handlePlayerInput(runeIndex) {
-      activateRuneVisual(runeIndex, 250);
-      sound.playRuneTone(runeIndex);
-      moveEyeTowards(runeIndex);
+    /* Handle Correct Click on a Halloween Decoration */
+    function onDecorationClick(el, deco) {
+      if (!isGameActive || isMonsterActive || el.dataset.packed === 'true') return;
+      el.dataset.packed = 'true';
 
-      if (runeIndex === sequence[playerStep]) {
-        // Correct step
-        playerStep++;
-        if (playerStep === sequence.length) {
-          // Completed current round sequence!
-          disableRunes();
-          if (currentRound >= TOTAL_ROUNDS) {
-            triggerVictory();
-          } else {
-            statusBanner.className = 'status-banner';
-            statusBanner.textContent = '✨ ¡Correcto! El Nigromante incrementa su poder...';
-            setTimeout(() => {
-              resetEyePosition();
-              nextRound();
-            }, 900);
-          }
-        }
-      } else {
-        // Mistake!
-        handleMistake();
+      sound.playClickDeco();
+      animateFlyToBox(el, deco.emoji);
+
+      el.style.pointerEvents = 'none';
+      el.style.opacity = '0';
+      setTimeout(() => el.remove(), 200);
+
+      packedInCurrentRoom++;
+      totalPacked++;
+      updateHudCounters();
+      boxSubText.textContent = `Guardado: ${deco.name} (${totalPacked}/${TOTAL_DECORATIONS})`;
+
+      // Random probability between 0% and 100% on every correct click!
+      const randomThreshold = Math.floor(Math.random() * 101); // 0 to 100%
+      const randomRoll = Math.floor(Math.random() * 101);      // 0 to 100%
+      const monsterTriggered = (randomRoll < randomThreshold);
+
+      rollBadge.textContent = `🎲 Probabilidad: ${randomThreshold}% ${monsterTriggered ? '⚡ ¡SUSTO!' : '✓ Libre'}`;
+      rollBadge.style.transform = 'scale(1.1)';
+      setTimeout(() => { rollBadge.style.transform = 'scale(1)'; }, 200);
+
+      const roomTotal = ROOMS_DATA[currentRoomIdx].decorations.length;
+      const isRoomFinished = (packedInCurrentRoom >= roomTotal);
+
+      if (monsterTriggered) {
+        // Trigger Monster Ambush! When banished, check if room finished
+        setTimeout(() => {
+          spawnMonsterAmbush(randomThreshold, isRoomFinished);
+        }, 320);
+      } else if (isRoomFinished) {
+        completeCurrentRoom();
       }
     }
 
-    function handleMistake() {
-      disableRunes();
-      sound.playError();
-      centralEye.classList.add('angered');
-      vignette.classList.add('danger');
+    /* Fly-into-Cardboard-Box Animation */
+    function animateFlyToBox(sourceEl, emoji) {
+      const srcRect = sourceEl.getBoundingClientRect();
+      const boxRect = storageBox.getBoundingClientRect();
 
-      livesRemaining--;
-      updateLivesUI();
+      const flyer = document.createElement('div');
+      flyer.className = 'flying-deco';
+      flyer.textContent = emoji;
+      flyer.style.left = `${srcRect.left}px`;
+      flyer.style.top = `${srcRect.top}px`;
+      document.body.appendChild(flyer);
+
+      // Force reflow then fly to storageBox
+      void flyer.offsetWidth;
+      flyer.style.left = `${boxRect.left + boxRect.width * 0.25}px`;
+      flyer.style.top = `${boxRect.top + 4}px`;
+      flyer.style.transform = 'scale(0.35) rotate(360deg)';
+      flyer.style.opacity = '0.3';
 
       setTimeout(() => {
-        centralEye.classList.remove('angered');
-        vignette.classList.remove('danger');
-        resetEyePosition();
+        flyer.remove();
+        sound.playPackBox();
+        storageBox.classList.remove('bounce');
+        void storageBox.offsetWidth;
+        storageBox.classList.add('bounce');
+      }, 580);
+    }
 
-        if (livesRemaining <= 0) {
-          triggerDefeat();
-        } else {
-          statusBanner.className = 'status-banner watch';
-          statusBanner.textContent = `⚡ ¡Error! Has perdido 1 alma. Observa la secuencia de nuevo...`;
-          setTimeout(() => {
-            playSequence();
-          }, 1200);
+    /* ==========================================================================
+       MONSTER AMBUSH SYSTEM (10s COUNTDOWN + RAPID CLICK MASHING)
+       ========================================================================== */
+    let pendingRoomCompletionAfterMonster = false;
+
+    function spawnMonsterAmbush(rolledProb, roomFinishedAfter) {
+      if (!isGameActive) return;
+      isMonsterActive = true;
+      pendingRoomCompletionAfterMonster = roomFinishedAfter;
+
+      // Pick random monster (Ghost, Vampire, Skeleton, Zombie)
+      activeMonster = MONSTER_TYPES[Math.floor(Math.random() * MONSTER_TYPES.length)];
+      monsterMaxClicks = activeMonster.clicksNeeded + Math.floor(currentRoomIdx * 1.5);
+      monsterClicksRemaining = monsterMaxClicks;
+      monsterTimeLeft = MONSTER_TIME_LIMIT;
+      lastTickSecond = 10;
+
+      sound.playMonsterSpawn(activeMonster.type);
+
+      monsterNameTag.textContent = `${activeMonster.emoji} ${activeMonster.name} (${rolledProb}%)`;
+      monsterEmoji.textContent = activeMonster.emoji;
+      updateMonsterUI();
+
+      vignette.className = 'vignette-overlay ambush';
+      monsterOverlay.classList.add('active');
+      statusBanner.className = 'status-banner alert';
+      statusBanner.textContent = `⚠️ ¡Un ${activeMonster.name} salió del adorno! ¡Púlsalo rápido antes de 10 segundos!`;
+
+      // Start 10.0s countdown
+      clearInterval(monsterInterval);
+      const startTime = performance.now();
+
+      monsterInterval = setInterval(() => {
+        if (!isMonsterActive || !isGameActive) {
+          clearInterval(monsterInterval);
+          return;
         }
-      }, 600);
+        const elapsed = (performance.now() - startTime) / 1000;
+        monsterTimeLeft = Math.max(0, MONSTER_TIME_LIMIT - elapsed);
+
+        const secCeil = Math.ceil(monsterTimeLeft);
+        if (secCeil <= 4 && secCeil < lastTickSecond && secCeil > 0) {
+          lastTickSecond = secCeil;
+          sound.playTimerTick();
+          monsterTimerPill.classList.add('urgent');
+        }
+
+        updateMonsterUI();
+
+        if (monsterTimeLeft <= 0) {
+          clearInterval(monsterInterval);
+          onMonsterTimeout();
+        }
+      }, 50);
+    }
+
+    function updateMonsterUI() {
+      monsterTimerPill.textContent = `⏱️ ${monsterTimeLeft.toFixed(1)}s`;
+      monsterClicksLeft.textContent = `¡PULSA ${monsterClicksRemaining} VECES!`;
+      monsterHpFill.style.width = `${(monsterClicksRemaining / monsterMaxClicks) * 100}%`;
+      monsterTimeFill.style.width = `${(monsterTimeLeft / MONSTER_TIME_LIMIT) * 100}%`;
+    }
+
+    /* Rapid Click on Monster */
+    function handleMonsterHit(e) {
+      if (!isMonsterActive || !isGameActive) return;
+      if (e) e.stopPropagation();
+
+      monsterClicksRemaining = Math.max(0, monsterClicksRemaining - 1);
+      sound.playMonsterHit(monsterClicksRemaining / monsterMaxClicks);
+
+      // Hit visual feedback
+      monsterTargetBtn.classList.add('hit');
+      setTimeout(() => monsterTargetBtn.classList.remove('hit'), 70);
+
+      // Move monster slightly inside the arena to keep mashing lively
+      const offsetX = (Math.random() - 0.5) * 70;
+      const offsetY = (Math.random() - 0.5) * 40;
+      monsterTargetBtn.style.left = `${offsetX}px`;
+      monsterTargetBtn.style.top = `${offsetY}px`;
+
+      // Floating hit text
+      const words = ["¡ZAS!", "¡A LA CAJA!", "¡FUERA!", "💥", "✨"];
+      const pop = document.createElement('div');
+      pop.className = 'hit-pop';
+      pop.textContent = words[Math.floor(Math.random() * words.length)];
+      pop.style.left = `calc(50% + ${offsetX + (Math.random() - 0.5) * 50}px)`;
+      pop.style.top = `calc(50% + ${offsetY - 20}px)`;
+      monsterArena.appendChild(pop);
+      setTimeout(() => pop.remove(), 550);
+
+      updateMonsterUI();
+
+      if (monsterClicksRemaining <= 0) {
+        banishMonsterSuccess();
+      }
+    }
+
+    monsterTargetBtn.addEventListener('pointerdown', handleMonsterHit);
+    monsterTargetBtn.addEventListener('keydown', (e) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        handleMonsterHit(e);
+      }
+    });
+
+    function banishMonsterSuccess() {
+      clearInterval(monsterInterval);
+      isMonsterActive = false;
+      monsterTimerPill.classList.remove('urgent');
+      monsterTargetBtn.style.left = '0px';
+      monsterTargetBtn.style.top = '0px';
+
+      sound.playMonsterBanish();
+      animateFlyToBox(monsterTargetBtn, activeMonster.emoji);
+
+      monsterOverlay.classList.remove('active');
+      vignette.className = 'vignette-overlay';
+      statusBanner.className = 'status-banner festive';
+      statusBanner.textContent = `✨ ¡Encerraste al ${activeMonster.name} en la caja a tiempo!`;
+
+      if (pendingRoomCompletionAfterMonster) {
+        pendingRoomCompletionAfterMonster = false;
+        setTimeout(() => completeCurrentRoom(), 450);
+      }
+    }
+
+    function onMonsterTimeout() {
+      isMonsterActive = false;
+      monsterTimerPill.classList.remove('urgent');
+      monsterTargetBtn.style.left = '0px';
+      monsterTargetBtn.style.top = '0px';
+
+      sound.playLoseLife();
+      lives--;
+      updateLivesUI();
+
+      monsterOverlay.classList.remove('active');
+      vignette.className = 'vignette-overlay danger';
+      setTimeout(() => {
+        if (isGameActive) vignette.className = 'vignette-overlay';
+      }, 650);
+
+      if (lives <= 0) {
+        triggerDefeat();
+      } else {
+        statusBanner.className = 'status-banner alert';
+        statusBanner.textContent = `💔 ¡Se agotaron los 10 segundos! El ${activeMonster.name} te asustó y perdiste 1 vida.`;
+        showToast(`💔 ¡Perdiste 1 vida! Te quedan ${lives}`);
+
+        if (pendingRoomCompletionAfterMonster) {
+          pendingRoomCompletionAfterMonster = false;
+          setTimeout(() => completeCurrentRoom(), 700);
+        }
+      }
+    }
+
+    /* ==========================================================================
+       ROOM COMPLETION, HINTS & VICTORY / DEFEAT
+       ========================================================================== */
+    function completeCurrentRoom() {
+      sound.playRoomClear();
+      stageContainer.classList.add('room-cleaned');
+
+      if (currentRoomIdx + 1 < ROOMS_DATA.length) {
+        statusBanner.className = 'status-banner festive';
+        statusBanner.textContent = `🎄 ¡Habitación ${currentRoomIdx + 1} despejada! Pasando a la siguiente sala...`;
+        showToast(`✨ ¡Habitación ${currentRoomIdx + 1}/5 limpia!`);
+        setTimeout(() => {
+          if (isGameActive) loadRoom(currentRoomIdx + 1);
+        }, 1100);
+      } else {
+        triggerVictory();
+      }
+    }
+
+    function updateHudCounters() {
+      const roomTotal = ROOMS_DATA[currentRoomIdx].decorations.length;
+      roomDisplay.textContent = `${currentRoomIdx + 1} / 5`;
+      decoDisplay.textContent = `${packedInCurrentRoom} / ${roomTotal}`;
+      totalPackedDisplay.textContent = `${totalPacked} / ${TOTAL_DECORATIONS}`;
     }
 
     function updateLivesUI() {
       for (let i = 1; i <= MAX_LIVES; i++) {
-        const soul = document.getElementById(`soul-${i}`);
-        if (i <= livesRemaining) {
-          soul.classList.remove('lost');
+        const icon = document.getElementById(`life-${i}`);
+        if (i <= lives) {
+          icon.classList.remove('lost');
         } else {
-          soul.classList.add('lost');
+          icon.classList.add('lost');
         }
       }
     }
 
-    function enableRunes() {
-      runeBtns.forEach(btn => btn.classList.remove('disabled'));
-    }
+    /* Hint Button */
+    hintBtn.addEventListener('click', () => {
+      if (!isGameActive || isMonsterActive || hintsRemaining <= 0) return;
+      const remainingDecos = Array.from(decorationsLayer.querySelectorAll('.halloween-deco'));
+      if (remainingDecos.length === 0) return;
 
-    function disableRunes() {
-      runeBtns.forEach(btn => btn.classList.add('disabled'));
-    }
+      hintsRemaining--;
+      hintsLeftSpan.textContent = hintsRemaining;
+      if (hintsRemaining <= 0) hintBtn.disabled = true;
+
+      sound.playClickDeco();
+      const target = remainingDecos[Math.floor(Math.random() * remainingDecos.length)];
+      target.classList.add('hint-glow');
+      showToast(`🔍 Pista: Mira cerca de "${target.title}"`);
+      setTimeout(() => target.classList.remove('hint-glow'), 2200);
+    });
 
     function triggerVictory() {
       isGameActive = false;
       sound.playVictory();
-      statusBanner.className = 'status-banner play';
-      statusBanner.textContent = '🏆 ¡Has vencido al Nigromante!';
+      statusBanner.className = 'status-banner festive';
+      statusBanner.textContent = '🏆 ¡Las 5 habitaciones están limpias y listas para la Navidad!';
 
-      // Store in localStorage that Day 01 was completed
       try {
+        localStorage.setItem('christmas_day_01_cleared', 'true');
+        localStorage.setItem('deseo_day_01_cleared', 'true');
         localStorage.setItem('krypt_day_01_cleared', 'true');
-      } catch(e){}
+      } catch (e) {}
 
       setTimeout(() => {
         victoryModal.classList.add('active');
-      }, 500);
+      }, 650);
     }
 
     function triggerDefeat() {
       isGameActive = false;
-      defeatModal.classList.add('active');
+      sound.playGameOver();
+      setTimeout(() => {
+        defeatModal.classList.add('active');
+      }, 400);
     }
 
     /* ==========================================================================
-       DISCORD MESSAGE GENERATOR WITH SPOILER SYNTAX "||"
+       DISCORD SPOILER COPY & AUDIO CONTROLS
        ========================================================================== */
     function copyDiscordMessage() {
-      // User request: Encerrar la palabra en "||" para que se mande como spoiler en Discord
-      const discordText = `🎃 ¡He superado el Día 01 en La Krypta! Código: ||${SECRET_WORD}||`;
-
+      const discordText = `🎄 ¡He cumplido el Deseo 01 en 31 Deseos de Navidad! Código: ||${SECRET_WORD}||`;
       navigator.clipboard.writeText(discordText).then(() => {
         copyDiscordBtn.innerHTML = '✓ ¡Copiado con Spoiler!';
         copyDiscordBtn.classList.add('copied');
@@ -1207,58 +2113,36 @@
           copyDiscordBtn.classList.remove('copied');
         }, 2500);
       }).catch(() => {
-        // Fallback
         const ta = document.createElement('textarea');
         ta.value = discordText;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyDiscordBtn.innerHTML = '✓ ¡Copiado con Spoiler!';
-        showToast("✓ Mensaje copiado con spoiler para Discord");
+        showToast("✓ Mensaje copiado para Discord");
       });
     }
 
-    /* Toast Notification Helper */
     const toast = document.getElementById('toast');
     let toastTimer = null;
     function showToast(msg) {
       toast.textContent = msg;
       toast.classList.add('visible');
       if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove('visible');
-      }, 2400);
+      toastTimer = setTimeout(() => toast.classList.remove('visible'), 2300);
     }
 
-    /* Keyboard Controls (Desktop [1,2,3,4] or [Q,W,E,R]) */
-    window.addEventListener('keydown', (e) => {
-      if (isShowingSequence || !isGameActive) return;
-
-      const key = e.key.toUpperCase();
-      let index = -1;
-
-      if (key === '1' || key === 'Q') index = 0; // Sangre
-      if (key === '2' || key === 'W') index = 1; // Averno
-      if (key === '3' || key === 'E') index = 2; // Azufre
-      if (key === '4' || key === 'R') index = 3; // Pantano
-
-      if (index !== -1) {
-        handlePlayerInput(index);
-      }
+    bgmToggleBtn.addEventListener('click', () => {
+      const on = sound.toggleBgm();
+      bgmToggleBtn.textContent = on ? '🎵 Música ON' : '🎵 Música OFF';
+      showToast(on ? '🎵 Música de fondo activada' : '🔇 Música de fondo silenciada');
     });
 
-    /* Audio Toggle */
     soundToggleBtn.addEventListener('click', () => {
-      sound.enabled = !sound.enabled;
-      if (sound.enabled) {
-        sound.init();
-        soundToggleBtn.textContent = '🔊 Audio';
-        showToast("🔊 Sonido activado");
-      } else {
-        soundToggleBtn.textContent = '🔇 Mute';
-        showToast("🔇 Sonido desactivado");
-      }
+      sound.sfxEnabled = !sound.sfxEnabled;
+      soundToggleBtn.textContent = sound.sfxEnabled ? '🔊 SFX ON' : '🔇 SFX OFF';
+      if (sound.sfxEnabled) sound.playClickDeco();
+      showToast(sound.sfxEnabled ? '🔊 Efectos de sonido activados' : '🔇 Efectos de sonido desactivados');
     });
   </script>
 </body>

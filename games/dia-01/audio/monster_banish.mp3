@@ -1,0 +1,4 @@
+PLACEHOLDER DE AUDIO (.txt renombrado a .mp3)
+Archivo: monster_banish.mp3
+Uso: Efecto de sonido triunfal cuando el jugador logra pulsar suficientes veces al monstruo y lo encierra en la caja antes de los 10 segundos.
+Reemplaza este archivo por un MP3 real manteniendo el nombre "monster_banish.mp3".

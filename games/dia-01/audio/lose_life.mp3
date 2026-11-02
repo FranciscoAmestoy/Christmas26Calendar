@@ -1,0 +1,4 @@
+PLACEHOLDER DE AUDIO (.txt renombrado a .mp3)
+Archivo: lose_life.mp3
+Uso: Efecto de sonido de susto/impacto cuando se agotan los 10 segundos sin derrotar al monstruo y el jugador pierde 1 vida.
+Reemplaza este archivo por un MP3 real manteniendo el nombre "lose_life.mp3".
