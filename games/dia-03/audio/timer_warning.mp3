@@ -1,0 +1,4 @@
+PLACEHOLDER DE AUDIO (.txt renombrado a .mp3)
+Archivo: timer_warning.mp3
+Uso: Tic-tac acelerado cuando quedan menos de 2.5 segundos en la barra de 7 segundos.
+Reemplaza este archivo por un MP3 real manteniendo el nombre "timer_warning.mp3".

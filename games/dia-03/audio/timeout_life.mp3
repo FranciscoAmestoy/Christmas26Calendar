@@ -1,0 +1,4 @@
+PLACEHOLDER DE AUDIO (.txt renombrado a .mp3)
+Archivo: timeout_life.mp3
+Uso: Sonido de alarma postal cuando se agotan los 7 segundos sin clasificar y se pierde 1 vida.
+Reemplaza este archivo por un MP3 real manteniendo el nombre "timeout_life.mp3".
