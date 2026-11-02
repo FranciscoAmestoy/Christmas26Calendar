@@ -3,26 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Día 02: Cripta de las Bestias - La Krypta</title>
+  <title>Día 02: Cartas a Santa Claus - 31 Deseos de Navidad</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel:wght@600;800;900&family=MedievalSharp&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;800;900&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Montserrat:wght@500;600;700;800&family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #060907;
-      --stone-base: #151e18;
-      --stone-border: #324538;
-      --stone-highlight: #5b7563;
-      --parchment: #ece2ce;
-      --text-muted: #869b8e;
-
-      --toxic-green: #39ff14;
-      --toxic-glow: rgba(57, 255, 20, 0.45);
-      --pumpkin-orange: #ff7518;
-      --pumpkin-glow: rgba(255, 117, 24, 0.55);
-      --blood-red: #ff2a4b;
-      --blood-glow: rgba(255, 42, 75, 0.55);
-      --gold: #ffaa00;
+      --bg-night: #06101a;
+      --wood-dark: #1f1109;
+      --wood-mid: #381e10;
+      --parchment-light: #fcf6e8;
+      --parchment-mid: #f3e5c8;
+      --parchment-edge: #dcc294;
+      --ink-blue: #192a48;
+      --ink-crimson: #9e1b24;
+      --ink-emerald: #145934;
+      --wish-gold: #ffd166;
+      --gold-glow: rgba(255, 209, 102, 0.55);
+      --christmas-red: #e63946;
+      --red-glow: rgba(230, 57, 70, 0.55);
+      --holly-green: #2ecc71;
+      --frost-blue: #7dd3fc;
+      --snow-ivory: #fdf8f0;
+      --text-muted: #9ab8c4;
     }
 
     * {
@@ -35,94 +38,47 @@
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--parchment);
+      background-color: var(--bg-night);
+      color: var(--snow-ivory);
       font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
       overflow-x: hidden;
       position: relative;
-      background-image: 
-        radial-gradient(circle at 50% 15%, rgba(35, 60, 45, 0.4) 0%, transparent 65%),
-        radial-gradient(circle at 50% 85%, rgba(15, 28, 20, 0.6) 0%, transparent 70%);
-      padding: 12px 14px 20px 14px;
-    }
-
-    /* Ambient mist and scanline */
-    .mist-ambient {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.35;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.25) 4px);
+      /* Background combines the generated desk/letter image with warm wood & candlelight radial gradients */
+      background-image:
+        linear-gradient(180deg, rgba(6, 16, 26, 0.72) 0%, rgba(18, 10, 6, 0.78) 100%),
+        url('letter_bg.png'),
+        radial-gradient(circle at 50% 25%, #3d2212 0%, #170d07 70%, #090503 100%);
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      padding: 10px 12px 24px 12px;
     }
 
     .vignette-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
       z-index: 2;
-      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);
-      transition: box-shadow 0.2s ease;
+      box-shadow: inset 0 0 110px rgba(0, 0, 0, 0.82);
     }
 
-    .vignette-overlay.danger {
-      box-shadow: inset 0 0 130px rgba(255, 42, 75, 0.8);
-      animation: dangerFlicker 0.3s ease;
-    }
-
-    @keyframes dangerFlicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    /* Game Shell Layout */
+    /* Main Shell */
     .game-shell {
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 660px;
+      max-width: 860px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 10px;
     }
 
-    @media (min-width: 900px) and (min-height: 900px) {
-      body {
-        justify-content: center;
-        padding: 16px;
-      }
-      .game-shell {
-        gap: 14px;
-        transform: scale(1.14);
-        transform-origin: center center;
-      }
-    }
-
-    @media (min-width: 1100px) and (min-height: 1120px) {
-      body {
-        justify-content: center;
-        padding: 24px;
-      }
-      .game-shell {
-        gap: 16px;
-        transform: scale(1.34);
-        transform-origin: center center;
-      }
-    }
-
-    /* Nav Bar */
+    /* Header */
     header {
       width: 100%;
       display: flex;
@@ -136,15 +92,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
     }
 
     .btn-nav {
-      background: rgba(17, 26, 20, 0.85);
-      border: 1px solid var(--stone-border);
-      color: var(--parchment);
-      padding: 6px 14px;
+      background: rgba(16, 28, 38, 0.9);
+      border: 1px solid rgba(255, 209, 102, 0.35);
+      color: var(--snow-ivory);
+      padding: 6px 13px;
       border-radius: 8px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -155,42 +112,52 @@
     }
 
     .btn-nav:hover {
-      border-color: var(--pumpkin-orange);
-      color: var(--pumpkin-orange);
-      box-shadow: 0 0 10px var(--pumpkin-glow);
+      border-color: var(--wish-gold);
+      color: var(--wish-gold);
+      box-shadow: 0 0 10px var(--gold-glow);
     }
 
     .day-subtitle {
       font-family: 'Cinzel', serif;
-      font-size: 0.82rem;
+      font-size: 0.75rem;
       letter-spacing: 3px;
-      color: var(--text-muted);
+      color: var(--wish-gold);
       text-transform: uppercase;
       font-weight: 700;
-      margin-top: 2px;
     }
 
     .title-banner {
-      font-family: 'Creepster', cursive;
-      font-size: clamp(2.1rem, 6vw, 3rem);
-      letter-spacing: 3px;
-      color: var(--pumpkin-orange);
-      text-shadow: 0 0 16px var(--pumpkin-glow), 2px 2px 0px #000;
+      font-family: 'Mountains of Christmas', cursive;
+      font-size: clamp(1.9rem, 5vw, 2.7rem);
+      letter-spacing: 2px;
+      color: var(--snow-ivory);
+      text-shadow: 0 0 16px var(--gold-glow), 2px 2px 0px #000;
       text-align: center;
-      line-height: 1;
+      line-height: 1.05;
     }
 
-    /* HUD Bar: Score, Target & Time */
+    /* HUD Bar */
     .hud-bar {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1.4fr 1fr;
       gap: 8px;
-      background: rgba(17, 26, 20, 0.9);
-      border: 1px solid var(--stone-border);
+      background: rgba(18, 28, 36, 0.9);
+      border: 1px solid rgba(255, 209, 102, 0.35);
       border-radius: 12px;
-      padding: 10px 14px;
+      padding: 8px 14px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      align-items: center;
+    }
+
+    @media (max-width: 620px) {
+      .hud-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hud-center-col {
+        grid-column: 1 / -1;
+        order: 3;
+      }
     }
 
     .hud-stat {
@@ -199,18 +166,8 @@
       gap: 2px;
     }
 
-    .hud-stat.center {
-      align-items: center;
-      text-align: center;
-    }
-
-    .hud-stat.right {
-      align-items: flex-end;
-      text-align: right;
-    }
-
     .hud-label {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-muted);
@@ -219,289 +176,546 @@
 
     .hud-val {
       font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
+      font-size: 1rem;
       font-weight: 900;
-      color: var(--parchment);
+      color: var(--wish-gold);
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
 
-    .hud-val.time.hurry {
-      color: var(--blood-red);
-      text-shadow: 0 0 10px var(--blood-glow);
-      animation: pulseTime 0.6s infinite alternate;
-    }
-
-    @keyframes pulseTime {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.1); }
-    }
-
-    .souls-row {
+    /* Central Vertical Word Progress Pill */
+    .central-word-tracker {
       display: flex;
       gap: 4px;
-      margin-top: 2px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-    .soul-icon {
-      font-size: 1rem;
-      color: var(--blood-red);
-      filter: drop-shadow(0 0 6px var(--blood-glow));
-      transition: all 0.3s;
-    }
-
-    .soul-icon.lost {
-      filter: grayscale(1) opacity(0.25);
-    }
-
-    /* Progress Goal Bar */
-    .goal-track {
-      width: 100%;
-      height: 8px;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: 2px;
-      position: relative;
-    }
-
-    .goal-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--pumpkin-orange), var(--toxic-green));
-      box-shadow: 0 0 8px var(--toxic-green);
-      transition: width 0.25s ease-out;
-    }
-
-    /* Instructions & Alert Banner */
-    .status-banner {
-      width: 100%;
-      text-align: center;
-      background: rgba(8, 14, 10, 0.7);
-      border: 1px dashed var(--stone-border);
-      border-radius: 8px;
-      padding: 7px 12px;
-      font-family: 'MedievalSharp', cursive;
-      font-size: 0.95rem;
-      color: #b7cbbf;
-      min-height: 38px;
+    .tracker-char {
+      width: 22px;
+      height: 26px;
+      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 209, 102, 0.4);
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-muted);
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.25s;
     }
 
-    .status-banner strong {
-      color: var(--toxic-green);
-    }
-
-    .status-banner span.warn {
-      color: var(--pumpkin-orange);
+    .tracker-char.revealed {
+      background: linear-gradient(180deg, #b81d2a 0%, #7d111a 100%);
+      border-color: var(--wish-gold);
+      color: #fff;
+      box-shadow: 0 0 8px var(--gold-glow);
+      transform: translateY(-1px);
     }
 
     /* ==========================================================================
-       THE COFFIN CRYPT (3x2 SARCOPHAGI GRID)
+       WOODEN DESK & BLANK PARCHMENT LETTER BEING WRITTEN
        ========================================================================== */
-    .crypt-chamber {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 4px;
-    }
-
-    @media (max-width: 480px) {
-      .crypt-chamber {
-        gap: 8px;
-      }
-    }
-
-    /* Sarcophagus Unit */
-    .coffin-unit {
+    .desk-workspace {
       position: relative;
-      background: linear-gradient(180deg, #1b261f 0%, #0d1510 100%);
-      border: 2px solid var(--stone-border);
-      border-radius: 35px 35px 8px 8px;
-      height: clamp(140px, 24vw, 175px);
-      box-shadow: 
-        0 8px 18px rgba(0, 0, 0, 0.8),
-        inset 0 0 25px rgba(0, 0, 0, 0.9);
+      width: 100%;
+      border-radius: 18px;
+      padding: clamp(18px, 4vw, 38px) clamp(14px, 4.5vw, 48px);
+      background-color: #241309;
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0.55) 100%),
+        url('letter_bg.jpg');
+      background-size: cover;
+      background-position: center center;
+      border: 3px solid #8c5d32;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), inset 0 0 35px rgba(0, 0, 0, 0.65);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-end;
       overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.08s, border-color 0.15s;
     }
 
-    .coffin-unit:active {
-      transform: scale(0.97);
-    }
-
-    .coffin-unit:hover {
-      border-color: var(--stone-highlight);
-    }
-
-    /* Keyboard indicator badge */
-    .coffin-key-badge {
+    /* Decorative Desk Holly & Candlelight Corners */
+    .desk-corner-deco {
       position: absolute;
-      top: 6px;
-      right: 8px;
-      font-size: 0.65rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 1.5rem;
+      pointer-events: none;
+      z-index: 4;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7));
+    }
+    .desk-corner-deco.tl { top: 8px; left: 10px; }
+    .desk-corner-deco.tr { top: 8px; right: 10px; }
+
+    /* Blank Parchment Letter Sheet */
+    .letter-paper {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      background-color: rgba(251, 242, 222, 0.9);
+      background-image:
+        /* Subtle ruled handwriting guide lines */
+        repeating-linear-gradient(
+          180deg,
+          transparent 0px,
+          transparent 37px,
+          rgba(155, 120, 75, 0.2) 38px
+        ),
+        /* Warm aged paper vignette & grain */
+        radial-gradient(circle at 50% 45%, rgba(255, 251, 240, 0.82) 0%, rgba(242, 224, 190, 0.88) 75%, rgba(216, 187, 138, 0.94) 100%);
+      backdrop-filter: blur(1.5px);
+      border-radius: 6px;
+      border: 1.5px solid #c9ab79;
+      box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.65),
+        0 0 0 4px rgba(255, 248, 231, 0.18),
+        inset 0 0 40px rgba(166, 124, 68, 0.32);
+      padding: clamp(14px, 2.6vw, 24px) clamp(10px, 2.4vw, 22px);
+      color: var(--ink-blue);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Letter Header: Greeting + North Pole Stamp */
+    .letter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1.5px dashed rgba(139, 94, 45, 0.4);
+      padding-bottom: 6px;
+      gap: 10px;
+    }
+
+    .letter-salutation {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.85rem, 4.5vw, 2.55rem);
+      color: var(--ink-crimson);
+      line-height: 1.05;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.12);
+    }
+
+    .letter-intro-handwriting {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+      font-weight: 700;
+      color: #3a2a1d;
+      margin-top: 2px;
+    }
+
+    .north-pole-stamp {
+      flex-shrink: 0;
+      width: 66px;
+      height: 74px;
+      background: #fff9ed;
+      border: 3px dotted #b58d52;
       border-radius: 4px;
-      padding: 1px 5px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transform: rotate(4deg);
+      box-shadow: 2px 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .north-pole-stamp-inner {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #9e1b24;
+      background: rgba(158, 27, 36, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.52rem;
+      font-weight: 900;
+      color: #9e1b24;
+      line-height: 1.1;
+    }
+
+    /* Active Clue Parchment Strip (Handwritten style) */
+    .active-clue-bar {
+      background: rgba(235, 215, 178, 0.72);
+      border: 1.5px solid #b8945a;
+      border-left: 5px solid var(--ink-crimson);
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .clue-text-handwritten {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(1.18rem, 2.8vw, 1.42rem);
+      font-weight: 700;
+      color: #23170d;
+      line-height: 1.2;
+      flex: 1;
+    }
+
+    /* ==========================================================================
+       ACROSTIC GRID ON THE LETTER
+       ========================================================================== */
+    .acrostic-board {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      margin: 4px 0;
+      position: relative;
+    }
+
+    .acrostic-row {
+      display: grid;
+      /* 1 column for row clue number + 11 letter columns (maxLeft=4, pivot=col 5, maxRight=6) */
+      grid-template-columns: 30px repeat(11, minmax(22px, 1fr));
+      gap: clamp(2px, 0.6vw, 5px);
+      align-items: center;
+      padding: 2px 4px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .acrostic-row.active-row {
+      background: rgba(255, 209, 102, 0.28);
+      box-shadow: 0 0 0 1px rgba(158, 27, 36, 0.28);
+    }
+
+    .acrostic-row.solved-row .row-num-btn {
+      background: var(--ink-emerald);
+      color: #fff;
+      border-color: var(--ink-emerald);
+    }
+
+    .row-num-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(139, 94, 45, 0.18);
+      border: 1.5px solid #8b5e2d;
+      color: #4a2e12;
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .acrostic-row.active-row .row-num-btn {
+      background: var(--ink-crimson);
+      color: #fff;
+      border-color: var(--ink-crimson);
+      transform: scale(1.08);
+    }
+
+    .empty-slot {
+      width: 100%;
+      height: clamp(28px, 4.8vw, 38px);
+      pointer-events: none;
+    }
+
+    /* Handwritten Letter Cell on the Parchment */
+    .letter-cell {
+      position: relative;
+      width: 100%;
+      height: clamp(29px, 5vw, 39px);
+      background: rgba(255, 252, 244, 0.78);
+      border: none;
+      border-bottom: 2px solid #7c5c38;
+      border-radius: 4px 4px 2px 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      box-shadow: inset 0 -2px 4px rgba(139, 94, 45, 0.08);
+    }
+
+    .letter-cell:hover {
+      background: rgba(255, 243, 210, 0.95);
+    }
+
+    /* Central Acrostic Vertical Column (S-A-N-T-A-C-L-A-U-S) */
+    .letter-cell.is-central {
+      background: linear-gradient(180deg, rgba(255, 224, 150, 0.55) 0%, rgba(242, 190, 92, 0.65) 100%);
+      border: 2px solid #b8332a;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(184, 51, 42, 0.2), inset 0 0 8px rgba(255, 255, 255, 0.6);
+    }
+
+    /* Currently Focused Cell (Where the Quill sits!) */
+    .letter-cell.focused {
+      background: #fff9e6;
+      border-bottom: 3px solid var(--ink-crimson);
+      box-shadow: 0 0 0 2px rgba(158, 27, 36, 0.45), 0 4px 10px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
       z-index: 5;
     }
 
-    /* Sarcophagus Pit Opening */
-    .coffin-pit {
-      position: absolute;
-      bottom: 0;
-      width: 86%;
-      height: 75%;
-      background: #040805;
-      border-top: 3px solid #142118;
-      border-radius: 20px 20px 0 0;
-      box-shadow: inset 0 10px 20px rgba(0,0,0,0.95);
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    /* Monster Entity Peeking */
-    .monster-entity {
-      width: 78%;
-      height: 85%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transform: translateY(115%);
-      transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      z-index: 3;
-    }
-
-    .monster-entity.peeking {
-      transform: translateY(10%);
-    }
-
-    .monster-entity.whacked {
-      transform: translateY(120%) scale(0.85);
-      transition: transform 0.12s ease-in;
-    }
-
-    .monster-avatar {
-      font-size: clamp(2.4rem, 6.5vw, 3.4rem);
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+    /* Cursive Handwritten Character Inside Cell */
+    .cell-char {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.25rem, 3vw, 1.68rem);
+      font-weight: 700;
+      color: var(--ink-blue);
       line-height: 1;
-    }
-
-    .monster-name-tag {
-      font-family: 'Cinzel', serif;
-      font-size: 0.62rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 1px 6px;
-      border-radius: 4px;
-      margin-top: 2px;
-      white-space: nowrap;
-    }
-
-    /* Floating Score Popup Particle */
-    .score-particle {
-      position: absolute;
-      font-family: 'Cinzel', serif;
-      font-weight: 900;
-      font-size: 1.1rem;
       pointer-events: none;
-      z-index: 20;
-      animation: floatUpFade 0.65s forwards ease-out;
+      transform-origin: bottom left;
     }
 
-    .score-particle.plus {
-      color: var(--toxic-green);
-      text-shadow: 0 0 10px var(--toxic-glow);
+    .letter-cell.is-central .cell-char {
+      color: var(--ink-crimson);
+      font-weight: 700;
+      text-shadow: 0 0 1px rgba(158, 27, 36, 0.35);
     }
 
-    .score-particle.minus {
-      color: var(--blood-red);
-      text-shadow: 0 0 10px var(--blood-glow);
+    .acrostic-row.solved-row .letter-cell:not(.is-central) {
+      background: rgba(46, 204, 113, 0.16);
+      border-bottom-color: var(--ink-emerald);
     }
 
-    @keyframes floatUpFade {
-      0% { transform: translateY(0) scale(0.8); opacity: 1; }
-      100% { transform: translateY(-38px) scale(1.2); opacity: 0; }
+    .acrostic-row.solved-row .letter-cell:not(.is-central) .cell-char {
+      color: var(--ink-emerald);
     }
 
-    /* Whack Splash Effect */
-    .whack-effect {
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      font-size: 2.2rem;
+    .acrostic-row.wrong-shake {
+      animation: rowShake 0.38s ease;
+    }
+
+    @keyframes rowShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    /* Handwritten Ink Stroke Reveal Animation */
+    .cell-char.writing-now {
+      animation: inkStrokeIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes inkStrokeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-14deg) translateY(6px);
+        filter: blur(1.5px);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.15) rotate(3deg) translateY(-1px);
+        filter: blur(0px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg) translateY(0);
+      }
+    }
+
+    /* ==========================================================================
+       ANIMATED FEATHER QUILL PEN (#quillPen)
+       ========================================================================== */
+    .quill-pen {
+      position: fixed;
+      width: 68px;
+      height: 68px;
       pointer-events: none;
-      z-index: 25;
-      animation: popSplash 0.3s forwards ease-out;
+      z-index: 80;
+      /* Nib of the SVG is at bottom-left (approx 6px, 62px) */
+      transform-origin: 6px 62px;
+      transition: left 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                  top 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.2s ease,
+                  opacity 0.25s ease;
+      filter: drop-shadow(3px 6px 8px rgba(0, 0, 0, 0.55));
+      opacity: 0;
     }
 
-    @keyframes popSplash {
-      0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
-      70% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+    .quill-pen.visible {
+      opacity: 1;
     }
 
-    /* Start / Action Button */
-    .start-btn-box {
-      width: 100%;
+    .quill-pen.scribbling {
+      animation: quillScribble 0.32s ease-in-out;
+    }
+
+    @keyframes quillScribble {
+      0%   { transform: translate(0, 0) rotate(0deg); }
+      25%  { transform: translate(4px, -4px) rotate(-14deg); }
+      50%  { transform: translate(-3px, 2px) rotate(10deg); }
+      75%  { transform: translate(5px, -2px) rotate(-8deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* Tiny Ink Droplet Sparkle when Quill Writes */
+    .ink-droplet {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ink-blue);
+      box-shadow: 0 0 6px var(--wish-gold);
+      pointer-events: none;
+      z-index: 79;
+      animation: dropletPop 0.45s ease-out forwards;
+    }
+
+    @keyframes dropletPop {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+      100% { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+    }
+
+    /* Letter Footer: Signature, Inkwell Hint Button & Wax Seal */
+    .letter-footer {
       display: flex;
-      justify-content: center;
-      margin-top: 6px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-top: 1.5px dashed rgba(139, 94, 45, 0.4);
+      padding-top: 8px;
+      margin-top: 2px;
     }
 
-    .btn-spooky-action {
-      background: linear-gradient(180deg, var(--pumpkin-orange) 0%, #b84d07 100%);
-      border: none;
-      color: #000;
+    .letter-signoff {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.45rem, 3.5vw, 1.9rem);
+      color: var(--ink-crimson);
+    }
+
+    .inkwell-btn {
+      background: linear-gradient(180deg, #2b1d12 0%, #170e08 100%);
+      border: 2px solid #c89d54;
+      color: var(--wish-gold);
       font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
-      font-weight: 900;
-      padding: 12px 28px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 7px 14px;
       border-radius: 10px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 18px var(--pumpkin-glow);
+      gap: 7px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       transition: all 0.2s;
     }
 
-    .btn-spooky-action:hover {
-      filter: brightness(1.15);
+    .inkwell-btn:hover:not(:disabled) {
       transform: translateY(-2px);
+      box-shadow: 0 0 14px var(--gold-glow);
+      border-color: #fff;
+    }
+
+    .inkwell-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
     }
 
     /* ==========================================================================
-       MODALS: VICTORY & DEFEAT
+       ON-SCREEN CALLIGRAPHY KEYBOARD (FOR MOBILE & MOUSE)
        ========================================================================== */
+    .keyboard-panel {
+      width: 100%;
+      max-width: 760px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .kb-row {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .kb-key {
+      flex: 1;
+      max-width: 56px;
+      height: 38px;
+      background: linear-gradient(180deg, #f9eed8 0%, #e4cfa7 100%);
+      border: 1.5px solid #9c7a4c;
+      border-bottom-width: 3px;
+      border-radius: 7px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.1s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.35);
+    }
+
+    .kb-key:hover {
+      background: #fff9ec;
+      transform: translateY(-1px);
+    }
+
+    .kb-key:active {
+      transform: translateY(1px);
+      border-bottom-width: 1.5px;
+    }
+
+    .kb-key.wide {
+      max-width: 92px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--ink-crimson);
+    }
+
+    /* Wax Seal Stamp Animation Overlay on Letter Completion */
+    .wax-seal-stamp {
+      position: absolute;
+      bottom: 18px;
+      right: 26px;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #e63946 0%, #a8121e 65%, #690810 100%);
+      border: 4px double #ffd166;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6), inset 0 0 12px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffd166;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      transform: scale(2.8) rotate(-18deg);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 30;
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.35), opacity 0.2s ease;
+    }
+
+    .wax-seal-stamp.stamped {
+      transform: scale(1) rotate(-8deg);
+      opacity: 1;
+    }
+
+    /* Modals */
     .modal-backdrop {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(4, 8, 6, 0.88);
+      inset: 0;
+      background: rgba(4, 10, 18, 0.88);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       z-index: 100;
       display: flex;
       align-items: center;
@@ -518,16 +732,16 @@
     }
 
     .modal-box {
-      background: linear-gradient(180deg, #15241b 0%, #0a130e 100%);
-      border: 2px solid var(--stone-border);
-      border-radius: 16px;
+      background: linear-gradient(180deg, #153342 0%, #091820 100%);
+      border: 2px solid var(--wish-gold);
+      border-radius: 18px;
       width: 100%;
       max-width: 500px;
       padding: 26px 20px;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95), 0 0 25px var(--gold-glow);
       transform: scale(0.92);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-align: center;
@@ -538,30 +752,21 @@
     }
 
     .modal-title {
-      font-family: 'Creepster', cursive;
-      font-size: clamp(2.2rem, 6vw, 2.8rem);
-      letter-spacing: 2px;
+      font-family: 'Mountains of Christmas', cursive;
+      font-size: clamp(2.2rem, 6vw, 2.9rem);
+      color: var(--wish-gold);
+      text-shadow: 0 0 16px var(--gold-glow);
       line-height: 1.1;
     }
 
-    .modal-title.victory {
-      color: var(--toxic-green);
-      text-shadow: 0 0 16px var(--toxic-glow);
-    }
-
-    .modal-title.defeat {
-      color: var(--blood-red);
-      text-shadow: 0 0 16px var(--blood-glow);
-    }
-
     .word-box-outer {
-      background: rgba(8, 14, 10, 0.75);
-      border: 2px dashed var(--toxic-green);
+      background: rgba(6, 18, 25, 0.82);
+      border: 2px dashed var(--holly-green);
       border-radius: 12px;
       padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
     }
 
@@ -575,11 +780,11 @@
 
     .secret-word-display {
       font-family: 'Cinzel', serif;
-      font-size: 1.8rem;
+      font-size: 1.75rem;
       font-weight: 900;
       letter-spacing: 4px;
-      color: var(--toxic-green);
-      text-shadow: 0 0 12px var(--toxic-glow);
+      color: var(--wish-gold);
+      text-shadow: 0 0 12px var(--gold-glow);
     }
 
     .discord-btn-box {
@@ -618,9 +823,9 @@
     }
 
     .btn-krypt-return {
-      background: rgba(20, 32, 24, 0.8);
-      border: 1px solid var(--stone-border);
-      color: var(--parchment);
+      background: rgba(12, 32, 44, 0.85);
+      border: 1px solid rgba(255, 209, 102, 0.35);
+      color: var(--snow-ivory);
       font-family: 'Cinzel', serif;
       font-size: 0.9rem;
       font-weight: 800;
@@ -635,20 +840,19 @@
     }
 
     .btn-krypt-return:hover {
-      border-color: var(--pumpkin-orange);
-      color: var(--pumpkin-orange);
+      border-color: var(--wish-gold);
+      color: var(--wish-gold);
     }
 
-    /* Toast */
     .spooky-toast {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(80px);
-      background: rgba(14, 26, 18, 0.95);
-      border: 1px solid var(--toxic-green);
-      box-shadow: 0 4px 20px var(--toxic-glow);
-      color: var(--parchment);
+      background: rgba(9, 28, 38, 0.96);
+      border: 1px solid var(--wish-gold);
+      box-shadow: 0 4px 20px var(--gold-glow);
+      color: var(--snow-ivory);
       padding: 10px 22px;
       border-radius: 30px;
       font-size: 0.85rem;
@@ -667,630 +871,936 @@
 </head>
 <body>
 
-  <div class="mist-ambient"></div>
-  <div class="vignette-overlay" id="vignette"></div>
+  <div class="vignette-overlay"></div>
+
+  <!-- Animated Feather Quill SVG (Follows current letter cell & scribbles on input!) -->
+  <div class="quill-pen" id="quillPen" aria-hidden="true">
+    <svg viewBox="0 0 80 80" width="100%" height="100%">
+      <!-- Feather Plume (Crimson & Gold) -->
+      <path d="M18,56 C22,32 42,12 74,4 C68,24 54,44 26,58 Z" fill="url(#featherGrad)" stroke="#ffd166" stroke-width="1.5"/>
+      <!-- Feather Barbs Notches -->
+      <path d="M46,16 L38,24 M56,22 L44,30 M42,36 L30,42" stroke="#ffd166" stroke-width="1.2" opacity="0.7"/>
+      <!-- Quill Spine (Rachis) -->
+      <path d="M10,68 Q34,38 72,6" fill="none" stroke="#fff5d6" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Calligraphy Metallic Nib -->
+      <polygon points="4,76 12,62 18,68" fill="#d4a338" stroke="#4a2e12" stroke-width="1.2"/>
+      <!-- Ink Tip -->
+      <circle cx="5" cy="75" r="2.2" fill="#192a48"/>
+      <defs>
+        <linearGradient id="featherGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffd166"/>
+          <stop offset="45%" stop-color="#e63946"/>
+          <stop offset="100%" stop-color="#7d111a"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
 
   <div class="game-shell">
     <!-- Header -->
     <header>
       <div class="nav-bar">
-        <a href="../../index.html" class="btn-nav" title="Regresar al cementerio">
-          🏛️ Volver a la Krypta
+        <a href="../../index.html" class="btn-nav" title="Volver al Calendario de Adviento">
+          🎄 Volver a los Deseos
         </a>
-        <button class="btn-nav" id="soundToggleBtn">
-          🔊 Audio
-        </button>
+        <div style="display:flex; gap:6px;">
+          <button class="btn-nav" id="bgmToggleBtn" title="Música de fondo (audio/bgm_day02.mp3)">
+            🎵 Música OFF
+          </button>
+          <button class="btn-nav" id="soundToggleBtn" title="Efectos de sonido">
+            🔊 SFX ON
+          </button>
+        </div>
       </div>
-      <span class="day-subtitle">DÍA 02 • LA KRYPTA</span>
-      <h1 class="title-banner">CRIPTA DE LAS BESTIAS</h1>
+      <span class="day-subtitle">DESEO 02 • 2 DE DICIEMBRE</span>
+      <h1 class="title-banner">CARTAS A SANTA CLAUS</h1>
     </header>
 
     <!-- HUD Bar -->
     <div class="hud-bar">
-      <!-- Score & Target -->
       <div class="hud-stat">
-        <span class="hud-label">Puntaje / Meta</span>
-        <span class="hud-val" id="scoreDisplay">0 / 1200</span>
-        <div class="goal-track">
-          <div class="goal-fill" id="goalFill"></div>
+        <span class="hud-label">Renglones Escritos</span>
+        <span class="hud-val" id="solvedDisplay">0 / 10</span>
+      </div>
+
+      <!-- Central Acrostic Word Tracker -->
+      <div class="hud-stat hud-center-col" style="align-items: center;">
+        <span class="hud-label">Acróstico Central Vertical</span>
+        <div class="central-word-tracker" id="centralTracker">
+          <!-- Populated dynamically: S A N T A C L A U S -->
         </div>
       </div>
 
-      <!-- Time remaining -->
-      <div class="hud-stat center">
-        <span class="hud-label">Tiempo</span>
-        <span class="hud-val time" id="timeDisplay">⏳ 45s</span>
-      </div>
-
-      <!-- Souls / Lives -->
-      <div class="hud-stat right">
-        <span class="hud-label">Vidas</span>
-        <div class="souls-row">
-          <span class="soul-icon" id="soul-1">☠</span>
-          <span class="soul-icon" id="soul-2">☠</span>
-          <span class="soul-icon" id="soul-3">☠</span>
-        </div>
+      <div class="hud-stat" style="align-items: flex-end;">
+        <span class="hud-label">Tintero de Pistas</span>
+        <span class="hud-val" id="hintsHudDisplay">🖋️ 5 gotas</span>
       </div>
     </div>
 
-    <!-- Instructions / Status Banner -->
-    <div class="status-banner" id="statusBanner">
-      Golpea a las bestias que emergen de las fosas. <strong>¡CUIDADO! No golpees las Calabazas Sagradas 🎃.</strong>
-    </div>
+    <!-- Wooden Desk & Blank Parchment Letter -->
+    <div class="desk-workspace">
+      <span class="desk-corner-deco tl">🌿🍒</span>
+      <span class="desk-corner-deco tr">🕯️✨</span>
 
-    <!-- 3x2 Sarcophagi Grid -->
-    <div class="crypt-chamber" id="cryptChamber">
-      <!-- 6 Coffins generated below -->
-      <!-- Coffin 0 [Q] -->
-      <div class="coffin-unit" id="coffin-0" data-index="0">
-        <span class="coffin-key-badge">[Q]</span>
-        <div class="coffin-pit">
-          <div class="monster-entity" id="monster-0">
-            <span class="monster-avatar">🦇</span>
-            <span class="monster-name-tag">Bestia</span>
+      <div class="letter-paper" id="letterPaper">
+        <!-- Letter Header -->
+        <div class="letter-header">
+          <div>
+            <h2 class="letter-salutation">Querido Santa Claus,</h2>
+            <p class="letter-intro-handwriting">
+              En este segundo día de diciembre te escribo a mano estas diez palabras de la temporada para formar tu nombre en el corazón de mi carta:
+            </p>
           </div>
+          <div class="north-pole-stamp" title="Correo Expreso del Polo Norte">
+            <div class="north-pole-stamp-inner">
+              <span style="font-size: 1.25rem;">🦌</span>
+              <span>CORREO</span>
+              <span>POLAR</span>
+              <span>2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Row Clue Banner -->
+        <div class="active-clue-bar" id="activeClueBar">
+          <div class="clue-text-handwritten" id="activeClueText">
+            🌟 Renglón 1: Lo que pedimos de corazón al mirar una estrella fugaz y escribimos en esta carta.
+          </div>
+        </div>
+
+        <!-- 10-Row Acrostic Grid -->
+        <div class="acrostic-board" id="acrosticBoard">
+          <!-- Generated dynamically by JS -->
+        </div>
+
+        <!-- Letter Footer -->
+        <div class="letter-footer">
+          <div class="letter-signoff">Con ilusión navideña, Tu Amigo Secreto 🎄</div>
+          <button class="inkwell-btn" id="hintInkBtn" title="Mojar la pluma en el tintero mágico para escribir una letra correcta">
+            🖋️ Mojar en Tintero (<span id="hintsBtnCount">5</span>)
+          </button>
+        </div>
+
+        <!-- Red Wax Seal (Stamped when all 10 words are completed!) -->
+        <div class="wax-seal-stamp" id="waxSealStamp">
+          <span style="font-size: 1.4rem;">🎅</span>
+          <span>POLO NORTE</span>
+          <span>SELLADO</span>
         </div>
       </div>
 
-      <!-- Coffin 1 [W] -->
-      <div class="coffin-unit" id="coffin-1" data-index="1">
-        <span class="coffin-key-badge">[W]</span>
-        <div class="coffin-pit">
-          <div class="monster-entity" id="monster-1">
-            <span class="monster-avatar">🧟</span>
-            <span class="monster-name-tag">Bestia</span>
-          </div>
+      <!-- On-Screen Handwritten Keyboard -->
+      <div class="keyboard-panel" id="keyboardPanel">
+        <div class="kb-row">
+          <button class="kb-key" data-key="Q">q</button>
+          <button class="kb-key" data-key="W">w</button>
+          <button class="kb-key" data-key="E">e</button>
+          <button class="kb-key" data-key="R">r</button>
+          <button class="kb-key" data-key="T">t</button>
+          <button class="kb-key" data-key="Y">y</button>
+          <button class="kb-key" data-key="U">u</button>
+          <button class="kb-key" data-key="I">i</button>
+          <button class="kb-key" data-key="O">o</button>
+          <button class="kb-key" data-key="P">p</button>
+        </div>
+        <div class="kb-row">
+          <button class="kb-key" data-key="A">a</button>
+          <button class="kb-key" data-key="S">s</button>
+          <button class="kb-key" data-key="D">d</button>
+          <button class="kb-key" data-key="F">f</button>
+          <button class="kb-key" data-key="G">g</button>
+          <button class="kb-key" data-key="H">h</button>
+          <button class="kb-key" data-key="J">j</button>
+          <button class="kb-key" data-key="K">k</button>
+          <button class="kb-key" data-key="L">l</button>
+          <button class="kb-key" data-key="Ñ">ñ</button>
+        </div>
+        <div class="kb-row">
+          <button class="kb-key wide" data-key="PREV">▲ Renglón</button>
+          <button class="kb-key" data-key="Z">z</button>
+          <button class="kb-key" data-key="X">x</button>
+          <button class="kb-key" data-key="C">c</button>
+          <button class="kb-key" data-key="V">v</button>
+          <button class="kb-key" data-key="B">b</button>
+          <button class="kb-key" data-key="N">n</button>
+          <button class="kb-key" data-key="M">m</button>
+          <button class="kb-key wide" data-key="BACKSPACE">⌫ Borrar</button>
         </div>
       </div>
-
-      <!-- Coffin 2 [E] -->
-      <div class="coffin-unit" id="coffin-2" data-index="2">
-        <span class="coffin-key-badge">[E]</span>
-        <div class="coffin-pit">
-          <div class="monster-entity" id="monster-2">
-            <span class="monster-avatar">😈</span>
-            <span class="monster-name-tag">Bestia</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Coffin 3 [A] -->
-      <div class="coffin-unit" id="coffin-3" data-index="3">
-        <span class="coffin-key-badge">[A]</span>
-        <div class="coffin-pit">
-          <div class="monster-entity" id="monster-3">
-            <span class="monster-avatar">🦇</span>
-            <span class="monster-name-tag">Bestia</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Coffin 4 [S] -->
-      <div class="coffin-unit" id="coffin-4" data-index="4">
-        <span class="coffin-key-badge">[S]</span>
-        <div class="coffin-pit">
-          <div class="monster-entity" id="monster-4">
-            <span class="monster-avatar">🎃</span>
-            <span class="monster-name-tag">Sagrada</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Coffin 5 [D] -->
-      <div class="coffin-unit" id="coffin-5" data-index="5">
-        <span class="coffin-key-badge">[D]</span>
-        <div class="coffin-pit">
-          <div class="monster-entity" id="monster-5">
-            <span class="monster-avatar">🧟</span>
-            <span class="monster-name-tag">Bestia</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Start Button -->
-    <div class="start-btn-box">
-      <button class="btn-spooky-action" id="startBtn">
-        ⚔️ Entrar a la Fosa de Bestias
-      </button>
     </div>
   </div>
 
   <!-- VICTORY MODAL -->
   <div class="modal-backdrop" id="victoryModal">
     <div class="modal-box">
-      <h2 class="modal-title victory">¡BESTIAS DOMINADAS!</h2>
-      <p style="font-size:0.9rem; color:var(--parchment); line-height: 1.4;">
-        Has limpiado los ataúdes de la cripta y alcanzado los 1200 puntos antes de expirar el tiempo.
+      <div style="font-size: 3rem;">✉️🕯️🦌</div>
+      <h2 class="modal-title">¡CARTA LACRADA Y ENVIADA!</h2>
+      <p style="font-size:0.9rem; color:var(--snow-ivory); line-height: 1.45;">
+        Has completado el acróstico de <strong>SANTA CLAUS</strong> con tu pluma caligráfica y sellado la carta con lacre real rumbo al Polo Norte.
       </p>
 
       <div class="word-box-outer">
-        <span class="word-box-label">Palabra Clave Secreta del Día 02:</span>
-        <div class="secret-word-display" id="secretWordDisplay">BESTIA-DE-AZUFRE</div>
+        <span class="word-box-label">Palabra Clave Secreta del Deseo 02:</span>
+        <div class="secret-word-display" id="secretWordDisplay">LACRE-DORADO</div>
         <p style="font-size:0.75rem; color:var(--text-muted);">
-          Envía este código en Discord para registrar tu victoria del día.
+          Envía este código en Discord para registrar tu deseo cumplido del Día 02.
         </p>
       </div>
 
       <div class="discord-btn-box">
-        <!-- COPIAR PARA DISCORD CON SPOILERS "||" -->
         <button class="btn-discord-copy" id="copyDiscordBtn" onclick="copyDiscordMessage()">
           📋 Copiar para Discord
         </button>
         <a href="../../index.html" class="btn-krypt-return">
-          🏛️ Volver a la Krypta
+          🎄 Volver al Calendario
         </a>
       </div>
     </div>
   </div>
 
-  <!-- DEFEAT MODAL -->
-  <div class="modal-backdrop" id="defeatModal">
-    <div class="modal-box">
-      <h2 class="modal-title defeat">DEVORADO POR LAS BESTIAS</h2>
-      <p id="defeatReasonText" style="font-size:0.9rem; color:var(--parchment); line-height: 1.4;">
-        El tiempo se ha agotado o tus almas sucumbieron ante la furia de las criaturas.
-      </p>
-      <div style="font-size: 2.2rem; margin: 4px 0;">⚰️</div>
-      <button class="btn-spooky-action" style="width:100%; justify-content:center;" onclick="restartGame()">
-        🔄 Intentar la Cacería de Nuevo
-      </button>
-      <a href="../../index.html" class="btn-krypt-return" style="margin-top:4px;">
-        🏛️ Volver a la Krypta
-      </a>
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div class="spooky-toast" id="toast">Copiado al portapapeles</div>
+  <!-- Toast -->
+  <div class="spooky-toast" id="toast">Palabra escrita en la carta</div>
 
   <script>
     /* ==========================================================================
-       SYNTHESIZER SOUND ENGINE (WEB AUDIO API)
+       HYBRID AUDIO ENGINE: PLACEHOLDER MP3 FILES + WEB AUDIO API SYNTH FALLBACK
        ========================================================================== */
-    class CryptWhackAudio {
+    class Day02AudioEngine {
       constructor() {
+        this.sfxEnabled = true;
+        this.bgmEnabled = false;
         this.ctx = null;
-        this.enabled = true;
+        this.bgmTimer = null;
+
+        this.files = {
+          bgm: new Audio('audio/bgm_day02.mp3'),
+          start_game: new Audio('audio/start_game.mp3'),
+          write_letter: new Audio('audio/write_letter.mp3'),
+          erase_letter: new Audio('audio/erase_letter.mp3'),
+          select_row: new Audio('audio/select_row.mp3'),
+          word_complete: new Audio('audio/word_complete.mp3'),
+          wrong_word: new Audio('audio/wrong_word.mp3'),
+          use_hint: new Audio('audio/use_hint.mp3'),
+          stamp_seal: new Audio('audio/stamp_seal.mp3'),
+          victory: new Audio('audio/victory.mp3')
+        };
+        this.files.bgm.loop = true;
       }
 
       init() {
         if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) {
-            this.ctx = new AudioContext();
-          }
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
         }
         if (this.ctx && this.ctx.state === 'suspended') {
           this.ctx.resume();
         }
       }
 
-      playPop() {
-        if (!this.enabled) return;
+      playCue(name, synthFallbackFn) {
+        if (!this.sfxEnabled) return;
         this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(180, now);
-        osc.frequency.exponentialRampToValueAtTime(360, now + 0.08);
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.08);
+        const media = this.files[name];
+        if (!media || media.error) {
+          if (synthFallbackFn) synthFallbackFn();
+          return;
+        }
+        try {
+          media.currentTime = 0;
+          const p = media.play();
+          if (p !== undefined) {
+            p.catch(() => {
+              if (synthFallbackFn) synthFallbackFn();
+            });
+          }
+        } catch (e) {
+          if (synthFallbackFn) synthFallbackFn();
+        }
       }
 
-      playHitMonster() {
-        if (!this.enabled) return;
+      toggleBgm() {
+        this.bgmEnabled = !this.bgmEnabled;
         this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        // Heavy impact thud
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(140, now);
-        osc.frequency.exponentialRampToValueAtTime(45, now + 0.12);
-        gain.gain.setValueAtTime(0.3, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.12);
+        if (this.bgmEnabled) {
+          if (this.files.bgm.error) {
+            this.startSynthBgm();
+          } else {
+            const p = this.files.bgm.play();
+            if (p !== undefined) {
+              p.catch(() => this.startSynthBgm());
+            }
+          }
+        } else {
+          this.files.bgm.pause();
+          this.stopSynthBgm();
+        }
+        return this.bgmEnabled;
       }
 
-      playHitPumpkinTrap() {
-        if (!this.enabled) return;
-        this.init();
+      startSynthBgm() {
+        this.stopSynthBgm();
         if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        // Harsh buzzer / glass crunch
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(90, now);
-        osc.frequency.linearRampToValueAtTime(50, now + 0.3);
-        gain.gain.setValueAtTime(0.4, now);
-        gain.gain.linearRampToValueAtTime(0.001, now + 0.3);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.3);
-      }
-
-      playVictory() {
-        if (!this.enabled) return;
-        this.init();
-        if (!this.ctx) return;
-        const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
-        notes.forEach((freq, i) => {
-          const now = this.ctx.currentTime + (i * 0.12);
+        // Warm music-box Christmas waltz arpeggio
+        const notes = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 880.00, 698.46];
+        let stepIdx = 0;
+        const step = () => {
+          if (!this.bgmEnabled || !this.ctx) return;
+          const now = this.ctx.currentTime;
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, now);
-          gain.gain.setValueAtTime(0.2, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+          osc.frequency.setValueAtTime(notes[stepIdx % notes.length], now);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.55);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start(now);
-          osc.stop(now + 0.6);
+          osc.stop(now + 0.55);
+          stepIdx++;
+        };
+        step();
+        this.bgmTimer = setInterval(step, 620);
+      }
+
+      stopSynthBgm() {
+        if (this.bgmTimer) {
+          clearInterval(this.bgmTimer);
+          this.bgmTimer = null;
+        }
+      }
+
+      // Authentic Quill-on-Parchment scratch sound via filtered noise + soft nib click
+      playWriteLetter() {
+        this.playCue('write_letter', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+
+          // Short noise burst filtered around 1800Hz to mimic fountain nib on textured paper
+          const bufferSize = this.ctx.sampleRate * 0.085;
+          const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() * 2 - 1) * Math.sin((i / bufferSize) * Math.PI);
+          }
+
+          const noise = this.ctx.createBufferSource();
+          noise.buffer = buffer;
+
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(1600 + Math.random() * 500, now);
+          filter.Q.setValueAtTime(3.2, now);
+
+          const gain = this.ctx.createGain();
+          gain.gain.setValueAtTime(0.22, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.085);
+
+          noise.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.ctx.destination);
+          noise.start(now);
         });
       }
 
-      playDefeat() {
-        if (!this.enabled) return;
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(110, now);
-        osc.frequency.exponentialRampToValueAtTime(30, now + 1.1);
-        gain.gain.setValueAtTime(0.35, now);
-        gain.gain.linearRampToValueAtTime(0.001, now + 1.1);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 1.1);
+      playEraseLetter() {
+        this.playCue('erase_letter', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(240, now);
+          osc.frequency.exponentialRampToValueAtTime(130, now + 0.08);
+          g.gain.setValueAtTime(0.12, now);
+          g.gain.linearRampToValueAtTime(0.001, now + 0.08);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        });
+      }
+
+      playSelectRow() {
+        this.playCue('select_row', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(420, now);
+          osc.frequency.exponentialRampToValueAtTime(520, now + 0.05);
+          g.gain.setValueAtTime(0.06, now);
+          g.gain.linearRampToValueAtTime(0.001, now + 0.05);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        });
+      }
+
+      playWordComplete() {
+        this.playCue('word_complete', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + i * 0.06);
+            g.gain.setValueAtTime(0.16, now + i * 0.06);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.06 + 0.28);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now + i * 0.06);
+            osc.stop(now + i * 0.06 + 0.28);
+          });
+        });
+      }
+
+      playWrongWord() {
+        this.playCue('wrong_word', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(165, now);
+          osc.frequency.linearRampToValueAtTime(115, now + 0.22);
+          g.gain.setValueAtTime(0.16, now);
+          g.gain.linearRampToValueAtTime(0.001, now + 0.22);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.22);
+        });
+      }
+
+      playUseHint() {
+        this.playCue('use_hint', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [587.33, 880, 1174.66].forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + i * 0.05);
+            g.gain.setValueAtTime(0.14, now + i * 0.05);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.05 + 0.22);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now + i * 0.05);
+            osc.stop(now + i * 0.05 + 0.22);
+          });
+        });
+      }
+
+      playStampSeal() {
+        this.playCue('stamp_seal', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(130, now);
+          osc.frequency.exponentialRampToValueAtTime(42, now + 0.25);
+          g.gain.setValueAtTime(0.35, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        });
+      }
+
+      playVictory() {
+        this.playCue('victory', () => {
+          if (!this.ctx) return;
+          const notes = [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5];
+          notes.forEach((f, i) => {
+            const now = this.ctx.currentTime + i * 0.12;
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now);
+            g.gain.setValueAtTime(0.22, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.5);
+          });
+        });
       }
     }
 
-    const sound = new CryptWhackAudio();
+    const sound = new Day02AudioEngine();
 
     /* ==========================================================================
-       GAME ENGINE & STATE
+       SEASONAL ACROSTIC DATA (CENTRAL VERTICAL WORD: "S A N T A C L A U S")
        ========================================================================== */
-    const TARGET_SCORE = 1200;
-    const TIME_LIMIT = 45;       // 45 seconds
-    const MAX_LIVES = 3;
-    const SECRET_WORD = "BESTIA-DE-AZUFRE";
+    const CENTRAL_COLUMN_INDEX = 4; // 0-based column index (Column 5 of 11) where the vertical word aligns
+    const TOTAL_GRID_COLS = 11;     // 4 left + 1 central + 6 right
+    const SECRET_WORD = "LACRE-DORADO";
 
-    let currentScore = 0;
-    let timeRemaining = TIME_LIMIT;
-    let livesRemaining = MAX_LIVES;
-    let isGameRunning = false;
-    let gameTimerInterval = null;
-    let monsterSpawnTimeout = null;
-
-    // Entity types pool
-    const ENTITY_TYPES = [
-      { type: 'bat', avatar: '🦇', name: 'Murciélago', points: 100, isTrap: false, duration: 1150 },
-      { type: 'zombie', avatar: '🧟', name: 'Zombi', points: 150, isTrap: false, duration: 1050 },
-      { type: 'gargoyle', avatar: '😈', name: 'Gárgola', points: 200, isTrap: false, duration: 900 },
-      { type: 'pumpkin', avatar: '🎃', name: '¡Sagrada!', points: -250, isTrap: true, duration: 1200 }
+    const ACROSTIC_WORDS = [
+      {
+        row: 0,
+        word: "DESEOS",
+        pivot: 2, // D E [S] E O S -> 'S'
+        centralChar: "S",
+        clue: "🌟 Renglón 1: Lo que pedimos de corazón al mirar una estrella fugaz y escribimos en esta carta."
+      },
+      {
+        row: 1,
+        word: "CAMPANAS",
+        pivot: 1, // C [A] M P A N A S -> 'A'
+        centralChar: "A",
+        clue: "🔔 Renglón 2: Suenan alegres con su din-don anunciando la llegada de la Nochebuena."
+      },
+      {
+        row: 2,
+        word: "RENOS",
+        pivot: 2, // R E [N] O S -> 'N'
+        centralChar: "N",
+        clue: "🦌 Renglón 3: Tiran del trineo mágico por el cielo estrellado guiados por Rodolfo."
+      },
+      {
+        row: 3,
+        word: "ESTRELLA",
+        pivot: 2, // E S [T] R E L L A -> 'T'
+        centralChar: "T",
+        clue: "✨ Renglón 4: Se coloca en la punta más alta del arbolito para iluminar todo el salón."
+      },
+      {
+        row: 4,
+        word: "GALLETAS",
+        pivot: 1, // G [A] L L E T A S -> 'A'
+        centralChar: "A",
+        clue: "🍪 Renglón 5: Delicias horneadas con jengibre y canela que dejamos junto a un vaso de leche."
+      },
+      {
+        row: 5,
+        word: "LUCES",
+        pivot: 2, // L U [C] E S -> 'C'
+        centralChar: "C",
+        clue: "💡 Renglón 6: Guirnalda de pequeñas lamparitas de colores que parpadean en las ramas del pino."
+      },
+      {
+        row: 6,
+        word: "REGALOS",
+        pivot: 4, // R E G A [L] O S -> 'L'
+        centralChar: "L",
+        clue: "🎁 Renglón 7: Paquetes envueltos con papel brillante y moño que esperan bajo el árbol."
+      },
+      {
+        row: 7,
+        word: "NEVADA",
+        pivot: 3, // N E V [A] D A -> 'A'
+        centralChar: "A",
+        clue: "❄️ Renglón 8: Caída suave de blancos copos de hielo que cubre los tejados en el Polo Norte."
+      },
+      {
+        row: 8,
+        word: "DUENDES",
+        pivot: 1, // D [U] E N D E S -> 'U'
+        centralChar: "U",
+        clue: "🧝 Renglón 9: Pequeños ayudantes de orejas puntiagudas que fabrican juguetes en el taller."
+      },
+      {
+        row: 9,
+        word: "BASTON",
+        pivot: 2, // B A [S] T O N -> 'S'
+        centralChar: "S",
+        clue: "🍬 Renglón 10: Caramelo tradicional de menta con rayas blancas y rojas en forma de gancho."
+      }
     ];
 
-    // State of the 6 coffins
-    const coffinsState = [
-      { active: false, entity: null, timer: null },
-      { active: false, entity: null, timer: null },
-      { active: false, entity: null, timer: null },
-      { active: false, entity: null, timer: null },
-      { active: false, entity: null, timer: null },
-      { active: false, entity: null, timer: null }
-    ];
+    /* ==========================================================================
+       STATE & BOARD INITIALIZATION
+       ========================================================================== */
+    let userLetters = ACROSTIC_WORDS.map(item => Array(item.word.length).fill(""));
+    let rowSolved = Array(ACROSTIC_WORDS.length).fill(false);
+    let activeRow = 0;
+    let activeColInWord = 0;
+    let hintsRemaining = 5;
+    let isGameCompleted = false;
 
     // DOM Elements
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    const goalFill = document.getElementById('goalFill');
-    const timeDisplay = document.getElementById('timeDisplay');
-    const statusBanner = document.getElementById('statusBanner');
-    const startBtn = document.getElementById('startBtn');
-    const vignette = document.getElementById('vignette');
+    const acrosticBoard = document.getElementById('acrosticBoard');
+    const centralTracker = document.getElementById('centralTracker');
+    const activeClueText = document.getElementById('activeClueText');
+    const solvedDisplay = document.getElementById('solvedDisplay');
+    const hintsHudDisplay = document.getElementById('hintsHudDisplay');
+    const hintInkBtn = document.getElementById('hintInkBtn');
+    const hintsBtnCount = document.getElementById('hintsBtnCount');
+    const quillPen = document.getElementById('quillPen');
+    const waxSealStamp = document.getElementById('waxSealStamp');
     const victoryModal = document.getElementById('victoryModal');
-    const defeatModal = document.getElementById('defeatModal');
-    const defeatReasonText = document.getElementById('defeatReasonText');
-    const soundToggleBtn = document.getElementById('soundToggleBtn');
     const copyDiscordBtn = document.getElementById('copyDiscordBtn');
+    const bgmToggleBtn = document.getElementById('bgmToggleBtn');
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
 
-    /* Start / Restart Game */
-    startBtn.addEventListener('click', () => {
-      sound.init();
-      startGame();
-    });
-
-    function startGame() {
-      currentScore = 0;
-      timeRemaining = TIME_LIMIT;
-      livesRemaining = MAX_LIVES;
-      isGameRunning = true;
-      startBtn.style.display = 'none';
-
-      updateScoreUI();
-      updateLivesUI();
-      updateTimeUI();
-
-      victoryModal.classList.remove('active');
-      defeatModal.classList.remove('active');
-      vignette.classList.remove('danger');
-
-      statusBanner.innerHTML = '¡Golpea a las bestias! <strong>+100/+150/+200 pts</strong>. Evita las calabazas <strong>🎃 (-250 pts y vida)</strong>.';
-
-      // Start countdown
-      clearInterval(gameTimerInterval);
-      gameTimerInterval = setInterval(gameTick, 1000);
-
-      // Start spawning loop
-      clearTimeout(monsterSpawnTimeout);
-      spawnNextMonster();
+    function initGame() {
+      renderCentralTracker();
+      renderAcrosticGrid();
+      focusCell(0, 0, false);
     }
 
-    function restartGame() {
-      victoryModal.classList.remove('active');
-      defeatModal.classList.remove('active');
-      startGame();
+    function renderCentralTracker() {
+      centralTracker.innerHTML = '';
+      ACROSTIC_WORDS.forEach((item, idx) => {
+        const pill = document.createElement('div');
+        pill.className = `tracker-char ${rowSolved[idx] ? 'revealed' : ''}`;
+        pill.id = `tracker-char-${idx}`;
+        const currentCentralVal = userLetters[idx][item.pivot];
+        pill.textContent = rowSolved[idx] ? item.centralChar : (currentCentralVal || '•');
+        centralTracker.appendChild(pill);
+      });
     }
 
-    function gameTick() {
-      if (!isGameRunning) return;
-      timeRemaining--;
-      updateTimeUI();
+    function renderAcrosticGrid() {
+      acrosticBoard.innerHTML = '';
 
-      if (timeRemaining <= 0) {
-        endGame(false, "¡Se agotó el tiempo! No alcanzaste los 1200 puntos necesarios para purificar la cripta.");
-      }
-    }
+      ACROSTIC_WORDS.forEach((item, rIdx) => {
+        const rowEl = document.createElement('div');
+        rowEl.className = `acrostic-row ${rIdx === activeRow ? 'active-row' : ''} ${rowSolved[rIdx] ? 'solved-row' : ''}`;
+        rowEl.id = `acrostic-row-${rIdx}`;
 
-    function updateTimeUI() {
-      timeDisplay.textContent = `⏳ ${timeRemaining}s`;
-      if (timeRemaining <= 10) {
-        timeDisplay.classList.add('hurry');
-      } else {
-        timeDisplay.classList.remove('hurry');
-      }
-    }
+        // Row Number Button
+        const numBtn = document.createElement('button');
+        numBtn.className = 'row-num-btn';
+        numBtn.textContent = rIdx + 1;
+        numBtn.title = item.clue;
+        numBtn.addEventListener('click', () => {
+          sound.playSelectRow();
+          const firstEmpty = userLetters[rIdx].findIndex(ch => ch === "");
+          focusCell(rIdx, firstEmpty !== -1 ? firstEmpty : 0, true);
+        });
+        rowEl.appendChild(numBtn);
 
-    function updateScoreUI() {
-      scoreDisplay.textContent = `${currentScore} / ${TARGET_SCORE}`;
-      const pct = Math.min(100, Math.max(0, (currentScore / TARGET_SCORE) * 100));
-      goalFill.style.width = `${pct}%`;
-    }
+        const startGridCol = CENTRAL_COLUMN_INDEX - item.pivot;
 
-    function updateLivesUI() {
-      for (let i = 1; i <= MAX_LIVES; i++) {
-        const soul = document.getElementById(`soul-${i}`);
-        if (i <= livesRemaining) {
-          soul.classList.remove('lost');
-        } else {
-          soul.classList.add('lost');
+        for (let gCol = 0; gCol < TOTAL_GRID_COLS; gCol++) {
+          const letterIdx = gCol - startGridCol;
+          if (letterIdx >= 0 && letterIdx < item.word.length) {
+            const cell = document.createElement('div');
+            const isCentral = (letterIdx === item.pivot);
+            cell.className = `letter-cell ${isCentral ? 'is-central' : ''}`;
+            cell.id = `cell-${rIdx}-${letterIdx}`;
+            cell.dataset.row = rIdx;
+            cell.dataset.col = letterIdx;
+
+            const span = document.createElement('span');
+            span.className = 'cell-char';
+            span.id = `char-${rIdx}-${letterIdx}`;
+            span.textContent = formatHandwrittenCase(userLetters[rIdx][letterIdx], letterIdx, isCentral);
+
+            cell.appendChild(span);
+
+            cell.addEventListener('click', () => {
+              sound.playSelectRow();
+              focusCell(rIdx, letterIdx, true);
+            });
+
+            rowEl.appendChild(cell);
+          } else {
+            const empty = document.createElement('div');
+            empty.className = 'empty-slot';
+            rowEl.appendChild(empty);
+          }
         }
-      }
+
+        acrosticBoard.appendChild(rowEl);
+      });
     }
 
-    /* Spawn Monsters in available coffins */
-    function spawnNextMonster() {
-      if (!isGameRunning) return;
+    // Capitalize first letter or central vertical letter, lowercase cursive for flowing handwriting
+    function formatHandwrittenCase(ch, idxInWord, isCentral) {
+      if (!ch) return "";
+      if (isCentral || idxInWord === 0) return ch.toUpperCase();
+      return ch.toLowerCase();
+    }
 
-      // Find free coffins
-      const freeIndices = [];
-      coffinsState.forEach((c, idx) => {
-        if (!c.active) freeIndices.push(idx);
+    /* ==========================================================================
+       FOCUS & FEATHER QUILL PEN ANIMATION
+       ========================================================================== */
+    function focusCell(rIdx, cIdx, moveQuill = true) {
+      activeRow = rIdx;
+      activeColInWord = cIdx;
+
+      document.querySelectorAll('.acrostic-row').forEach((r, idx) => {
+        r.classList.toggle('active-row', idx === activeRow);
       });
 
-      if (freeIndices.length > 0) {
-        // Pick random free coffin
-        const chosenIndex = freeIndices[Math.floor(Math.random() * freeIndices.length)];
-        
-        // Pick random entity (70% monster, 30% trap pumpkin)
-        const rand = Math.random();
-        let entityType;
-        if (rand < 0.28) {
-          entityType = ENTITY_TYPES[3]; // Pumpkin trap
-        } else if (rand < 0.55) {
-          entityType = ENTITY_TYPES[0]; // Bat
-        } else if (rand < 0.80) {
-          entityType = ENTITY_TYPES[1]; // Zombie
+      document.querySelectorAll('.letter-cell.focused').forEach(el => el.classList.remove('focused'));
+      const targetCell = document.getElementById(`cell-${rIdx}-${cIdx}`);
+      if (targetCell) {
+        targetCell.classList.add('focused');
+        if (moveQuill) {
+          positionQuillAtElement(targetCell, false);
+        }
+      }
+
+      activeClueText.textContent = ACROSTIC_WORDS[rIdx].clue;
+    }
+
+    function positionQuillAtElement(targetEl, scribble = false) {
+      if (!targetEl) return;
+      const rect = targetEl.getBoundingClientRect();
+      // Position the quill nib (bottom-left of 68x68 SVG) right at the center-bottom of the cell
+      const leftPos = rect.left + rect.width * 0.52 - 6;
+      const topPos = rect.top + rect.height * 0.62 - 62;
+
+      quillPen.classList.add('visible');
+      quillPen.style.left = `${leftPos}px`;
+      quillPen.style.top = `${topPos}px`;
+
+      if (scribble) {
+        quillPen.classList.remove('scribbling');
+        void quillPen.offsetWidth;
+        quillPen.classList.add('scribbling');
+        spawnInkDroplets(rect.left + rect.width * 0.5, rect.top + rect.height * 0.6);
+      }
+    }
+
+    function spawnInkDroplets(x, y) {
+      for (let i = 0; i < 3; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'ink-droplet';
+        drop.style.left = `${x}px`;
+        drop.style.top = `${y}px`;
+        drop.style.setProperty('--dx', `${(Math.random() - 0.5) * 26}px`);
+        drop.style.setProperty('--dy', `${-6 - Math.random() * 18}px`);
+        document.body.appendChild(drop);
+        setTimeout(() => drop.remove(), 450);
+      }
+    }
+
+    /* ==========================================================================
+       HANDWRITING LETTER INPUT & VALIDATION
+       ========================================================================== */
+    function writeLetterInActiveCell(rawLetter) {
+      if (isGameCompleted) return;
+      if (rowSolved[activeRow]) {
+        advanceToNextUnsolvedRow();
+        return;
+      }
+
+      const letter = rawLetter.toUpperCase();
+      const item = ACROSTIC_WORDS[activeRow];
+      userLetters[activeRow][activeColInWord] = letter;
+
+      const cellEl = document.getElementById(`cell-${activeRow}-${activeColInWord}`);
+      const charEl = document.getElementById(`char-${activeRow}-${activeColInWord}`);
+      const isCentral = (activeColInWord === item.pivot);
+
+      if (charEl) {
+        charEl.textContent = formatHandwrittenCase(letter, activeColInWord, isCentral);
+        charEl.classList.remove('writing-now');
+        void charEl.offsetWidth;
+        charEl.classList.add('writing-now');
+      }
+
+      sound.playWriteLetter();
+      positionQuillAtElement(cellEl, true);
+      renderCentralTracker();
+
+      // Check if current row is now full
+      const currentAttempt = userLetters[activeRow].join("");
+      if (currentAttempt.length === item.word.length && !userLetters[activeRow].includes("")) {
+        if (currentAttempt === item.word) {
+          onRowSolved(activeRow);
+          return;
         } else {
-          entityType = ENTITY_TYPES[2]; // Gargoyle
+          // Row filled but incorrect spelling
+          sound.playWrongWord();
+          const rowEl = document.getElementById(`acrostic-row-${activeRow}`);
+          if (rowEl) {
+            rowEl.classList.remove('wrong-shake');
+            void rowEl.offsetWidth;
+            rowEl.classList.add('wrong-shake');
+          }
+          showToast("🖋️ Revisa las letras de este renglón...");
         }
-
-        activateCoffinMonster(chosenIndex, entityType);
       }
 
-      // Next spawn delay speeds up slightly as score rises
-      const speedFactor = Math.max(450, 850 - (currentScore * 0.25));
-      const nextDelay = speedFactor + Math.random() * 350;
-      monsterSpawnTimeout = setTimeout(spawnNextMonster, nextDelay);
+      // Move to next empty cell in this row, or next column
+      const nextEmptyInRow = userLetters[activeRow].findIndex((ch, idx) => idx > activeColInWord && ch === "");
+      if (nextEmptyInRow !== -1) {
+        setTimeout(() => focusCell(activeRow, nextEmptyInRow, true), 110);
+      } else if (activeColInWord + 1 < item.word.length) {
+        setTimeout(() => focusCell(activeRow, activeColInWord + 1, true), 110);
+      }
     }
 
-    function activateCoffinMonster(coffinIndex, entity) {
-      const coffinState = coffinsState[coffinIndex];
-      const monsterEl = document.getElementById(`monster-${coffinIndex}`);
-      const avatarEl = monsterEl.querySelector('.monster-avatar');
-      const tagEl = monsterEl.querySelector('.monster-name-tag');
+    function eraseActiveCell() {
+      if (isGameCompleted || rowSolved[activeRow]) return;
 
-      coffinState.active = true;
-      coffinState.entity = entity;
-
-      avatarEl.textContent = entity.avatar;
-      tagEl.textContent = entity.name;
-      if (entity.isTrap) {
-        tagEl.style.color = 'var(--pumpkin-orange)';
-      } else {
-        tagEl.style.color = 'var(--toxic-green)';
+      if (userLetters[activeRow][activeColInWord] !== "") {
+        userLetters[activeRow][activeColInWord] = "";
+      } else if (activeColInWord > 0) {
+        activeColInWord--;
+        userLetters[activeRow][activeColInWord] = "";
       }
 
-      monsterEl.classList.remove('whacked');
-      monsterEl.classList.add('peeking');
-      sound.playPop();
+      const charEl = document.getElementById(`char-${activeRow}-${activeColInWord}`);
+      if (charEl) charEl.textContent = "";
 
-      // Auto hide after duration
-      clearTimeout(coffinState.timer);
-      coffinState.timer = setTimeout(() => {
-        hideCoffinMonster(coffinIndex);
-      }, entity.duration);
+      sound.playEraseLetter();
+      focusCell(activeRow, activeColInWord, true);
+      renderCentralTracker();
     }
 
-    function hideCoffinMonster(coffinIndex) {
-      const coffinState = coffinsState[coffinIndex];
-      const monsterEl = document.getElementById(`monster-${coffinIndex}`);
-      monsterEl.classList.remove('peeking');
+    function onRowSolved(rIdx) {
+      rowSolved[rIdx] = true;
+      sound.playWordComplete();
 
-      setTimeout(() => {
-        coffinState.active = false;
-        coffinState.entity = null;
-      }, 150);
-    }
+      const rowEl = document.getElementById(`acrostic-row-${rIdx}`);
+      if (rowEl) rowEl.classList.add('solved-row');
 
-    /* Coffin Click / Tap / Key Strike */
-    function strikeCoffin(coffinIndex) {
-      if (!isGameRunning) return;
-      const coffinState = coffinsState[coffinIndex];
-      if (!coffinState.active || !coffinState.entity) return;
-
-      const entity = coffinState.entity;
-      const monsterEl = document.getElementById(`monster-${coffinIndex}`);
-      const coffinEl = document.getElementById(`coffin-${coffinIndex}`);
-
-      clearTimeout(coffinState.timer);
-      monsterEl.classList.remove('peeking');
-      monsterEl.classList.add('whacked');
-
-      if (entity.isTrap) {
-        // HIT HOLY PUMPKIN TRAP!
-        sound.playHitPumpkinTrap();
-        vignette.classList.add('danger');
-        setTimeout(() => vignette.classList.remove('danger'), 300);
-
-        currentScore = Math.max(0, currentScore + entity.points);
-        livesRemaining--;
-        updateLivesUI();
-        updateScoreUI();
-
-        spawnPopupParticle(coffinEl, `${entity.points}`, 'minus');
-        spawnWhackSplash(coffinEl, '💥');
-
-        if (livesRemaining <= 0) {
-          endGame(false, "¡Quebraste demasiadas Calabazas Sagradas y la maldición consumió todas tus almas!");
-          return;
+      // Ensure crisp display of solved word
+      const item = ACROSTIC_WORDS[rIdx];
+      for (let c = 0; c < item.word.length; c++) {
+        const charEl = document.getElementById(`char-${rIdx}-${c}`);
+        if (charEl) {
+          charEl.textContent = formatHandwrittenCase(item.word[c], c, c === item.pivot);
         }
+      }
+
+      const solvedCount = rowSolved.filter(Boolean).length;
+      solvedDisplay.textContent = `${solvedCount} / ${ACROSTIC_WORDS.length}`;
+      renderCentralTracker();
+
+      if (solvedCount >= ACROSTIC_WORDS.length) {
+        completeLetterAndStamp();
       } else {
-        // HIT VALID MONSTER!
-        sound.playHitMonster();
-        currentScore += entity.points;
-        updateScoreUI();
+        showToast(`✨ ¡"${item.word}" escrito con éxito!`);
+        setTimeout(() => advanceToNextUnsolvedRow(), 280);
+      }
+    }
 
-        spawnPopupParticle(coffinEl, `+${entity.points}`, 'plus');
-        spawnWhackSplash(coffinEl, '⚔️');
-
-        // Check Victory
-        if (currentScore >= TARGET_SCORE) {
-          endGame(true);
+    function advanceToNextUnsolvedRow() {
+      for (let offset = 1; offset <= ACROSTIC_WORDS.length; offset++) {
+        const candidate = (activeRow + offset) % ACROSTIC_WORDS.length;
+        if (!rowSolved[candidate]) {
+          const firstEmpty = userLetters[candidate].findIndex(ch => ch === "");
+          focusCell(candidate, firstEmpty !== -1 ? firstEmpty : 0, true);
           return;
         }
       }
+    }
 
+    /* ==========================================================================
+       MAGICAL INKWELL HINT BUTTON (QUILL DIPS IN INKWELL & WRITES LETTER)
+       ========================================================================== */
+    hintInkBtn.addEventListener('click', () => {
+      if (isGameCompleted || hintsRemaining <= 0) return;
+
+      if (rowSolved[activeRow]) {
+        advanceToNextUnsolvedRow();
+      }
+      if (rowSolved[activeRow]) return;
+
+      const item = ACROSTIC_WORDS[activeRow];
+      // Find if current cell is wrong/empty; otherwise pick first wrong/empty in row
+      let targetCol = activeColInWord;
+      if (userLetters[activeRow][targetCol] === item.word[targetCol]) {
+        const firstNeedsHelp = userLetters[activeRow].findIndex((ch, i) => ch !== item.word[i]);
+        if (firstNeedsHelp !== -1) targetCol = firstNeedsHelp;
+      }
+
+      hintsRemaining--;
+      hintsBtnCount.textContent = hintsRemaining;
+      hintsHudDisplay.textContent = `🖋️ ${hintsRemaining} gotas`;
+      if (hintsRemaining <= 0) hintInkBtn.disabled = true;
+
+      sound.playUseHint();
+
+      // Dip the quill into the Inkwell button first, then fly to the target cell and write!
+      positionQuillAtElement(hintInkBtn, false);
       setTimeout(() => {
-        coffinState.active = false;
-        coffinState.entity = null;
-        monsterEl.classList.remove('whacked');
-      }, 150);
-    }
-
-    function spawnPopupParticle(parentElement, text, type) {
-      const p = document.createElement('div');
-      p.className = `score-particle ${type}`;
-      p.textContent = text;
-      p.style.top = '30%';
-      p.style.left = '40%';
-      parentElement.appendChild(p);
-      setTimeout(() => p.remove(), 700);
-    }
-
-    function spawnWhackSplash(parentElement, symbol) {
-      const s = document.createElement('div');
-      s.className = 'whack-effect';
-      s.textContent = symbol;
-      parentElement.appendChild(s);
-      setTimeout(() => s.remove(), 350);
-    }
-
-    function endGame(victory, reasonText = "") {
-      isGameRunning = false;
-      clearInterval(gameTimerInterval);
-      clearTimeout(monsterSpawnTimeout);
-
-      // Hide all active monsters
-      coffinsState.forEach((c, idx) => {
-        clearTimeout(c.timer);
-        hideCoffinMonster(idx);
-      });
-
-      if (victory) {
-        sound.playVictory();
-        try {
-          localStorage.setItem('krypt_day_02_cleared', 'true');
-        } catch(e){}
-
-        setTimeout(() => {
-          victoryModal.classList.add('active');
-        }, 400);
-      } else {
-        sound.playDefeat();
-        defeatReasonText.textContent = reasonText;
-        setTimeout(() => {
-          defeatModal.classList.add('active');
-        }, 400);
-      }
-    }
-
-    /* Coffin Click Listeners */
-    for (let i = 0; i < 6; i++) {
-      const c = document.getElementById(`coffin-${i}`);
-      c.addEventListener('click', () => strikeCoffin(i));
-    }
-
-    /* Keyboard Controls [Q, W, E] & [A, S, D] */
-    window.addEventListener('keydown', (e) => {
-      if (!isGameRunning) return;
-      const key = e.key.toUpperCase();
-      let coffinIdx = -1;
-
-      if (key === 'Q' || key === '7') coffinIdx = 0;
-      if (key === 'W' || key === '8') coffinIdx = 1;
-      if (key === 'E' || key === '9') coffinIdx = 2;
-      if (key === 'A' || key === '4') coffinIdx = 3;
-      if (key === 'S' || key === '5') coffinIdx = 4;
-      if (key === 'D' || key === '6') coffinIdx = 5;
-
-      if (coffinIdx !== -1) {
-        strikeCoffin(coffinIdx);
-      }
+        focusCell(activeRow, targetCol, true);
+        writeLetterInActiveCell(item.word[targetCol]);
+      }, 240);
     });
 
     /* ==========================================================================
-       DISCORD MESSAGE GENERATOR WITH SPOILER SYNTAX "||"
+       PHYSICAL & ON-SCREEN KEYBOARD HANDLERS
        ========================================================================== */
-    function copyDiscordMessage() {
-      // User requirement: Encerrar la palabra en "||" para spoiler en Discord
-      const discordText = `🎃 ¡He superado el Día 02 en La Krypta! Código: ||${SECRET_WORD}||`;
+    window.addEventListener('keydown', (e) => {
+      if (isGameCompleted) return;
+      if (e.ctrlKey || e.altKey || e.metaKey) return;
 
+      const key = e.key;
+      if (/^[a-zA-ZñÑ]$/.test(key)) {
+        e.preventDefault();
+        writeLetterInActiveCell(key);
+      } else if (key === 'Backspace' || key === 'Delete') {
+        e.preventDefault();
+        eraseActiveCell();
+      } else if (key === 'ArrowRight') {
+        e.preventDefault();
+        const len = ACROSTIC_WORDS[activeRow].word.length;
+        focusCell(activeRow, (activeColInWord + 1) % len, true);
+      } else if (key === 'ArrowLeft') {
+        e.preventDefault();
+        const len = ACROSTIC_WORDS[activeRow].word.length;
+        focusCell(activeRow, (activeColInWord - 1 + len) % len, true);
+      } else if (key === 'ArrowDown' || key === 'Enter' || key === 'Tab') {
+        e.preventDefault();
+        const nextR = (activeRow + 1) % ACROSTIC_WORDS.length;
+        const firstEmpty = userLetters[nextR].findIndex(ch => ch === "");
+        focusCell(nextR, firstEmpty !== -1 ? firstEmpty : 0, true);
+      } else if (key === 'ArrowUp') {
+        e.preventDefault();
+        const prevR = (activeRow - 1 + ACROSTIC_WORDS.length) % ACROSTIC_WORDS.length;
+        const firstEmpty = userLetters[prevR].findIndex(ch => ch === "");
+        focusCell(prevR, firstEmpty !== -1 ? firstEmpty : 0, true);
+      }
+    });
+
+    document.querySelectorAll('.kb-key').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const k = btn.dataset.key;
+        if (k === 'BACKSPACE') {
+          eraseActiveCell();
+        } else if (k === 'PREV') {
+          sound.playSelectRow();
+          advanceToNextUnsolvedRow();
+        } else {
+          writeLetterInActiveCell(k);
+        }
+      });
+    });
+
+    /* ==========================================================================
+       VICTORY: WAX SEAL STAMP & DISCORD COPY
+       ========================================================================== */
+    function completeLetterAndStamp() {
+      isGameCompleted = true;
+      quillPen.classList.remove('visible');
+
+      // Stamp the red wax seal onto the parchment
+      setTimeout(() => {
+        sound.playStampSeal();
+        waxSealStamp.classList.add('stamped');
+        showToast("🔴 ¡Carta sellada con lacre del Polo Norte!");
+      }, 300);
+
+      try {
+        localStorage.setItem('christmas_day_02_cleared', 'true');
+        localStorage.setItem('deseo_day_02_cleared', 'true');
+        localStorage.setItem('krypt_day_02_cleared', 'true');
+      } catch (e) {}
+
+      setTimeout(() => {
+        sound.playVictory();
+        victoryModal.classList.add('active');
+      }, 1250);
+    }
+
+    function copyDiscordMessage() {
+      const discordText = `🎄 ¡He cumplido el Deseo 02 (Cartas a Santa Claus) en 31 Deseos de Navidad! Código: ||${SECRET_WORD}||`;
       navigator.clipboard.writeText(discordText).then(() => {
         copyDiscordBtn.innerHTML = '✓ ¡Copiado con Spoiler!';
         copyDiscordBtn.classList.add('copied');
@@ -1300,42 +1810,39 @@
           copyDiscordBtn.classList.remove('copied');
         }, 2500);
       }).catch(() => {
-        // Fallback
         const ta = document.createElement('textarea');
         ta.value = discordText;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyDiscordBtn.innerHTML = '✓ ¡Copiado con Spoiler!';
-        showToast("✓ Mensaje copiado con spoiler para Discord");
+        showToast("✓ Mensaje copiado para Discord");
       });
     }
 
-    /* Toast Helper */
     const toast = document.getElementById('toast');
     let toastTimer = null;
     function showToast(msg) {
       toast.textContent = msg;
       toast.classList.add('visible');
       if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove('visible');
-      }, 2400);
+      toastTimer = setTimeout(() => toast.classList.remove('visible'), 2300);
     }
 
-    /* Sound Toggle */
-    soundToggleBtn.addEventListener('click', () => {
-      sound.enabled = !sound.enabled;
-      if (sound.enabled) {
-        sound.init();
-        soundToggleBtn.textContent = '🔊 Audio';
-        showToast("🔊 Sonido activado");
-      } else {
-        soundToggleBtn.textContent = '🔇 Mute';
-        showToast("🔇 Sonido desactivado");
-      }
+    bgmToggleBtn.addEventListener('click', () => {
+      const on = sound.toggleBgm();
+      bgmToggleBtn.textContent = on ? '🎵 Música ON' : '🎵 Música OFF';
+      showToast(on ? '🎵 Música de escritorio activada' : '🔇 Música silenciada');
     });
+
+    soundToggleBtn.addEventListener('click', () => {
+      sound.sfxEnabled = !sound.sfxEnabled;
+      soundToggleBtn.textContent = sound.sfxEnabled ? '🔊 SFX ON' : '🔇 SFX OFF';
+      if (sound.sfxEnabled) sound.playWriteLetter();
+      showToast(sound.sfxEnabled ? '🔊 Sonidos de pluma activados' : '🔇 Efectos de sonido desactivados');
+    });
+
+    initGame();
   </script>
 </body>
 </html>

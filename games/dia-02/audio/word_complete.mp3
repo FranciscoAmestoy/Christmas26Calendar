@@ -1,0 +1,4 @@
+PLACEHOLDER DE AUDIO (.txt renombrado a .mp3)
+Archivo: word_complete.mp3
+Uso: Campanilla mágica cuando el jugador escribe correctamente una de las 10 palabras horizontales de la carta.
+Reemplaza este archivo por un MP3 real manteniendo el nombre "word_complete.mp3".
