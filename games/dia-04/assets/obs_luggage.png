@@ -1,0 +1,4 @@
+PLACEHOLDER DE SPRITE (.txt renombrado a .png)
+Archivo: obs_luggage.png
+Uso: Sprite opcional para el obstáculo bajo de baúl / valija vintage (requiere SALTAR con W / Arriba).
+Mientras sea un placeholder de texto, el motor Canvas dibuja el baúl con herrajes de bronce en 3D.

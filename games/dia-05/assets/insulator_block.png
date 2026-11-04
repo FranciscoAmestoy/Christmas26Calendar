@@ -1,0 +1,4 @@
+PLACEHOLDER DE SPRITE (.txt renombrado a .png)
+Archivo: insulator_block.png
+Uso: Sprite opcional para los aisladores cerámicos de bronce que bloquean celdas en la caja de fusibles.
+Mientras sea un placeholder de texto, el juego dibuja el aislador de bronce remachado en SVG.

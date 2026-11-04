@@ -1,0 +1,4 @@
+PLACEHOLDER DE AUDIO (.txt renombrado a .mp3)
+Archivo: game_over.mp3
+Uso: Sonido de freno de emergencia cuando el jugador pierde sus 3 vidas antes de llegar a la locomotora.
+Reemplaza este archivo por un MP3 real manteniendo el nombre "game_over.mp3".

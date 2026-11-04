@@ -1,0 +1,4 @@
+PLACEHOLDER DE SPRITE (.txt renombrado a .png)
+Archivo: obs_banner.png
+Uso: Sprite opcional para el obstáculo alto colgante de guirnalda / cartel de servicio (requiere DESLIZARSE con S / Abajo).
+Mientras sea un placeholder de texto, el motor Canvas dibuja el arco colgante en 3D.

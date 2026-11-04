@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Día 05: Burbujas del Caldero - La Krypta</title>
+  <title>Día 05: El Faro de la Aurora Boreal - 31 Deseos de Navidad</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel:wght@600;800;900&family=MedievalSharp&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Montserrat:wght@500;600;700;800&family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #060907;
-      --board-border: #2e4435;
-      --parchment: #ece2ce;
-      --text-muted: #859a8d;
-
-      --toxic-green: #39ff14;
-      --toxic-glow: rgba(57, 255, 20, 0.55);
-      --pumpkin-orange: #ff7518;
-      --pumpkin-glow: rgba(255, 117, 24, 0.55);
-      --blood-red: #ff2a4b;
-      --witch-purple: #c042ff;
-      --spectral-blue: #00e5ff;
+      --bg-night: #050b12;
+      --brass-dark: #26170a;
+      --brass-border: #966832;
+      --wish-gold: #ffd166;
+      --gold-glow: rgba(255, 209, 102, 0.55);
+      --christmas-red: #e63946;
+      --red-glow: rgba(230, 57, 70, 0.6);
+      --holly-green: #2ecc71;
+      --green-glow: rgba(46, 204, 113, 0.6);
+      --aurora-cyan: #38bdf8;
+      --aurora-purple: #c084fc;
+      --snow-ivory: #fdf8f0;
+      --text-muted: #b0c4ce;
     }
 
     * {
@@ -33,83 +34,46 @@
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--parchment);
+      background-color: var(--bg-night);
+      color: var(--snow-ivory);
       font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
       overflow-x: hidden;
       position: relative;
-      background-image: 
-        radial-gradient(circle at 50% 15%, rgba(35, 60, 45, 0.45) 0%, transparent 65%),
-        radial-gradient(circle at 50% 85%, rgba(15, 28, 20, 0.6) 0%, transparent 70%);
-      padding: 8px 12px 16px 12px;
-    }
-
-    /* Ambient fog and scanlines */
-    .mist-ambient {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.35;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.25) 4px);
+      background-image:
+        radial-gradient(circle at 50% 15%, rgba(46, 204, 113, 0.18) 0%, transparent 60%),
+        linear-gradient(180deg, #040910 0%, #0d141b 100%);
+      padding: 8px 12px 18px 12px;
     }
 
     .vignette-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
       z-index: 2;
-      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.88);
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.82);
+      transition: box-shadow 0.35s ease;
     }
 
-    /* Main Container */
+    .vignette-overlay.aurora-active {
+      box-shadow: inset 0 0 120px rgba(46, 204, 113, 0.45), inset 0 0 60px rgba(192, 132, 252, 0.35);
+    }
+
+    /* Main Shell */
     .game-shell {
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 540px;
+      max-width: 920px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 8px;
     }
 
-    @media (min-width: 900px) and (min-height: 900px) {
-      body {
-        justify-content: center;
-        padding: 16px;
-      }
-      .game-shell {
-        gap: 12px;
-        transform: scale(1.14);
-        transform-origin: center center;
-      }
-    }
-
-    @media (min-width: 1100px) and (min-height: 1120px) {
-      body {
-        justify-content: center;
-        padding: 24px;
-      }
-      .game-shell {
-        gap: 14px;
-        transform: scale(1.34);
-        transform-origin: center center;
-      }
-    }
-
-    /* Header Nav */
     header {
       width: 100%;
       display: flex;
@@ -123,15 +87,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
     }
 
     .btn-nav {
-      background: rgba(17, 26, 20, 0.85);
-      border: 1px solid var(--board-border);
-      color: var(--parchment);
-      padding: 5px 12px;
+      background: rgba(24, 16, 9, 0.9);
+      border: 1px solid var(--brass-border);
+      color: var(--snow-ivory);
+      padding: 6px 12px;
       border-radius: 8px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -142,41 +107,55 @@
     }
 
     .btn-nav:hover {
-      border-color: var(--toxic-green);
-      color: var(--toxic-green);
-      box-shadow: 0 0 10px var(--toxic-glow);
+      border-color: var(--wish-gold);
+      color: var(--wish-gold);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+
+    .svg-icon {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
     }
 
     .day-subtitle {
       font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
+      font-size: 0.74rem;
       letter-spacing: 3px;
-      color: var(--text-muted);
+      color: var(--wish-gold);
       text-transform: uppercase;
       font-weight: 700;
     }
 
     .title-banner {
-      font-family: 'Creepster', cursive;
-      font-size: clamp(2rem, 6vw, 2.7rem);
-      letter-spacing: 3px;
-      color: var(--witch-purple);
-      text-shadow: 0 0 16px var(--witch-purple), 2px 2px 0px #000;
+      font-family: 'Mountains of Christmas', cursive;
+      font-size: clamp(1.85rem, 4.8vw, 2.55rem);
+      letter-spacing: 2px;
+      color: var(--snow-ivory);
+      text-shadow: 0 0 16px var(--green-glow), 2px 2px 0px #000;
       text-align: center;
-      line-height: 1;
+      line-height: 1.05;
     }
 
-    /* HUD Bar: Bubbles left & Score */
-    .hud-bar {
+    /* HUD Panel */
+    .hud-panel {
       width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      background: rgba(17, 26, 20, 0.9);
-      border: 1px solid var(--board-border);
+      background: linear-gradient(180deg, rgba(32, 22, 12, 0.94) 0%, rgba(16, 11, 7, 0.96) 100%);
+      border: 2px solid var(--brass-border);
       border-radius: 12px;
-      padding: 8px 16px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+      padding: 8px 14px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      align-items: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+    }
+
+    @media (max-width: 640px) {
+      .hud-panel {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     .hud-stat {
@@ -185,124 +164,364 @@
       gap: 2px;
     }
 
-    .hud-stat.right {
-      align-items: flex-end;
-      text-align: right;
-    }
-
     .hud-label {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: var(--text-muted);
-      font-weight: 700;
+      color: #d6b694;
+      font-weight: 800;
     }
 
     .hud-val {
       font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
+      font-size: 1.04rem;
       font-weight: 900;
-      color: var(--parchment);
-    }
-
-    .hud-val.target {
-      color: var(--toxic-green);
-      text-shadow: 0 0 8px var(--toxic-glow);
-    }
-
-    /* Instructions Banner */
-    .status-banner {
-      width: 100%;
-      text-align: center;
-      background: rgba(8, 14, 10, 0.7);
-      border: 1px dashed var(--board-border);
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-family: 'MedievalSharp', cursive;
-      font-size: 0.9rem;
-      color: #b7cbbf;
-      min-height: 34px;
+      color: var(--wish-gold);
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 6px;
     }
 
-    .status-banner strong {
-      color: var(--toxic-green);
+    /* Indicator Bulbs Row */
+    .bulbs-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .circuit-bulb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #1b2228;
+      border: 2px solid #6b5335;
+      transition: all 0.25s ease;
+    }
+
+    .circuit-bulb.lit {
+      background: var(--bulb-color, #2ecc71);
+      border-color: #fff;
+      box-shadow: 0 0 12px var(--bulb-color, #2ecc71), 0 0 20px var(--bulb-color, #2ecc71);
+      transform: scale(1.14);
     }
 
     /* ==========================================================================
-       CAULDRON ARENA (BUBBLE SHOOTER CANVAS)
+       LIGHTHOUSE CONTROL ROOM & RECESSED FUSE BOX STAGE
        ========================================================================== */
-    .cauldron-arena {
+    .lighthouse-stage {
       position: relative;
-      background: #040805;
-      border: 3px solid var(--board-border);
-      border-radius: 14px;
-      box-shadow: 
-        0 12px 30px rgba(0, 0, 0, 0.9), 
-        inset 0 0 25px rgba(0, 0, 0, 0.8),
-        0 0 15px rgba(192, 66, 255, 0.2);
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 410px;
+      border-radius: 16px;
+      border: 3px solid var(--brass-border);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.92), inset 0 0 45px rgba(0, 0, 0, 0.65);
+      background-color: #161c24;
+      background-image: url('fuse_room_bg.jpg');
+      background-size: 100% 100%;
+      background-position: center center;
       overflow: hidden;
       touch-action: none;
-      cursor: crosshair;
     }
 
-    #bubbleCanvas {
-      display: block;
+    @media (max-width: 700px) {
+      .lighthouse-stage {
+        aspect-ratio: auto;
+        height: 480px;
+        background-size: cover;
+      }
     }
 
-    /* Controls bar at bottom */
-    .controls-strip {
+    /* Reactive Aurora Window Glow Overlay when wires are connected */
+    .aurora-reactive-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      background:
+        radial-gradient(circle at 8% 45%, rgba(46, 204, 113, 0.38) 0%, transparent 35%),
+        radial-gradient(circle at 92% 45%, rgba(192, 132, 252, 0.38) 0%, transparent 35%),
+        radial-gradient(circle at 50% 44%, rgba(255, 209, 102, 0.22) 0%, transparent 42%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Hidden Crystal Fuses Layer (Tucked around pipes, gauges & garlands) */
+    .hidden-fuse-item {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      z-index: 25;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.84;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.9));
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s, opacity 0.2s;
+    }
+
+    .hidden-fuse-item:hover {
+      opacity: 1;
+      transform: scale(1.22) rotate(-6deg);
+      filter: drop-shadow(0 0 14px var(--wish-gold)) brightness(1.2);
+    }
+
+    .hidden-fuse-item.hint-pulse {
+      opacity: 1;
+      animation: fuseHintGlow 0.55s infinite alternate;
+    }
+
+    @keyframes fuseHintGlow {
+      from { transform: scale(1); filter: drop-shadow(0 0 8px var(--wish-gold)); }
+      to { transform: scale(1.28); filter: drop-shadow(0 0 22px #fff) drop-shadow(0 0 30px var(--wish-gold)); }
+    }
+
+    /* Flying Fuse Animation into Socket */
+    .flying-fuse {
+      position: fixed;
+      width: 44px;
+      height: 44px;
+      z-index: 95;
+      pointer-events: none;
+      transition: left 0.52s cubic-bezier(0.22, 1, 0.36, 1),
+                  top 0.52s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.52s ease;
+      filter: drop-shadow(0 0 16px var(--wish-gold));
+    }
+
+    /* ==========================================================================
+       CENTRAL RECESSED FUSE BOX MATRIX (ALIGNED WITH CABINET FRAME IN IMAGE)
+       ========================================================================== */
+    .fuse-cabinet-board {
+      position: absolute;
+      /* Matches the recessed dark iron cabinet in fuse_room_bg.jpg */
+      left: 50%;
+      top: 44.3%;
+      transform: translate(-50%, -50%);
+      width: clamp(265px, 28.4%, 340px);
+      height: clamp(265px, 40.5%, 340px);
+      z-index: 15;
+      background: radial-gradient(circle at 50% 50%, rgba(22, 34, 44, 0.92) 0%, rgba(10, 16, 22, 0.96) 100%);
+      border: 2px solid rgba(212, 163, 56, 0.65);
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 0, 0, 0.6);
+      transition: box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    @media (max-width: 700px) {
+      .fuse-cabinet-board {
+        width: min(320px, 84vw);
+        height: min(320px, 84vw);
+        top: 47%;
+      }
+    }
+
+    .fuse-cabinet-board.box-energized {
+      border-color: var(--holly-green);
+      box-shadow: 0 0 35px var(--green-glow), inset 0 0 30px rgba(46, 204, 113, 0.35);
+    }
+
+    /* SVG Wire Conduit Overlay (Draws smooth glowing non-crossing cables) */
+    .wires-svg-layer {
+      position: absolute;
+      inset: 8px;
+      width: calc(100% - 16px);
+      height: calc(100% - 16px);
+      pointer-events: none;
+      z-index: 18;
+      overflow: visible;
+    }
+
+    /* Interactive Circuit Grid */
+    .circuit-grid {
+      position: relative;
+      z-index: 20;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      gap: 4px;
+      touch-action: none;
+    }
+
+    .circuit-cell {
+      position: relative;
+      border-radius: 6px;
+      background: rgba(8, 13, 18, 0.72);
+      border: 1px solid rgba(120, 145, 165, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .circuit-cell:hover {
+      border-color: rgba(255, 209, 102, 0.5);
+    }
+
+    /* Insulator Obstacle Cell */
+    .circuit-cell.is-obstacle {
+      background: linear-gradient(135deg, #3b2412 0%, #1c1008 100%);
+      border: 1.5px solid #8c5d32;
+      cursor: not-allowed;
+    }
+
+    /* Terminal Socket Cell */
+    .terminal-node {
+      width: 76%;
+      height: 76%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, var(--node-light), var(--node-main) 65%, var(--node-dark) 100%);
+      border: 2.5px solid #ffd166;
+      box-shadow: 0 0 10px var(--node-main), inset 0 2px 4px rgba(255,255,255,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    }
+
+    .circuit-cell.connected-terminal .terminal-node {
+      transform: scale(1.12);
+      border-color: #ffffff;
+      box-shadow: 0 0 18px var(--node-light), 0 0 28px var(--node-main);
+    }
+
+    /* Socket Missing its Hidden Fuse! */
+    .circuit-cell.missing-fuse .terminal-node {
+      background: #141a21;
+      border: 2px dashed var(--node-light);
+      box-shadow: inset 0 0 8px #000;
+      opacity: 0.75;
+      animation: missingSocketPulse 1.2s infinite alternate;
+    }
+
+    @keyframes missingSocketPulse {
+      from { transform: scale(0.92); }
+      to { transform: scale(1.04); }
+    }
+
+    /* Short-circuit Spark Animation when trying to cross another wire */
+    .spark-burst {
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      pointer-events: none;
+      z-index: 40;
+      animation: sparkPop 0.38s ease-out forwards;
+    }
+
+    @keyframes sparkPop {
+      0% { transform: translate(-50%, -50%) scale(0.4) rotate(0deg); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1.45) rotate(90deg); opacity: 0; }
+    }
+
+    /* Bottom Control Bar */
+    .controls-dock {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      margin-top: 4px;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(24, 15, 9, 0.92);
+      border: 1px solid var(--brass-border);
+      border-radius: 12px;
+      padding: 8px 14px;
     }
 
-    .btn-spooky-action {
-      background: linear-gradient(180deg, var(--pumpkin-orange) 0%, #b84d07 100%);
-      border: none;
-      color: #000;
+    .status-instruction {
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: #ebd5b3;
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .dock-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-brass {
+      background: linear-gradient(180deg, #3d2514 0%, #211208 100%);
+      border: 1.5px solid var(--brass-border);
+      color: var(--wish-gold);
       font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      font-weight: 900;
-      padding: 8px 18px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 7px 13px;
       border-radius: 8px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 14px var(--pumpkin-glow);
       transition: all 0.2s;
     }
 
-    .btn-spooky-action:hover {
-      filter: brightness(1.15);
-      transform: translateY(-2px);
+    .btn-brass:hover:not(:disabled) {
+      border-color: #fff;
+      box-shadow: 0 0 12px var(--gold-glow);
+      transform: translateY(-1px);
     }
 
-    /* Mobile Aim Guidance note */
-    .mobile-tip {
-      font-size: 0.72rem;
-      color: var(--text-muted);
+    .btn-brass:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Start Overlay */
+    .stage-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 60;
+      background: rgba(8, 12, 18, 0.88);
+      backdrop-filter: blur(5px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
       text-align: center;
+      gap: 13px;
     }
 
-    /* ==========================================================================
-       MODALS: VICTORY & DEFEAT
-       ========================================================================== */
+    .stage-overlay.hidden {
+      display: none;
+    }
+
+    .btn-aurora-start {
+      background: linear-gradient(180deg, #1f9d55 0%, #0e542b 100%);
+      border: 2px solid var(--wish-gold);
+      color: var(--snow-ivory);
+      font-family: 'Cinzel', serif;
+      font-size: 1.02rem;
+      font-weight: 900;
+      padding: 12px 26px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px var(--green-glow);
+      transition: all 0.2s;
+    }
+
+    .btn-aurora-start:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 24px var(--gold-glow);
+    }
+
+    /* Victory Modal */
     .modal-backdrop {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(4, 8, 6, 0.88);
+      inset: 0;
+      background: rgba(4, 9, 15, 0.88);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       z-index: 100;
       display: flex;
       align-items: center;
@@ -319,19 +538,20 @@
     }
 
     .modal-box {
-      background: linear-gradient(180deg, #15241b 0%, #0a130e 100%);
-      border: 2px solid var(--board-border);
-      border-radius: 16px;
+      background: linear-gradient(180deg, #16332b 0%, #091714 100%);
+      border: 2px solid var(--wish-gold);
+      border-radius: 18px;
       width: 100%;
       max-width: 500px;
-      padding: 24px 20px;
+      padding: 26px 20px;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.95), 0 0 25px var(--green-glow);
       transform: scale(0.92);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-align: center;
+      align-items: center;
     }
 
     .modal-backdrop.active .modal-box {
@@ -339,30 +559,22 @@
     }
 
     .modal-title {
-      font-family: 'Creepster', cursive;
-      font-size: clamp(2.2rem, 6vw, 2.8rem);
-      letter-spacing: 2px;
+      font-family: 'Mountains of Christmas', cursive;
+      font-size: clamp(2.1rem, 5.8vw, 2.8rem);
+      color: var(--wish-gold);
+      text-shadow: 0 0 16px var(--gold-glow);
       line-height: 1.1;
     }
 
-    .modal-title.victory {
-      color: var(--toxic-green);
-      text-shadow: 0 0 16px var(--toxic-glow);
-    }
-
-    .modal-title.defeat {
-      color: var(--blood-red);
-      text-shadow: 0 0 16px rgba(255, 42, 75, 0.6);
-    }
-
     .word-box-outer {
-      background: rgba(8, 14, 10, 0.75);
-      border: 2px dashed var(--toxic-green);
+      width: 100%;
+      background: rgba(5, 14, 12, 0.82);
+      border: 2px dashed var(--holly-green);
       border-radius: 12px;
       padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
     }
 
@@ -376,11 +588,11 @@
 
     .secret-word-display {
       font-family: 'Cinzel', serif;
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       font-weight: 900;
       letter-spacing: 4px;
-      color: var(--toxic-green);
-      text-shadow: 0 0 12px var(--toxic-glow);
+      color: var(--wish-gold);
+      text-shadow: 0 0 12px var(--gold-glow);
     }
 
     .discord-btn-box {
@@ -419,9 +631,10 @@
     }
 
     .btn-krypt-return {
-      background: rgba(20, 32, 24, 0.8);
-      border: 1px solid var(--board-border);
-      color: var(--parchment);
+      width: 100%;
+      background: rgba(16, 28, 24, 0.9);
+      border: 1px solid var(--brass-border);
+      color: var(--snow-ivory);
       font-family: 'Cinzel', serif;
       font-size: 0.9rem;
       font-weight: 800;
@@ -436,20 +649,19 @@
     }
 
     .btn-krypt-return:hover {
-      border-color: var(--pumpkin-orange);
-      color: var(--pumpkin-orange);
+      border-color: var(--wish-gold);
+      color: var(--wish-gold);
     }
 
-    /* Toast */
     .spooky-toast {
       position: fixed;
-      bottom: 24px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%) translateY(80px);
-      background: rgba(14, 26, 18, 0.95);
-      border: 1px solid var(--toxic-green);
-      box-shadow: 0 4px 20px var(--toxic-glow);
-      color: var(--parchment);
+      background: rgba(16, 26, 22, 0.96);
+      border: 1px solid var(--wish-gold);
+      box-shadow: 0 4px 20px var(--gold-glow);
+      color: var(--snow-ivory);
       padding: 10px 22px;
       border-radius: 30px;
       font-size: 0.85rem;
@@ -468,852 +680,1095 @@
 </head>
 <body>
 
-  <div class="mist-ambient"></div>
-  <div class="vignette-overlay"></div>
+  <div class="vignette-overlay" id="vignette"></div>
 
   <div class="game-shell">
     <!-- Header -->
     <header>
       <div class="nav-bar">
-        <a href="../../index.html" class="btn-nav" title="Regresar al cementerio">
-          🏛️ Volver a la Krypta
+        <a href="../../index.html" class="btn-nav" title="Volver al Calendario de Adviento">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Volver a los Deseos</span>
         </a>
-        <button class="btn-nav" id="soundToggleBtn">
-          🔊 Audio
-        </button>
+        <div style="display:flex; gap:6px;">
+          <button class="btn-nav" id="bgmToggleBtn" title="Música de fondo (audio/bgm_day05.mp3)">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <span id="bgmLabel">Música OFF</span>
+          </button>
+          <button class="btn-nav" id="soundToggleBtn" title="Efectos de sonido">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+            <span id="sfxLabel">SFX ON</span>
+          </button>
+        </div>
       </div>
-      <span class="day-subtitle">DÍA 05 • LA KRYPTA</span>
-      <h1 class="title-banner">BURBUJAS DEL CALDERO</h1>
+      <span class="day-subtitle">DESEO 05 • 5 DE DICIEMBRE</span>
+      <h1 class="title-banner">EL FARO DE LA AURORA BOREAL</h1>
     </header>
 
-    <!-- HUD Bar -->
-    <div class="hud-bar">
-      <!-- Target: Clear all ceiling bubbles -->
+    <!-- HUD Panel -->
+    <div class="hud-panel">
       <div class="hud-stat">
-        <span class="hud-label">Burbujas en Bóveda</span>
-        <span class="hud-val target" id="bubblesLeftDisplay">0 restantes</span>
+        <span class="hud-label">Caja de Fusibles</span>
+        <span class="hud-val" id="boxLevelDisplay">Caja 1 / 3 (5×5)</span>
       </div>
-      <!-- Score -->
-      <div class="hud-stat right">
-        <span class="hud-label">Puntaje</span>
-        <span class="hud-val" id="scoreDisplay">0</span>
+      <div class="hud-stat">
+        <span class="hud-label">Fusibles Ocultos</span>
+        <span class="hud-val" id="hiddenFusesDisplay">0 / 2 Encontrados</span>
+      </div>
+      <div class="hud-stat">
+        <span class="hud-label">Cables Conectados</span>
+        <span class="hud-val" id="wiresConnectedDisplay">0 / 4</span>
+      </div>
+      <div class="hud-stat" style="align-items: flex-end;">
+        <span class="hud-label">Estado del Circuito</span>
+        <div class="bulbs-row" id="bulbsRow"></div>
       </div>
     </div>
 
-    <!-- Status / Aim Instructions -->
-    <div class="status-banner" id="statusBanner">
-      Apunta y dispara para juntar <strong>3 o más orbes iguales</strong> y reventar la poción.
+    <!-- Lighthouse Control Room & Recessed Fuse Box Stage -->
+    <div class="lighthouse-stage" id="lighthouseStage">
+      <!-- Reactive Aurora Window Glow -->
+      <div class="aurora-reactive-glow" id="auroraGlow"></div>
+
+      <!-- Hidden Crystal Fuses Layer (Placed around the control room) -->
+      <div id="hiddenFusesLayer"></div>
+
+      <!-- Central Recessed Fuse Box Matrix -->
+      <div class="fuse-cabinet-board" id="fuseCabinetBoard">
+        <svg class="wires-svg-layer" id="wiresSvgLayer"></svg>
+        <div class="circuit-grid" id="circuitGrid"></div>
+      </div>
+
+      <!-- Start Overlay -->
+      <div class="stage-overlay" id="startOverlay">
+        <svg width="74" height="74" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="32" fill="#102a24" stroke="#ffd166" stroke-width="3"/>
+          <path d="M44,14 L24,44 L39,44 L35,66 L56,36 L41,36 Z" fill="#ffd166" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        <h2 style="font-family:'Cinzel',serif; color:var(--wish-gold); font-size:1.38rem; letter-spacing:1px;">
+          LAS 3 CAJAS DE FUSIBLES DEL FARO POLAR
+        </h2>
+        <p style="max-width:560px; font-size:0.86rem; color:#dcebe5; line-height:1.5;">
+          Para despertar a la aldea del Polo Norte hay que reactivar las <strong>3 Cajas de Fusibles</strong> de dificultad ascendente (<strong>5×5, 6×6 y 7×7</strong>):<br><br>
+          1. <strong>Busca los Fusibles de Cristal Ocultos</strong> entre las tuberías, relojes y guirnaldas de la sala para enchufarlos en los zócalos vacíos.<br>
+          2. <strong>Conecta cada par de terminales del mismo color</strong> arrastrando los cables por la placa <strong>sin que se pisen ni se crucen</strong>. ¡Verás cómo cada línea ilumina el Faro en tiempo real!
+        </p>
+        <button class="btn-aurora-start" id="startBtn">
+          <svg class="svg-icon" style="width:20px;height:20px;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>Abrir Primera Caja de Fusibles</span>
+        </button>
+      </div>
     </div>
 
-    <!-- The Cauldron Canvas (320x460) -->
-    <div class="cauldron-arena">
-      <canvas id="bubbleCanvas" width="320" height="460"></canvas>
-    </div>
-
-    <!-- Mobile Aim Tip & Reset Strip -->
-    <div class="controls-strip">
-      <span class="mobile-tip">🎯 Desliza o haz clic para apuntar y soltar para disparar.</span>
-      <button class="btn-spooky-action" id="resetBtn">
-        🔄 Reiniciar
-      </button>
+    <!-- Bottom Controls Dock -->
+    <div class="controls-dock">
+      <div class="status-instruction" id="statusInstruction">
+        Encuentra los fusibles ocultos en la sala y arrastra entre terminales del mismo color sin cruzar cables.
+      </div>
+      <div class="dock-btns">
+        <button class="btn-brass" id="hintFuseBtn" title="Ilumina la ubicación de un fusible oculto o muestra el primer tramo de un cable">
+          <span>Buscar Fusible / Pista (3)</span>
+        </button>
+        <button class="btn-brass" id="resetWiresBtn" title="Desconectar los cables actuales de esta caja">
+          <span>Reiniciar Cables</span>
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- VICTORY MODAL -->
   <div class="modal-backdrop" id="victoryModal">
     <div class="modal-box">
-      <h2 class="modal-title victory">¡CALDERO PURIFICADO!</h2>
-      <p style="font-size:0.9rem; color:var(--parchment); line-height: 1.4;">
-        Has reventado todos los orbes de la bóveda y disuelto el maleficio de la bruja.
+      <svg width="68" height="68" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="28" fill="#1b4d3e" stroke="#ffd166" stroke-width="3"/>
+        <path d="M20,33 L28,41 L45,23" fill="none" stroke="#ffd166" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 class="modal-title">¡FARO DE LA AURORA ENCENDIDO!</h2>
+      <p style="font-size:0.9rem; color:var(--snow-ivory); line-height:1.45;">
+        ¡Reparaste las 3 Cajas de Fusibles sin un solo cortocircuito! El cielo del Polo Norte ya brilla con la Aurora Boreal para guiar la Navidad.
       </p>
 
       <div class="word-box-outer">
-        <span class="word-box-label">Palabra Clave Secreta del Día 05:</span>
-        <div class="secret-word-display" id="secretWordDisplay">CALDERO-DE-OJOS</div>
+        <span class="word-box-label">Palabra Clave Secreta del Deseo 05:</span>
+        <div class="secret-word-display" id="secretWordDisplay">FARO-BOREAL</div>
         <p style="font-size:0.75rem; color:var(--text-muted);">
-          Envía este código en Discord para registrar tu victoria del día.
+          Envía este código en Discord para registrar tu deseo cumplido del Día 05.
         </p>
       </div>
 
       <div class="discord-btn-box">
-        <!-- COPIAR PARA DISCORD CON SPOILERS "||" -->
         <button class="btn-discord-copy" id="copyDiscordBtn" onclick="copyDiscordMessage()">
-          📋 Copiar para Discord
+          <span>Copiar para Discord</span>
         </button>
         <a href="../../index.html" class="btn-krypt-return">
-          🏛️ Volver a la Krypta
+          <span>Volver al Calendario</span>
         </a>
       </div>
     </div>
   </div>
 
-  <!-- DEFEAT MODAL -->
-  <div class="modal-backdrop" id="defeatModal">
-    <div class="modal-box">
-      <h2 class="modal-title defeat">DESBORDE DE LA POCIÓN</h2>
-      <p style="font-size:0.9rem; color:var(--parchment); line-height: 1.4;">
-        Los orbes alcanzaron el límite del caldero y el brebaje hirviente te atrapó.
-      </p>
-      <div style="font-size: 2.2rem; margin: 4px 0;">🔮</div>
-      <button class="btn-spooky-action" style="width:100%; justify-content:center;" onclick="restartGame()">
-        🔄 Intentar el Disparo de Nuevo
-      </button>
-      <a href="../../index.html" class="btn-krypt-return" style="margin-top:4px;">
-        🏛️ Volver a la Krypta
-      </a>
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div class="spooky-toast" id="toast">Copiado al portapapeles</div>
+  <!-- Toast -->
+  <div class="spooky-toast" id="toast">Circuito conectado</div>
 
   <script>
     /* ==========================================================================
-       SYNTHESIZER SOUND ENGINE (WEB AUDIO API)
+       HYBRID AUDIO ENGINE: PLACEHOLDER MP3 FILES + WEB AUDIO API SYNTH FALLBACK
        ========================================================================== */
-    class BubbleAudio {
+    class Day05AudioEngine {
       constructor() {
+        this.sfxEnabled = true;
+        this.bgmEnabled = false;
         this.ctx = null;
-        this.enabled = true;
+        this.bgmTimer = null;
+
+        this.files = {
+          bgm: new Audio('audio/bgm_day05.mp3'),
+          start_game: new Audio('audio/start_game.mp3'),
+          find_fuse: new Audio('audio/find_fuse.mp3'),
+          wire_start: new Audio('audio/wire_start.mp3'),
+          wire_step: new Audio('audio/wire_step.mp3'),
+          wire_connect: new Audio('audio/wire_connect.mp3'),
+          wire_cross_error: new Audio('audio/wire_cross_error.mp3'),
+          wire_clear: new Audio('audio/wire_clear.mp3'),
+          box_powerup: new Audio('audio/box_powerup.mp3'),
+          victory: new Audio('audio/victory.mp3')
+        };
+        this.files.bgm.loop = true;
       }
 
       init() {
         if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) {
-            this.ctx = new AudioContext();
-          }
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
         }
         if (this.ctx && this.ctx.state === 'suspended') {
           this.ctx.resume();
         }
       }
 
-      playShoot() {
-        if (!this.enabled) return;
+      playCue(name, synthFallbackFn) {
+        if (!this.sfxEnabled) return;
         this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(320, now);
-        osc.frequency.exponentialRampToValueAtTime(140, now + 0.12);
-        gain.gain.setValueAtTime(0.18, now);
-        gain.gain.linearRampToValueAtTime(0.001, now + 0.12);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.12);
+        const media = this.files[name];
+        if (!media || media.error) {
+          if (synthFallbackFn) synthFallbackFn();
+          return;
+        }
+        try {
+          media.currentTime = 0;
+          const p = media.play();
+          if (p !== undefined) {
+            p.catch(() => {
+              if (synthFallbackFn) synthFallbackFn();
+            });
+          }
+        } catch (e) {
+          if (synthFallbackFn) synthFallbackFn();
+        }
       }
 
-      playBounce() {
-        if (!this.enabled) return;
+      toggleBgm() {
+        this.bgmEnabled = !this.bgmEnabled;
         this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(450, now);
-        osc.frequency.exponentialRampToValueAtTime(250, now + 0.05);
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.linearRampToValueAtTime(0.001, now + 0.05);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.05);
+        if (this.bgmEnabled) {
+          if (this.files.bgm.error) {
+            this.startSynthBgm();
+          } else {
+            const p = this.files.bgm.play();
+            if (p !== undefined) {
+              p.catch(() => this.startSynthBgm());
+            }
+          }
+        } else {
+          this.files.bgm.pause();
+          this.stopSynthBgm();
+        }
+        return this.bgmEnabled;
       }
 
-      playPop() {
-        if (!this.enabled) return;
-        this.init();
+      startSynthBgm() {
+        this.stopSynthBgm();
         if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(520, now);
-        osc.frequency.exponentialRampToValueAtTime(840, now + 0.12);
-        gain.gain.setValueAtTime(0.25, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.14);
-      }
-
-      playDropCluster() {
-        if (!this.enabled) return;
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const notes = [380, 320, 260, 200];
-        notes.forEach((freq, i) => {
+        // Ethereal Aurora Borealis celesta & warm generator pad
+        const notes = [523.25, 659.25, 783.99, 987.77, 783.99, 659.25, 587.33, 493.88];
+        let idx = 0;
+        const step = () => {
+          if (!this.bgmEnabled || !this.ctx) return;
+          const now = this.ctx.currentTime;
           const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(notes[idx % notes.length], now);
+          g.gain.setValueAtTime(0.04, now);
+          g.gain.exponentialRampToValueAtTime(0.0008, now + 0.55);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.55);
+          idx++;
+        };
+        step();
+        this.bgmTimer = setInterval(step, 600);
+      }
+
+      stopSynthBgm() {
+        if (this.bgmTimer) {
+          clearInterval(this.bgmTimer);
+          this.bgmTimer = null;
+        }
+      }
+
+      playStartGame() {
+        this.playCue('start_game', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [220, 330, 440, 659.25].forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(f, now + i * 0.06);
+            g.gain.setValueAtTime(0.16, now + i * 0.06);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.06 + 0.25);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now + i * 0.06);
+            osc.stop(now + i * 0.06 + 0.25);
+          });
+        });
+      }
+
+      playFindFuse() {
+        this.playCue('find_fuse', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [587.33, 880, 1174.66].forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + i * 0.05);
+            g.gain.setValueAtTime(0.18, now + i * 0.05);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.05 + 0.24);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now + i * 0.05);
+            osc.stop(now + i * 0.05 + 0.24);
+          });
+        });
+      }
+
+      playWireStart() {
+        this.playCue('wire_start', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(360, now);
+          osc.frequency.exponentialRampToValueAtTime(520, now + 0.06);
+          g.gain.setValueAtTime(0.12, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.065);
+        });
+      }
+
+      playWireStep(stepCount = 1) {
+        this.playCue('wire_step', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + i * 0.05);
-          gain.gain.setValueAtTime(0.18, now + i * 0.05);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.05 + 0.18);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now + i * 0.05);
-          osc.stop(now + i * 0.05 + 0.18);
+          const freq = Math.min(980, 340 + stepCount * 35);
+          osc.frequency.setValueAtTime(freq, now);
+          g.gain.setValueAtTime(0.1, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.06);
+        });
+      }
+
+      playWireConnect() {
+        this.playCue('wire_connect', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + i * 0.045);
+            g.gain.setValueAtTime(0.18, now + i * 0.045);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.045 + 0.25);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now + i * 0.045);
+            osc.stop(now + i * 0.045 + 0.25);
+          });
+        });
+      }
+
+      playWireCrossError() {
+        this.playCue('wire_cross_error', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(170, now);
+          osc.frequency.linearRampToValueAtTime(95, now + 0.16);
+          g.gain.setValueAtTime(0.22, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.16);
+        });
+      }
+
+      playWireClear() {
+        this.playCue('wire_clear', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const g = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(180, now + 0.1);
+          g.gain.setValueAtTime(0.12, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+          osc.connect(g);
+          g.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        });
+      }
+
+      playBoxPowerup() {
+        this.playCue('box_powerup', () => {
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [392.00, 523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(f, now + i * 0.08);
+            g.gain.setValueAtTime(0.22, now + i * 0.08);
+            g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.38);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now + i * 0.08);
+            osc.stop(now + i * 0.08 + 0.38);
+          });
         });
       }
 
       playVictory() {
-        if (!this.enabled) return;
-        this.init();
-        if (!this.ctx) return;
-        const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
-        notes.forEach((freq, i) => {
-          const now = this.ctx.currentTime + (i * 0.12);
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, now);
-          gain.gain.setValueAtTime(0.25, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.6);
+        this.playCue('victory', () => {
+          if (!this.ctx) return;
+          const notes = [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5];
+          notes.forEach((f, i) => {
+            const now = this.ctx.currentTime + i * 0.11;
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now);
+            g.gain.setValueAtTime(0.24, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.48);
+          });
         });
-      }
-
-      playLoss() {
-        if (!this.enabled) return;
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(110, now);
-        osc.frequency.exponentialRampToValueAtTime(30, now + 0.9);
-        gain.gain.setValueAtTime(0.3, now);
-        gain.gain.linearRampToValueAtTime(0.001, now + 0.9);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.9);
       }
     }
 
-    const sound = new BubbleAudio();
+    const sound = new Day05AudioEngine();
 
     /* ==========================================================================
-       PUZZLE BOBBLE HEX GRID ENGINE
+       WIRE COLORS & CUSTOM SVG GENERATORS (ZERO EMOJIS!)
        ========================================================================== */
-    const canvas = document.getElementById('bubbleCanvas');
-    const ctx = canvas.getContext('2d');
+    const WIRE_PALETTE = {
+      red:    { id: "red",    name: "Rojo Carmesí",   main: "#e63946", light: "#ff7582", dark: "#80131b" },
+      green:  { id: "green",  name: "Verde Aurora",   main: "#2ecc71", light: "#7cf7ae", dark: "#0f5c30" },
+      gold:   { id: "gold",   name: "Dorado Solar",   main: "#f5b727", light: "#ffe680", dark: "#7d5605" },
+      blue:   { id: "blue",   name: "Azul Escarcha",  main: "#2589e8", light: "#7dd3fc", dark: "#0d3d70" },
+      purple: { id: "purple", name: "Violeta Polar",  main: "#a855f7", light: "#e0b3ff", dark: "#4b167d" },
+      cyan:   { id: "cyan",   name: "Turquesa Boreal",main: "#06b6d4", light: "#80f5ff", dark: "#064e5c" }
+    };
 
-    const BUBBLE_RADIUS = 18;
-    const BUBBLE_DIAMETER = BUBBLE_RADIUS * 2;
-    const ROW_HEIGHT = Math.floor(BUBBLE_RADIUS * Math.sqrt(3)); // ~31px
-    const MAX_ROWS = 11;
-    const COLS_EVEN = 8;
-    const COLS_ODD = 7;
-    const DEADLINE_Y = 380; // If bubbles reach here: loss
-    const CANNON_X = canvas.width / 2;
-    const CANNON_Y = 425;
-    const SECRET_WORD = "CALDERO-DE-OJOS";
+    function createCrystalFuseSvg(colorObj) {
+      return `
+        <svg viewBox="0 0 56 56" width="100%" height="100%">
+          <g transform="rotate(-28 28 28)">
+            <!-- Brass End Caps -->
+            <rect x="18" y="6" width="20" height="8" rx="2" fill="#d4a338" stroke="#4a2e12" stroke-width="1.5"/>
+            <rect x="18" y="42" width="20" height="8" rx="2" fill="#d4a338" stroke="#4a2e12" stroke-width="1.5"/>
+            <!-- Crystal Glass Tube -->
+            <rect x="20" y="14" width="16" height="28" fill="rgba(255,255,255,0.22)" stroke="#ffd166" stroke-width="1.5"/>
+            <!-- Glowing Inner Filament -->
+            <line x1="28" y1="14" x2="28" y2="42" stroke="${colorObj.light}" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="28" cy="28" r="5.5" fill="${colorObj.main}" stroke="#fff" stroke-width="1.2"/>
+          </g>
+        </svg>
+      `;
+    }
 
-    // 5 Arcane Colors with Emojis / Glyphs
-    const BUBBLE_TYPES = [
-      { id: 0, color: '#ff2a4b', glow: 'rgba(255, 42, 75, 0.6)', icon: '🩸' },   // Red Blood Eye
-      { id: 1, color: '#39ff14', glow: 'rgba(57, 255, 20, 0.6)', icon: '🌿' },   // Toxic Green Slime
-      { id: 2, color: '#c042ff', glow: 'rgba(192, 66, 255, 0.6)', icon: '🔮' },  // Purple Nether Orb
-      { id: 3, color: '#ffaa00', glow: 'rgba(255, 170, 0, 0.6)', icon: '🔥' },   // Orange Sulfur
-      { id: 4, color: '#00e5ff', glow: 'rgba(0, 229, 255, 0.6)', icon: '💧' }    // Spectral Blue Tear
+    function createInsulatorSvg() {
+      return `
+        <svg viewBox="0 0 40 40" width="76%" height="76%">
+          <circle cx="20" cy="20" r="15" fill="#5e3a1e" stroke="#d4a338" stroke-width="2.5"/>
+          <circle cx="20" cy="20" r="8" fill="#2b1709" stroke="#966832" stroke-width="1.5"/>
+          <line x1="15" y1="15" x2="25" y2="25" stroke="#d4a338" stroke-width="2" stroke-linecap="round"/>
+          <line x1="25" y1="15" x2="15" y2="25" stroke="#d4a338" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      `;
+    }
+
+    /* ==========================================================================
+       3 ASCENDING FUSE BOX LEVELS (100% VERIFIED NON-CROSSING SOLUTIONS)
+       ========================================================================== */
+    const FUSE_BOX_LEVELS = [
+      {
+        level: 1,
+        title: "Caja 1 / 3: Generador de la Base (5×5)",
+        size: 5,
+        obstacles: [[2, 1]],
+        // Hidden crystal fuses placed around the control room that must be clicked to unlock their socket
+        hiddenFuses: [
+          { color: "gold",  targetCell: [4, 0], xPct: 16.5, yPct: 72.0, spotName: "junto a los tubos de vacío izquierdos" },
+          { color: "green", targetCell: [3, 1], xPct: 78.5, yPct: 58.0, spotName: "sobre los engranajes de bronce derechos" }
+        ],
+        pairs: [
+          { color: "red",   a: [0, 0], b: [1, 2], solution: [[0,0],[0,1],[0,2],[1,2]] },
+          { color: "gold",  a: [1, 1], b: [4, 0], solution: [[1,1],[1,0],[2,0],[3,0],[4,0]] },
+          { color: "green", a: [0, 3], b: [3, 1], solution: [[0,3],[1,3],[2,3],[2,2],[3,2],[3,1]] },
+          { color: "blue",  a: [0, 4], b: [3, 3], solution: [[0,4],[1,4],[2,4],[3,4],[3,3]] }
+        ]
+      },
+      {
+        level: 2,
+        title: "Caja 2 / 3: Turbinas de la Aurora (6×6)",
+        size: 6,
+        obstacles: [[1, 4], [4, 1]],
+        hiddenFuses: [
+          { color: "purple", targetCell: [3, 4], xPct: 24.5, yPct: 16.0, spotName: "en el manómetro superior izquierdo" },
+          { color: "gold",   targetCell: [5, 0], xPct: 82.0, yPct: 39.0, spotName: "bajo el farol de pared derecho" },
+          { color: "blue",   targetCell: [3, 5], xPct: 61.5, yPct: 74.0, spotName: "junto a las palancas de la consola" }
+        ],
+        pairs: [
+          { color: "red",    a: [0, 0], b: [1, 3], solution: [[0,0],[0,1],[0,2],[0,3],[1,3]] },
+          { color: "purple", a: [0, 4], b: [3, 4], solution: [[0,4],[0,5],[1,5],[2,5],[2,4],[3,4]] },
+          { color: "green",  a: [1, 0], b: [4, 3], solution: [[1,0],[1,1],[1,2],[2,2],[2,3],[3,3],[4,3]] },
+          { color: "gold",   a: [3, 1], b: [5, 0], solution: [[3,1],[2,1],[2,0],[3,0],[4,0],[5,0]] },
+          { color: "blue",   a: [3, 2], b: [3, 5], solution: [[3,2],[4,2],[5,2],[5,3],[5,4],[5,5],[4,5],[3,5]] }
+        ]
+      },
+      {
+        level: 3,
+        title: "Caja 3 / 3: Cúpula del Gran Faro Polar (7×7)",
+        size: 7,
+        obstacles: [[2, 4], [3, 2], [5, 4]],
+        hiddenFuses: [
+          { color: "cyan",   targetCell: [2, 6], xPct: 11.5, yPct: 38.0, spotName: "en el arco de la ventana izquierda" },
+          { color: "purple", targetCell: [3, 4], xPct: 48.0, yPct: 10.0, spotName: "entre la guirnalda superior del techo" },
+          { color: "gold",   targetCell: [6, 0], xPct: 74.0, yPct: 26.0, spotName: "sobre el reloj de presión derecho" },
+          { color: "blue",   targetCell: [6, 2], xPct: 37.5, yPct: 75.0, spotName: "sobre el panel izquierdo de la consola" }
+        ],
+        pairs: [
+          { color: "red",    a: [0, 0], b: [1, 1], solution: [[0,0],[0,1],[0,2],[1,2],[1,1]] },
+          { color: "cyan",   a: [0, 3], b: [2, 6], solution: [[0,3],[0,4],[0,5],[0,6],[1,6],[2,6]] },
+          { color: "purple", a: [1, 3], b: [3, 4], solution: [[1,3],[1,4],[1,5],[2,5],[3,5],[3,4]] },
+          { color: "green",  a: [1, 0], b: [2, 1], solution: [[1,0],[2,0],[3,0],[4,0],[4,1],[3,1],[2,1]] },
+          { color: "gold",   a: [2, 2], b: [6, 0], solution: [[2,2],[2,3],[3,3],[4,3],[4,2],[5,2],[5,1],[5,0],[6,0]] },
+          { color: "blue",   a: [4, 4], b: [6, 2], solution: [[4,4],[4,5],[4,6],[5,6],[6,6],[6,5],[6,4],[6,3],[6,2]] }
+        ]
+      }
     ];
 
-    let grid = [];
-    let currentShooterBubble = null;
-    let nextShooterBubble = null;
-    let flyingBubble = null;
-    let aimAngle = -Math.PI / 2; // Straight up
-    let isAiming = false;
+    /* ==========================================================================
+       GAME STATE & CIRCUIT CONTROLLER
+       ========================================================================== */
+    const SECRET_WORD = "FARO-BOREAL";
 
-    let score = 0;
-    let isGameRunning = true;
-    let isGameOver = false;
+    let currentLevelIdx = 0;
+    let isGameActive = false;
+    let hintsRemaining = 3;
+
+    // Current Level State
+    // paths[colorId] = array of [r, c] coordinates currently traced for that color
+    let paths = {};
+    // missingSockets["r,c"] = true if that terminal still needs its hidden crystal fuse
+    let missingSockets = {};
+    let foundFusesCount = 0;
+    let totalFusesInLevel = 0;
+
+    // Active Dragging State
+    let activeDragColor = null;
 
     // DOM Elements
-    const bubblesLeftDisplay = document.getElementById('bubblesLeftDisplay');
-    const scoreDisplay = document.getElementById('scoreDisplay');
+    const boxLevelDisplay = document.getElementById('boxLevelDisplay');
+    const hiddenFusesDisplay = document.getElementById('hiddenFusesDisplay');
+    const wiresConnectedDisplay = document.getElementById('wiresConnectedDisplay');
+    const bulbsRow = document.getElementById('bulbsRow');
+    const lighthouseStage = document.getElementById('lighthouseStage');
+    const auroraGlow = document.getElementById('auroraGlow');
+    const hiddenFusesLayer = document.getElementById('hiddenFusesLayer');
+    const fuseCabinetBoard = document.getElementById('fuseCabinetBoard');
+    const wiresSvgLayer = document.getElementById('wiresSvgLayer');
+    const circuitGrid = document.getElementById('circuitGrid');
+    const statusInstruction = document.getElementById('statusInstruction');
+    const hintFuseBtn = document.getElementById('hintFuseBtn');
+    const resetWiresBtn = document.getElementById('resetWiresBtn');
+    const startOverlay = document.getElementById('startOverlay');
+    const startBtn = document.getElementById('startBtn');
+    const vignette = document.getElementById('vignette');
     const victoryModal = document.getElementById('victoryModal');
-    const defeatModal = document.getElementById('defeatModal');
-    const soundToggleBtn = document.getElementById('soundToggleBtn');
     const copyDiscordBtn = document.getElementById('copyDiscordBtn');
-    const resetBtn = document.getElementById('resetBtn');
 
-    /* Initialize Hex Grid with 4 starter rows */
-    function initGrid() {
-      grid = [];
-      const initialFilledRows = 4;
-
-      for (let r = 0; r < MAX_ROWS; r++) {
-        const colsInRow = (r % 2 === 0) ? COLS_EVEN : COLS_ODD;
-        const rowArr = [];
-        for (let c = 0; c < colsInRow; c++) {
-          if (r < initialFilledRows) {
-            // Fill with random bubble type
-            const randType = Math.floor(Math.random() * BUBBLE_TYPES.length);
-            rowArr.push(randType);
-          } else {
-            rowArr.push(-1); // Empty slot
-          }
-        }
-        grid.push(rowArr);
-      }
-    }
-
-    function getBubbleCoords(r, c) {
-      const isOdd = (r % 2 === 1);
-      const xOffset = isOdd ? (BUBBLE_RADIUS + BUBBLE_RADIUS) : BUBBLE_RADIUS;
-      const x = xOffset + (c * BUBBLE_DIAMETER);
-      const y = BUBBLE_RADIUS + 4 + (r * ROW_HEIGHT);
-      return { x, y };
-    }
-
-    /* Get Active Colors present in the grid to only generate matching shooter bubbles */
-    function getPresentColors() {
-      const set = new Set();
-      grid.forEach(row => {
-        row.forEach(val => {
-          if (val !== -1) set.add(val);
-        });
-      });
-      return Array.from(set);
-    }
-
-    function getRandomColorFromGrid() {
-      const present = getPresentColors();
-      if (present.length === 0) return 0;
-      return present[Math.floor(Math.random() * present.length)];
-    }
-
-    /* Start / Reset Game */
-    function startNewGame() {
-      initGrid();
-      score = 0;
-      isGameOver = false;
-      isGameRunning = true;
-      flyingBubble = null;
-      aimAngle = -Math.PI / 2;
-
-      currentShooterBubble = getRandomColorFromGrid();
-      nextShooterBubble = getRandomColorFromGrid();
-
-      updateHUD();
-      victoryModal.classList.remove('active');
-      defeatModal.classList.remove('active');
-    }
-
-    function restartGame() {
-      startNewGame();
-    }
-
-    resetBtn.addEventListener('click', startNewGame);
-
-    /* Main Canvas Drawing Loop */
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // 1. Draw Ceiling Stone Border
-      ctx.fillStyle = '#17271e';
-      ctx.fillRect(0, 0, canvas.width, 6);
-
-      // 2. Draw Danger Deadline
-      ctx.strokeStyle = 'rgba(255, 42, 75, 0.4)';
-      ctx.setLineDash([6, 6]);
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(0, DEADLINE_Y);
-      ctx.lineTo(canvas.width, DEADLINE_Y);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // 3. Draw Grid Bubbles
-      for (let r = 0; r < MAX_ROWS; r++) {
-        for (let c = 0; c < grid[r].length; c++) {
-          const typeId = grid[r][c];
-          if (typeId !== -1) {
-            const { x, y } = getBubbleCoords(r, c);
-            drawSingleBubble(x, y, typeId);
-          }
-        }
-      }
-
-      // 4. Draw Flying Bubble (if shot)
-      if (flyingBubble) {
-        drawSingleBubble(flyingBubble.x, flyingBubble.y, flyingBubble.type);
-      }
-
-      // 5. Draw Aiming Line (when aiming or stationary)
-      if (!flyingBubble && isGameRunning && !isGameOver) {
-        drawAimTrajectory();
-      }
-
-      // 6. Draw Cauldron & Cannon Base
-      drawCauldronBase();
-
-      requestAnimationFrame(draw);
-    }
-
-    function drawSingleBubble(x, y, typeId) {
-      const bType = BUBBLE_TYPES[typeId] || BUBBLE_TYPES[0];
-
-      ctx.save();
-      // Outer Glow
-      ctx.shadowColor = bType.glow;
-      ctx.shadowBlur = 10;
-
-      // Radial Sphere Gradient
-      const grad = ctx.createRadialGradient(x - 5, y - 5, 2, x, y, BUBBLE_RADIUS);
-      grad.addColorStop(0, '#ffffff');
-      grad.addColorStop(0.35, bType.color);
-      grad.addColorStop(1, '#081109');
-
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(x, y, BUBBLE_RADIUS - 1, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Inner Icon Glyph
-      ctx.shadowBlur = 0;
-      ctx.font = '13px Montserrat';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(bType.icon, x, y + 1);
-
-      ctx.restore();
-    }
-
-    function drawCauldronBase() {
-      // Iron Cauldron pot at bottom center
-      ctx.save();
-      ctx.fillStyle = '#101c15';
-      ctx.strokeStyle = '#2e4435';
-      ctx.lineWidth = 3;
-
-      ctx.beginPath();
-      ctx.arc(CANNON_X, CANNON_Y + 12, 34, Math.PI, 0);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-
-      // Green witch cauldron brew glow
-      ctx.fillStyle = '#39ff14';
-      ctx.shadowColor = 'rgba(57, 255, 20, 0.8)';
-      ctx.shadowBlur = 12;
-      ctx.beginPath();
-      ctx.ellipse(CANNON_X, CANNON_Y + 12, 28, 6, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-
-      // Ready Bubble on Cannon
-      if (currentShooterBubble !== null && !flyingBubble && !isGameOver) {
-        drawSingleBubble(CANNON_X, CANNON_Y - 4, currentShooterBubble);
-      }
-
-      // Next Bubble Preview (Left side of cauldron)
-      if (nextShooterBubble !== null && !isGameOver) {
-        ctx.fillStyle = 'rgba(255,255,255,0.4)';
-        ctx.font = '9px Cinzel';
-        ctx.fillText('SIG:', 26, CANNON_Y - 14);
-        drawSingleBubble(28, CANNON_Y + 8, nextShooterBubble);
-      }
-    }
-
-    /* Trajectory Aiming Line with Wall Bounce */
-    function drawAimTrajectory() {
-      ctx.save();
-      ctx.strokeStyle = 'rgba(57, 255, 20, 0.45)';
-      ctx.lineWidth = 2;
-      ctx.setLineDash([4, 6]);
-
-      let curX = CANNON_X;
-      let curY = CANNON_Y - 4;
-      let vx = Math.cos(aimAngle);
-      let vy = Math.sin(aimAngle);
-
-      ctx.beginPath();
-      ctx.moveTo(curX, curY);
-
-      // Trace line bouncing off side walls
-      let maxDist = 380;
-      let traveled = 0;
-
-      while (traveled < maxDist && curY > 30) {
-        curX += vx * 12;
-        curY += vy * 12;
-        traveled += 12;
-
-        if (curX <= BUBBLE_RADIUS) {
-          curX = BUBBLE_RADIUS;
-          vx = -vx;
-          ctx.lineTo(curX, curY);
-        } else if (curX >= canvas.width - BUBBLE_RADIUS) {
-          curX = canvas.width - BUBBLE_RADIUS;
-          vx = -vx;
-          ctx.lineTo(curX, curY);
-        }
-      }
-
-      ctx.lineTo(curX, curY);
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    /* Shooting & Flying Physics Loop */
-    function shootBubble() {
-      if (flyingBubble || !isGameRunning || isGameOver) return;
-
+    startBtn.addEventListener('click', () => {
       sound.init();
-      sound.playShoot();
+      sound.playStartGame();
+      startOverlay.classList.add('hidden');
+      isGameActive = true;
+      hintsRemaining = 3;
+      updateHintBtnText();
+      loadFuseBoxLevel(0);
+    });
 
-      const speed = 15;
-      flyingBubble = {
-        x: CANNON_X,
-        y: CANNON_Y - 4,
-        vx: Math.cos(aimAngle) * speed,
-        vy: Math.sin(aimAngle) * speed,
-        type: currentShooterBubble
-      };
+    function loadFuseBoxLevel(idx) {
+      currentLevelIdx = idx;
+      const lvl = FUSE_BOX_LEVELS[idx];
 
-      currentShooterBubble = nextShooterBubble;
-      nextShooterBubble = getRandomColorFromGrid();
+      paths = {};
+      lvl.pairs.forEach(p => { paths[p.color] = []; });
 
-      // Launch physics step
-      stepFlyingBubble();
-    }
-
-    function stepFlyingBubble() {
-      if (!flyingBubble) return;
-
-      flyingBubble.x += flyingBubble.vx;
-      flyingBubble.y += flyingBubble.vy;
-
-      // Wall bounce
-      if (flyingBubble.x <= BUBBLE_RADIUS) {
-        flyingBubble.x = BUBBLE_RADIUS;
-        flyingBubble.vx = -flyingBubble.vx;
-        sound.playBounce();
-      } else if (flyingBubble.x >= canvas.width - BUBBLE_RADIUS) {
-        flyingBubble.x = canvas.width - BUBBLE_RADIUS;
-        flyingBubble.vx = -flyingBubble.vx;
-        sound.playBounce();
-      }
-
-      // Ceiling collision
-      if (flyingBubble.y <= BUBBLE_RADIUS + 4) {
-        snapFlyingBubbleToGrid();
-        return;
-      }
-
-      // Check collision with existing bubbles
-      if (checkBubbleCollision(flyingBubble.x, flyingBubble.y)) {
-        snapFlyingBubbleToGrid();
-        return;
-      }
-
-      requestAnimationFrame(stepFlyingBubble);
-    }
-
-    function checkBubbleCollision(x, y) {
-      for (let r = 0; r < MAX_ROWS; r++) {
-        for (let c = 0; c < grid[r].length; c++) {
-          if (grid[r][c] !== -1) {
-            const coords = getBubbleCoords(r, c);
-            const dist = Math.hypot(x - coords.x, y - coords.y);
-            if (dist < BUBBLE_DIAMETER - 4) {
-              return true;
-            }
-          }
-        }
-      }
-      return false;
-    }
-
-    /* Snap shot bubble into closest available hex slot */
-    function snapFlyingBubbleToGrid() {
-      if (!flyingBubble) return;
-
-      let closestR = 0;
-      let closestC = 0;
-      let minDist = 999999;
-
-      for (let r = 0; r < MAX_ROWS; r++) {
-        const cols = (r % 2 === 0) ? COLS_EVEN : COLS_ODD;
-        for (let c = 0; c < cols; c++) {
-          if (grid[r][c] === -1) {
-            const coords = getBubbleCoords(r, c);
-            const dist = Math.hypot(flyingBubble.x - coords.x, flyingBubble.y - coords.y);
-            if (dist < minDist) {
-              minDist = dist;
-              closestR = r;
-              closestC = c;
-            }
-          }
-        }
-      }
-
-      grid[closestR][closestC] = flyingBubble.type;
-      const landedType = flyingBubble.type;
-      flyingBubble = null;
-
-      // Handle matching
-      handleMatches(closestR, closestC, landedType);
-    }
-
-    /* Hexagonal Neighbors Helper */
-    function getNeighbors(r, c) {
-      const neighbors = [];
-      const isOdd = (r % 2 === 1);
-
-      const deltas = isOdd ? [
-        { dr: 0, dc: -1 }, { dr: 0, dc: 1 },
-        { dr: -1, dc: 0 }, { dr: -1, dc: 1 },
-        { dr: 1, dc: 0 },  { dr: 1, dc: 1 }
-      ] : [
-        { dr: 0, dc: -1 }, { dr: 0, dc: 1 },
-        { dr: -1, dc: -1 }, { dr: -1, dc: 0 },
-        { dr: 1, dc: -1 },  { dr: 1, dc: 0 }
-      ];
-
-      deltas.forEach(({ dr, dc }) => {
-        const nr = r + dr;
-        const nc = c + dc;
-        if (nr >= 0 && nr < MAX_ROWS) {
-          const maxCols = (nr % 2 === 0) ? COLS_EVEN : COLS_ODD;
-          if (nc >= 0 && nc < maxCols) {
-            neighbors.push({ r: nr, c: nc });
-          }
-        }
+      missingSockets = {};
+      foundFusesCount = 0;
+      totalFusesInLevel = lvl.hiddenFuses.length;
+      lvl.hiddenFuses.forEach(hf => {
+        missingSockets[`${hf.targetCell[0]},${hf.targetCell[1]}`] = hf.color;
       });
 
-      return neighbors;
+      fuseCabinetBoard.classList.remove('box-energized');
+      vignette.classList.remove('aurora-active');
+
+      renderHiddenFuses(lvl);
+      renderCircuitBoard(lvl);
+      renderWiresSvg();
+      updateLevelStatusUI();
+
+      statusInstruction.textContent = `Caja ${lvl.level}/3: Encuentra los ${totalFusesInLevel} fusibles de cristal ocultos en la sala y conecta los ${lvl.pairs.length} cables sin que se crucen.`;
     }
 
-    /* Match 3+ BFS flood fill */
-    function handleMatches(startR, startC, targetType) {
-      const matched = [];
-      const visited = new Set();
-      const queue = [{ r: startR, c: startC }];
-      visited.add(`${startR},${startC}`);
+    /* Render Hidden Crystal Fuses around the Lighthouse Control Room */
+    function renderHiddenFuses(lvl) {
+      hiddenFusesLayer.innerHTML = '';
+      lvl.hiddenFuses.forEach((hf, index) => {
+        const colorObj = WIRE_PALETTE[hf.color];
+        const el = document.createElement('div');
+        el.className = 'hidden-fuse-item';
+        el.id = `hidden-fuse-${index}`;
+        el.dataset.targetKey = `${hf.targetCell[0]},${hf.targetCell[1]}`;
+        el.dataset.spotName = hf.spotName;
+        el.style.left = `${hf.xPct}%`;
+        el.style.top = `${hf.yPct}%`;
+        el.title = `Fusible de Cristal (${colorObj.name})`;
+        el.innerHTML = createCrystalFuseSvg(colorObj);
 
-      while (queue.length > 0) {
-        const curr = queue.shift();
-        matched.push(curr);
-
-        const nbrs = getNeighbors(curr.r, curr.c);
-        nbrs.forEach(({ r, c }) => {
-          const key = `${r},${c}`;
-          if (!visited.has(key) && grid[r][c] === targetType) {
-            visited.add(key);
-            queue.push({ r, c });
-          }
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (!isGameActive || el.dataset.collected === 'true') return;
+          el.dataset.collected = 'true';
+          collectHiddenFuse(el, hf, colorObj);
         });
-      }
 
-      if (matched.length >= 3) {
-        sound.playPop();
-        // Pop matched bubbles
-        matched.forEach(({ r, c }) => {
-          grid[r][c] = -1;
-        });
-
-        score += matched.length * 100;
-
-        // Check for floating orphan bubbles
-        const droppedCluster = removeFloatingOrphans();
-        if (droppedCluster > 0) {
-          sound.playDropCluster();
-          score += droppedCluster * 200;
-        }
-
-        updateHUD();
-      }
-
-      // Check End Conditions
-      checkGameEnd();
+        hiddenFusesLayer.appendChild(el);
+      });
     }
 
-    /* Disconnected bubbles falling logic */
-    function removeFloatingOrphans() {
-      // BFS starting from ceiling (row 0)
-      const connectedToCeiling = new Set();
-      const queue = [];
+    function collectHiddenFuse(fuseEl, hf, colorObj) {
+      sound.playFindFuse();
+      const targetKey = `${hf.targetCell[0]},${hf.targetCell[1]}`;
+      const socketCell = document.getElementById(`cell-${hf.targetCell[0]}-${hf.targetCell[1]}`);
 
-      for (let c = 0; c < COLS_EVEN; c++) {
-        if (grid[0][c] !== -1) {
-          connectedToCeiling.add(`0,${c}`);
-          queue.push({ r: 0, c });
-        }
-      }
+      const srcRect = fuseEl.getBoundingClientRect();
+      fuseEl.style.opacity = '0';
+      fuseEl.style.pointerEvents = 'none';
 
-      while (queue.length > 0) {
-        const curr = queue.shift();
-        const nbrs = getNeighbors(curr.r, curr.c);
-        nbrs.forEach(({ r, c }) => {
-          const key = `${r},${c}`;
-          if (!connectedToCeiling.has(key) && grid[r][c] !== -1) {
-            connectedToCeiling.add(key);
-            queue.push({ r, c });
-          }
-        });
-      }
+      if (socketCell) {
+        const dstRect = socketCell.getBoundingClientRect();
+        const flyer = document.createElement('div');
+        flyer.className = 'flying-fuse';
+        flyer.innerHTML = createCrystalFuseSvg(colorObj);
+        flyer.style.left = `${srcRect.left}px`;
+        flyer.style.top = `${srcRect.top}px`;
+        document.body.appendChild(flyer);
 
-      // Any bubble not connected to ceiling falls!
-      let droppedCount = 0;
-      for (let r = 0; r < MAX_ROWS; r++) {
-        const cols = (r % 2 === 0) ? COLS_EVEN : COLS_ODD;
-        for (let c = 0; c < cols; c++) {
-          if (grid[r][c] !== -1 && !connectedToCeiling.has(`${r},${c}`)) {
-            grid[r][c] = -1;
-            droppedCount++;
-          }
-        }
-      }
+        void flyer.offsetWidth;
+        flyer.style.left = `${dstRect.left + dstRect.width / 2 - 22}px`;
+        flyer.style.top = `${dstRect.top + dstRect.height / 2 - 22}px`;
+        flyer.style.transform = 'scale(0.65) rotate(180deg)';
 
-      return droppedCount;
-    }
-
-    function checkGameEnd() {
-      // 1. Victory: No more bubbles in grid!
-      let totalBubblesLeft = 0;
-      let lowestY = 0;
-
-      for (let r = 0; r < MAX_ROWS; r++) {
-        for (let c = 0; c < grid[r].length; c++) {
-          if (grid[r][c] !== -1) {
-            totalBubblesLeft++;
-            const coords = getBubbleCoords(r, c);
-            if (coords.y > lowestY) lowestY = coords.y;
-          }
-        }
-      }
-
-      updateHUD(totalBubblesLeft);
-
-      if (totalBubblesLeft === 0) {
-        isGameOver = true;
-        isGameRunning = false;
-        sound.playVictory();
-        try {
-          localStorage.setItem('krypt_day_05_cleared', 'true');
-        } catch(e){}
-        setTimeout(() => victoryModal.classList.add('active'), 400);
-        return;
-      }
-
-      // 2. Defeat: Bubbles cross deadline
-      if (lowestY >= DEADLINE_Y - BUBBLE_RADIUS) {
-        isGameOver = true;
-        isGameRunning = false;
-        sound.playLoss();
-        setTimeout(() => defeatModal.classList.add('active'), 400);
-      }
-    }
-
-    function updateHUD(bubblesCount = null) {
-      if (bubblesCount === null) {
-        let count = 0;
-        grid.forEach(row => row.forEach(val => { if (val !== -1) count++; }));
-        bubblesLeftDisplay.textContent = `${count} restantes`;
+        setTimeout(() => {
+          flyer.remove();
+          delete missingSockets[targetKey];
+          foundFusesCount++;
+          socketCell.classList.remove('missing-fuse');
+          updateLevelStatusUI();
+          showToast(`¡Fusible ${colorObj.name} enchufado en el tablero!`);
+        }, 500);
       } else {
-        bubblesLeftDisplay.textContent = `${bubblesCount} restantes`;
+        delete missingSockets[targetKey];
+        foundFusesCount++;
+        updateLevelStatusUI();
       }
-      scoreDisplay.textContent = score;
     }
 
-    /* Mouse & Touch Aiming */
-    function updateAimTarget(clientX, clientY) {
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const targetX = (clientX - rect.left) * scaleX;
-      const targetY = (clientY - rect.top) * scaleY;
+    /* Render Circuit Grid Cells, Terminals & Obstacles */
+    function renderCircuitBoard(lvl) {
+      const N = lvl.size;
+      circuitGrid.style.gridTemplateColumns = `repeat(${N}, 1fr)`;
+      circuitGrid.style.gridTemplateRows = `repeat(${N}, 1fr)`;
+      circuitGrid.innerHTML = '';
 
-      const dx = targetX - CANNON_X;
-      const dy = targetY - (CANNON_Y - 4);
-      let angle = Math.atan2(dy, dx);
+      // Lookup maps for quick cell setup
+      const obstacleSet = new Set(lvl.obstacles.map(([r, c]) => `${r},${c}`));
+      const terminalMap = {};
+      lvl.pairs.forEach(p => {
+        terminalMap[`${p.a[0]},${p.a[1]}`] = p.color;
+        terminalMap[`${p.b[0]},${p.b[1]}`] = p.color;
+      });
 
-      // Clamp angle so user cannot shoot downwards
-      const minAngle = -Math.PI + 0.18; // ~170 deg left
-      const maxAngle = -0.18;            // ~10 deg right
+      for (let r = 0; r < N; r++) {
+        for (let c = 0; c < N; c++) {
+          const key = `${r},${c}`;
+          const cell = document.createElement('div');
+          cell.className = 'circuit-cell';
+          cell.id = `cell-${r}-${c}`;
+          cell.dataset.r = r;
+          cell.dataset.c = c;
 
-      if (angle > 0) {
-        angle = (dx < 0) ? minAngle : maxAngle;
-      } else {
-        angle = Math.max(minAngle, Math.min(maxAngle, angle));
+          if (obstacleSet.has(key)) {
+            cell.classList.add('is-obstacle');
+            cell.innerHTML = createInsulatorSvg();
+          } else if (terminalMap[key]) {
+            const colorId = terminalMap[key];
+            const colorObj = WIRE_PALETTE[colorId];
+            cell.dataset.terminalColor = colorId;
+            cell.style.setProperty('--node-main', colorObj.main);
+            cell.style.setProperty('--node-light', colorObj.light);
+            cell.style.setProperty('--node-dark', colorObj.dark);
+
+            if (missingSockets[key]) {
+              cell.classList.add('missing-fuse');
+            }
+
+            const node = document.createElement('div');
+            node.className = 'terminal-node';
+            cell.appendChild(node);
+          }
+
+          circuitGrid.appendChild(cell);
+        }
       }
-
-      aimAngle = angle;
     }
-
-    canvas.addEventListener('mousemove', (e) => {
-      updateAimTarget(e.clientX, e.clientY);
-    });
-
-    canvas.addEventListener('click', (e) => {
-      updateAimTarget(e.clientX, e.clientY);
-      shootBubble();
-    });
-
-    /* Touch Controls for Mobile */
-    canvas.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      if (e.touches.length > 0) {
-        isAiming = true;
-        updateAimTarget(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: false });
-
-    canvas.addEventListener('touchmove', (e) => {
-      e.preventDefault();
-      if (isAiming && e.touches.length > 0) {
-        updateAimTarget(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: false });
-
-    canvas.addEventListener('touchend', (e) => {
-      e.preventDefault();
-      if (isAiming) {
-        isAiming = false;
-        shootBubble();
-      }
-    }, { passive: false });
-
-    /* Keyboard Aiming (Arrow Keys & Space to shoot) */
-    window.addEventListener('keydown', (e) => {
-      if (!isGameRunning || isGameOver) return;
-      if (e.key === 'ArrowLeft') {
-        aimAngle = Math.max(-Math.PI + 0.18, aimAngle - 0.08);
-      } else if (e.key === 'ArrowRight') {
-        aimAngle = Math.min(-0.18, aimAngle + 0.08);
-      } else if (e.key === ' ' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        shootBubble();
-      }
-    });
 
     /* ==========================================================================
-       DISCORD MESSAGE GENERATOR WITH SPOILER SYNTAX "||"
+       NON-CROSSING WIRE TRACING ENGINE (POINTER DOWN / MOVE / UP)
        ========================================================================== */
-    function copyDiscordMessage() {
-      const discordText = `🎃 ¡He superado el Día 05 en La Krypta! Código: ||${SECRET_WORD}||`;
+    function getCellFromPointerEvent(e) {
+      const target = document.elementFromPoint(e.clientX, e.clientY);
+      if (!target) return null;
+      return target.closest('.circuit-cell');
+    }
 
+    circuitGrid.addEventListener('pointerdown', (e) => {
+      if (!isGameActive) return;
+      const cell = getCellFromPointerEvent(e);
+      if (!cell || cell.classList.contains('is-obstacle')) return;
+
+      const r = parseInt(cell.dataset.r, 10);
+      const c = parseInt(cell.dataset.c, 10);
+      const key = `${r},${c}`;
+
+      // If clicking a terminal that is still missing its hidden crystal fuse, alert the player!
+      if (missingSockets[key]) {
+        sound.playWireCrossError();
+        spawnSparkAtCell(cell, '#ffd166');
+        showToast('¡Falta el fusible de cristal en este zócalo! Búscalo oculto en la sala.');
+        return;
+      }
+
+      const termColor = cell.dataset.terminalColor;
+      if (termColor) {
+        // Start a fresh wire from this terminal
+        activeDragColor = termColor;
+        paths[termColor] = [[r, c]];
+        sound.playWireStart();
+        renderWiresSvg();
+        updateLevelStatusUI();
+        return;
+      }
+
+      // Or if clicking along an existing wire segment, resume dragging from that point!
+      const ownerColor = findWireOwnerAt(r, c);
+      if (ownerColor) {
+        activeDragColor = ownerColor;
+        const path = paths[ownerColor];
+        const idx = path.findIndex(([pr, pc]) => pr === r && pc === c);
+        if (idx !== -1) {
+          paths[ownerColor] = path.slice(0, idx + 1);
+          sound.playWireStart();
+          renderWiresSvg();
+          updateLevelStatusUI();
+        }
+      }
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!activeDragColor || !isGameActive) return;
+      const cell = getCellFromPointerEvent(e);
+      if (!cell) return;
+
+      const r = parseInt(cell.dataset.r, 10);
+      const c = parseInt(cell.dataset.c, 10);
+      const key = `${r},${c}`;
+
+      const currentPath = paths[activeDragColor];
+      if (!currentPath || currentPath.length === 0) return;
+
+      const [lastR, lastC] = currentPath[currentPath.length - 1];
+      if (r === lastR && c === lastC) return;
+
+      // Only allow orthogonal steps (up, down, left, right)
+      if (Math.abs(r - lastR) + Math.abs(c - lastC) !== 1) return;
+
+      // Block if already completed both ends and trying to extend past second terminal
+      if (isColorConnected(activeDragColor)) {
+        // Allow backtracking if moving back to previous cell in own path
+        if (
+          currentPath.length >= 2 &&
+          currentPath[currentPath.length - 2][0] === r &&
+          currentPath[currentPath.length - 2][1] === c
+        ) {
+          currentPath.pop();
+          sound.playWireStep(currentPath.length);
+          renderWiresSvg();
+          updateLevelStatusUI();
+        }
+        return;
+      }
+
+      // Check if backtracking on own path
+      const existingOwnIdx = currentPath.findIndex(([pr, pc]) => pr === r && pc === c);
+      if (existingOwnIdx !== -1) {
+        paths[activeDragColor] = currentPath.slice(0, existingOwnIdx + 1);
+        sound.playWireStep(paths[activeDragColor].length);
+        renderWiresSvg();
+        updateLevelStatusUI();
+        return;
+      }
+
+      // Check if obstacle
+      if (cell.classList.contains('is-obstacle')) {
+        sound.playWireCrossError();
+        spawnSparkAtCell(cell, '#ff7518');
+        return;
+      }
+
+      // Check if target cell is a terminal
+      const cellTermColor = cell.dataset.terminalColor;
+      if (cellTermColor) {
+        if (cellTermColor !== activeDragColor) {
+          // Cannot step onto another color's terminal!
+          sound.playWireCrossError();
+          spawnSparkAtCell(cell, '#e63946');
+          return;
+        }
+        if (missingSockets[key]) {
+          sound.playWireCrossError();
+          spawnSparkAtCell(cell, '#ffd166');
+          showToast('¡Primero encuentra e instala el fusible oculto de este zócalo!');
+          return;
+        }
+      }
+
+      // STRICT NON-CROSSING RULE: Cannot step onto another color's wire!
+      const otherOwner = findWireOwnerAt(r, c);
+      if (otherOwner && otherOwner !== activeDragColor) {
+        sound.playWireCrossError();
+        spawnSparkAtCell(cell, '#e63946');
+        showToast('⚡ ¡Cuidado! Los cables no pueden cruzarse ni pisarse.');
+        return;
+      }
+
+      // Valid step! Append to path
+      currentPath.push([r, c]);
+
+      if (isColorConnected(activeDragColor)) {
+        sound.playWireConnect();
+        spawnSparkAtCell(cell, WIRE_PALETTE[activeDragColor].light);
+        activeDragColor = null;
+        renderWiresSvg();
+        updateLevelStatusUI();
+        checkLevelCompletion();
+      } else {
+        sound.playWireStep(currentPath.length);
+        renderWiresSvg();
+        updateLevelStatusUI();
+      }
+    });
+
+    window.addEventListener('pointerup', () => {
+      activeDragColor = null;
+    });
+
+    function findWireOwnerAt(r, c) {
+      for (const colorId of Object.keys(paths)) {
+        const p = paths[colorId];
+        if (p && p.some(([pr, pc]) => pr === r && pc === c)) {
+          return colorId;
+        }
+      }
+      return null;
+    }
+
+    function isColorConnected(colorId) {
+      const lvl = FUSE_BOX_LEVELS[currentLevelIdx];
+      const pair = lvl.pairs.find(p => p.color === colorId);
+      const path = paths[colorId];
+      if (!pair || !path || path.length < 2) return false;
+
+      const [startR, startC] = path[0];
+      const [endR, endC] = path[path.length - 1];
+
+      const matchesAB = (startR === pair.a[0] && startC === pair.a[1] && endR === pair.b[0] && endC === pair.b[1]);
+      const matchesBA = (startR === pair.b[0] && startC === pair.b[1] && endR === pair.a[0] && endC === pair.a[1]);
+      return matchesAB || matchesBA;
+    }
+
+    /* ==========================================================================
+       REACTIVE WIRE SVG RENDERING & ILLUMINATION
+       ========================================================================== */
+    function renderWiresSvg() {
+      const lvl = FUSE_BOX_LEVELS[currentLevelIdx];
+      const N = lvl.size;
+      wiresSvgLayer.setAttribute('viewBox', `0 0 ${N * 100} ${N * 100}`);
+      wiresSvgLayer.innerHTML = '';
+
+      // Update terminal connected visual classes
+      document.querySelectorAll('.circuit-cell.connected-terminal').forEach(el => el.classList.remove('connected-terminal'));
+
+      lvl.pairs.forEach(pair => {
+        const colorId = pair.color;
+        const colorObj = WIRE_PALETTE[colorId];
+        const path = paths[colorId] || [];
+        const connected = isColorConnected(colorId);
+
+        if (connected) {
+          const cellA = document.getElementById(`cell-${pair.a[0]}-${pair.a[1]}`);
+          const cellB = document.getElementById(`cell-${pair.b[0]}-${pair.b[1]}`);
+          if (cellA) cellA.classList.add('connected-terminal');
+          if (cellB) cellB.classList.add('connected-terminal');
+        }
+
+        if (path.length < 2) return;
+
+        const pointsStr = path.map(([r, c]) => `${c * 100 + 50},${r * 100 + 50}`).join(' ');
+
+        // Outer Neon Glow when connected
+        if (connected) {
+          const glowLine = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+          glowLine.setAttribute('points', pointsStr);
+          glowLine.setAttribute('fill', 'none');
+          glowLine.setAttribute('stroke', colorObj.light);
+          glowLine.setAttribute('stroke-width', '34');
+          glowLine.setAttribute('stroke-linecap', 'round');
+          glowLine.setAttribute('stroke-linejoin', 'round');
+          glowLine.setAttribute('opacity', '0.42');
+          wiresSvgLayer.appendChild(glowLine);
+        }
+
+        // Main Cable Body
+        const mainLine = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        mainLine.setAttribute('points', pointsStr);
+        mainLine.setAttribute('fill', 'none');
+        mainLine.setAttribute('stroke', connected ? colorObj.main : colorObj.dark);
+        mainLine.setAttribute('stroke-width', '20');
+        mainLine.setAttribute('stroke-linecap', 'round');
+        mainLine.setAttribute('stroke-linejoin', 'round');
+        wiresSvgLayer.appendChild(mainLine);
+
+        // Inner Core Filament
+        const coreLine = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        coreLine.setAttribute('points', pointsStr);
+        coreLine.setAttribute('fill', 'none');
+        coreLine.setAttribute('stroke', connected ? '#ffffff' : colorObj.light);
+        coreLine.setAttribute('stroke-width', connected ? '7' : '5');
+        coreLine.setAttribute('stroke-linecap', 'round');
+        coreLine.setAttribute('stroke-linejoin', 'round');
+        if (connected) {
+          coreLine.setAttribute('stroke-dasharray', '14, 10');
+        }
+        wiresSvgLayer.appendChild(coreLine);
+      });
+    }
+
+    function spawnSparkAtCell(cellEl, colorHex) {
+      const stageRect = lighthouseStage.getBoundingClientRect();
+      const cellRect = cellEl.getBoundingClientRect();
+      const spark = document.createElement('div');
+      spark.className = 'spark-burst';
+      spark.style.left = `${cellRect.left - stageRect.left + cellRect.width / 2}px`;
+      spark.style.top = `${cellRect.top - stageRect.top + cellRect.height / 2}px`;
+      spark.innerHTML = `
+        <svg viewBox="0 0 40 40" width="100%" height="100%">
+          <path d="M20,2 L24,15 L38,20 L24,25 L20,38 L16,25 L2,20 L16,15 Z" fill="${colorHex}" stroke="#fff" stroke-width="1.5"/>
+        </svg>
+      `;
+      lighthouseStage.appendChild(spark);
+      setTimeout(() => spark.remove(), 380);
+    }
+
+    /* ==========================================================================
+       HUD UPDATES, HINTS & LEVEL PROGRESSION
+       ========================================================================== */
+    function updateLevelStatusUI() {
+      const lvl = FUSE_BOX_LEVELS[currentLevelIdx];
+      boxLevelDisplay.textContent = `Caja ${lvl.level} / 3 (${lvl.size}×${lvl.size})`;
+      hiddenFusesDisplay.textContent = `${foundFusesCount} / ${totalFusesInLevel} Encontrados`;
+
+      let connectedCount = 0;
+      bulbsRow.innerHTML = '';
+
+      lvl.pairs.forEach(p => {
+        const isConn = isColorConnected(p.color);
+        if (isConn) connectedCount++;
+        const bulb = document.createElement('div');
+        bulb.className = `circuit-bulb ${isConn ? 'lit' : ''}`;
+        bulb.style.setProperty('--bulb-color', WIRE_PALETTE[p.color].main);
+        bulb.title = WIRE_PALETTE[p.color].name;
+        bulbsRow.appendChild(bulb);
+      });
+
+      wiresConnectedDisplay.textContent = `${connectedCount} / ${lvl.pairs.length}`;
+
+      // Reactive Aurora Window Glow proportional to connected wires
+      const ratio = connectedCount / lvl.pairs.length;
+      auroraGlow.style.opacity = (ratio * 0.95).toFixed(2);
+      if (ratio >= 1) {
+        vignette.classList.add('aurora-active');
+      } else {
+        vignette.classList.remove('aurora-active');
+      }
+    }
+
+    function checkLevelCompletion() {
+      const lvl = FUSE_BOX_LEVELS[currentLevelIdx];
+      const allConnected = lvl.pairs.every(p => isColorConnected(p.color));
+      if (!allConnected) return;
+
+      fuseCabinetBoard.classList.add('box-energized');
+      sound.playBoxPowerup();
+
+      if (currentLevelIdx + 1 < FUSE_BOX_LEVELS.length) {
+        showToast(`⚡ ¡Caja ${lvl.level} energizada! Abriendo Caja ${lvl.level + 1}...`);
+        statusInstruction.textContent = `¡Caja ${lvl.level} completada! Preparando siguiente caja de fusibles...`;
+        setTimeout(() => {
+          if (isGameActive) loadFuseBoxLevel(currentLevelIdx + 1);
+        }, 1250);
+      } else {
+        triggerVictory();
+      }
+    }
+
+    /* Reset Current Box Wires */
+    resetWiresBtn.addEventListener('click', () => {
+      if (!isGameActive) return;
+      const lvl = FUSE_BOX_LEVELS[currentLevelIdx];
+      lvl.pairs.forEach(p => { paths[p.color] = []; });
+      sound.playWireClear();
+      renderWiresSvg();
+      updateLevelStatusUI();
+      showToast('Cables de la caja actual reiniciados');
+    });
+
+    /* Hint Button: First highlights any uncollected hidden fuse; if all found, auto-routes one unsolved wire! */
+    hintFuseBtn.addEventListener('click', () => {
+      if (!isGameActive || hintsRemaining <= 0) return;
+
+      // 1. Check if there are still hidden fuses in the room
+      const uncollectedFuse = hiddenFusesLayer.querySelector('.hidden-fuse-item:not([data-collected="true"])');
+      if (uncollectedFuse) {
+        hintsRemaining--;
+        updateHintBtnText();
+        sound.playFindFuse();
+        uncollectedFuse.classList.add('hint-pulse');
+        showToast(`Pista: Busca el fusible ${uncollectedFuse.dataset.spotName}`);
+        setTimeout(() => uncollectedFuse.classList.remove('hint-pulse'), 2600);
+        return;
+      }
+
+      // 2. Otherwise, auto-connect one unsolved wire using its verified non-crossing solution!
+      const lvl = FUSE_BOX_LEVELS[currentLevelIdx];
+      const unsolvedPair = lvl.pairs.find(p => !isColorConnected(p.color));
+      if (!unsolvedPair) return;
+
+      hintsRemaining--;
+      updateHintBtnText();
+
+      // Clear any other wire that might be occupying cells of unsolvedPair.solution
+      const solSet = new Set(unsolvedPair.solution.map(([r, c]) => `${r},${c}`));
+      Object.keys(paths).forEach(otherColor => {
+        if (otherColor !== unsolvedPair.color) {
+          if (paths[otherColor].some(([r, c]) => solSet.has(`${r},${c}`))) {
+            paths[otherColor] = [];
+          }
+        }
+      });
+
+      paths[unsolvedPair.color] = unsolvedPair.solution.map(([r, c]) => [r, c]);
+      sound.playWireConnect();
+      renderWiresSvg();
+      updateLevelStatusUI();
+      showToast(`⚡ Cable ${WIRE_PALETTE[unsolvedPair.color].name} trazado automáticamente`);
+      checkLevelCompletion();
+    });
+
+    function updateHintBtnText() {
+      hintFuseBtn.innerHTML = `<span>Buscar Fusible / Pista (${hintsRemaining})</span>`;
+      hintFuseBtn.disabled = (hintsRemaining <= 0);
+    }
+
+    function triggerVictory() {
+      isGameActive = false;
+      sound.playVictory();
+      statusInstruction.textContent = '¡Las 3 Cajas de Fusibles están activas y el Faro de la Aurora Boreal ilumina todo el Polo Norte!';
+
+      try {
+        localStorage.setItem('christmas_day_05_cleared', 'true');
+        localStorage.setItem('deseo_day_05_cleared', 'true');
+        localStorage.setItem('krypt_day_05_cleared', 'true');
+      } catch (e) {}
+
+      setTimeout(() => {
+        victoryModal.classList.add('active');
+      }, 850);
+    }
+
+    function copyDiscordMessage() {
+      const discordText = `🎄 ¡He cumplido el Deseo 05 (El Faro de la Aurora Boreal) en 31 Deseos de Navidad! Código: ||${SECRET_WORD}||`;
       navigator.clipboard.writeText(discordText).then(() => {
-        copyDiscordBtn.innerHTML = '✓ ¡Copiado con Spoiler!';
+        copyDiscordBtn.innerHTML = '<span>✓ ¡Copiado con Spoiler!</span>';
         copyDiscordBtn.classList.add('copied');
         showToast("✓ Mensaje copiado con spoiler ||código|| para Discord");
         setTimeout(() => {
-          copyDiscordBtn.innerHTML = '📋 Copiar para Discord';
+          copyDiscordBtn.innerHTML = '<span>Copiar para Discord</span>';
           copyDiscordBtn.classList.remove('copied');
         }, 2500);
       }).catch(() => {
@@ -1323,39 +1778,36 @@
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyDiscordBtn.innerHTML = '✓ ¡Copiado con Spoiler!';
-        showToast("✓ Mensaje copiado con spoiler para Discord");
+        showToast("✓ Mensaje copiado para Discord");
       });
     }
 
-    /* Toast Helper */
     const toast = document.getElementById('toast');
     let toastTimer = null;
     function showToast(msg) {
       toast.textContent = msg;
       toast.classList.add('visible');
       if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove('visible');
-      }, 2400);
+      toastTimer = setTimeout(() => toast.classList.remove('visible'), 2400);
     }
 
-    /* Audio Toggle */
-    soundToggleBtn.addEventListener('click', () => {
-      sound.enabled = !sound.enabled;
-      if (sound.enabled) {
-        sound.init();
-        soundToggleBtn.textContent = '🔊 Audio';
-        showToast("🔊 Sonido activado");
-      } else {
-        soundToggleBtn.textContent = '🔇 Mute';
-        showToast("🔇 Sonido desactivado");
-      }
+    const bgmToggleBtn = document.getElementById('bgmToggleBtn');
+    const bgmLabel = document.getElementById('bgmLabel');
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    const sfxLabel = document.getElementById('sfxLabel');
+
+    bgmToggleBtn.addEventListener('click', () => {
+      const on = sound.toggleBgm();
+      bgmLabel.textContent = on ? 'Música ON' : 'Música OFF';
+      showToast(on ? 'Música del Faro activada' : 'Música silenciada');
     });
 
-    /* Init */
-    startNewGame();
-    draw();
+    soundToggleBtn.addEventListener('click', () => {
+      sound.sfxEnabled = !sound.sfxEnabled;
+      sfxLabel.textContent = sound.sfxEnabled ? 'SFX ON' : 'SFX OFF';
+      if (sound.sfxEnabled) sound.playWireStart();
+      showToast(sound.sfxEnabled ? 'Efectos de sonido activados' : 'Efectos de sonido desactivados');
+    });
   </script>
 </body>
 </html>

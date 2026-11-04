@@ -1,0 +1,4 @@
+PLACEHOLDER DE SPRITE (.txt renombrado a .png)
+Archivo: fuse_hidden.png
+Uso: Sprite opcional para los Fusibles de Cristal ocultos en la sala de control del Faro.
+Mientras sea un placeholder de texto, el juego dibuja el tubo de fusible de cristal y bronce en SVG de alta calidad.

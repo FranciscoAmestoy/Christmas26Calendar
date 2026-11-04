@@ -1,0 +1,4 @@
+PLACEHOLDER DE SPRITE (.txt renombrado a .png)
+Archivo: obs_trolley.png
+Uso: Sprite opcional para el carrito de servicio alto (bloquea el carril completo; requiere CAMBIAR DE CARRIL con A/D o Tilt).
+Mientras sea un placeholder de texto, el motor Canvas dibuja el carrito de servicio en 3D.
